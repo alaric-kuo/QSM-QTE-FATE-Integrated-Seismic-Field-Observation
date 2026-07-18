@@ -4,6 +4,11 @@
 
 **Initial integrated computational observation and partial validation of Quantum Structural Mechanics (QSM), Quantum Topology Express (QTE), and the `Aware_power` layer of Fractal Alive Topology Evolution (FATE).**
 
+**Author and theory developer:** Dr. Han-Jung (Alaric) Kuo  
+**Organization:** A&J Management Consulting Limited  
+**Formal software release:** V11
+
+
 This repository records a four-case seismic experiment on a three-story steel-frame dataset. It connects three previously separate theoretical layers into one reproducible computational chain:
 
 ```text
@@ -122,7 +127,9 @@ All four records come from:
 NEES / DesignSafe Data Depot.  
 DOI: [10.7277/TPS7-V877](https://doi.org/10.7277/TPS7-V877)
 
-The original and converted source records are **not redistributed** in this repository. See [`data/README.md`](data/README.md) for expected filenames and local data placement.
+The source records used by V11 were taken directly from the files provided in the original NEES-2011-1076 dataset package. No additional author-side signal conversion, filtering, smoothing, denoising, coordinate harmonization, or manual preprocessing was applied before the V11 analysis.
+
+The source records are **not redistributed** in this repository. See [`data/README.md`](data/README.md) for the exact filenames and local data placement.
 
 ### Four formal cases
 
@@ -378,9 +385,9 @@ python -m pip install -r requirements.txt
 
 The original formal run used a Conda environment named `ifcman`.
 
-### Expected local data files
+### Expected source files
 
-Place the following converted files in a local data directory:
+Place the following source files from the original dataset package in a local data directory:
 
 ```text
 elcentro_0p50_07312012_unc_donghua_converted.csv
@@ -388,6 +395,10 @@ elcentro_0p50_07312012_poff_donghua_converted.csv
 kobe_035_semi_active_avg_converted.csv
 morgan_1_p_off_avg_converted.csv
 ```
+
+> **Source-file provenance note**  
+> The filenames contain terms such as `converted` or `avg` because those are the filenames supplied in the original dataset package used for this release. This repository does not claim that these files were converted or averaged by the author. V11 reads the files directly as supplied.
+
 
 ### Direct execution
 
@@ -504,11 +515,21 @@ Use the repository's [`CITATION.cff`](CITATION.cff) for the formal software cita
 
 ---
 
-## Release status
+## License status
+
+Copyright © 2026 A&J Management Consulting Limited. All rights reserved.
+
+The repository is currently published for scientific inspection, citation, and reproducibility evaluation. A formal software and research-content license will be specified in a subsequent release.
+
+The original NEES experimental data are not redistributed and remain subject to their original source terms.
+
+---
+
+## Release attribution
 
 **Formal Release V11**
 
-This repository is the first integrated public computational record of:
+This repository records the first integrated public computational implementation of:
 
 ```text
 QSM
@@ -516,6 +537,9 @@ QSM
 → FATE Aware_power
 ```
 
-It is not the endpoint of the theory.
+The present release documents the method, source records, computation, outputs, limits, and current evidence status for independent scientific review.
 
-It is the point at which the theory becomes reproducible, inspectable, and open to independent evaluation.
+**Dr. Han-Jung (Alaric) Kuo**  
+Theory developer and corresponding author  
+A&J Management Consulting Limited  
+2026
