@@ -105,60 +105,29 @@ QSM uses the quantum-mechanical state formalism as the computational mechanics o
 
 The evolving structural Power state is written as:
 
-$$
-|\Psi(t)\rangle
-=
-\begin{bmatrix}
-\Psi_1(t)\\
-\Psi_2(t)\\
-\vdots\\
-\Psi_n(t)
-\end{bmatrix},
-\qquad
-\langle\Psi(t)|\Psi(t)\rangle=1
-$$
+$$ |\Psi(t)\rangle = \begin{bmatrix} \Psi_1(t)\\ \Psi_2(t)\\ \vdots\\ \Psi_n(t) \end{bmatrix}, \qquad \langle\Psi(t)|\Psi(t)\rangle=1 $$
 
 Its Hamiltonian evolution is:
 
-$$
-i\hbar\frac{\partial}{\partial t}|\Psi(t)\rangle
-=
-\hat H_p(t)|\Psi(t)\rangle
-$$
+$$ i\hbar\frac{\partial}{\partial t}|\Psi(t)\rangle = \hat H_p(t)|\Psi(t)\rangle $$
 
 For one discrete time step:
 
-$$
-|\Psi(t+\Delta t)\rangle
-=
-\exp\!\left(
--\frac{i}{\hbar}\hat H_p(t)\Delta t
-\right)
-|\Psi(t)\rangle
-$$
+$$ |\Psi(t+\Delta t)\rangle = \exp\!\left( -\frac{i}{\hbar}\hat H_p(t)\Delta t \right) |\Psi(t)\rangle $$
 
 The V11 numerical engine uses normalized units with:
 
-$$
-\hbar=1
-$$
+$$ \hbar=1 $$
 
 so that:
 
-$$
-U(t,\Delta t)=e^{-iH(t)\Delta t}
-$$
+$$ U(t,\Delta t)=e^{-iH(t)\Delta t} $$
 
 ## 2.3 QSM Power manifestation
 
 The canonical Power manifestation equation is:
 
-$$
-\mathbf P(t)
-=
-\bigl(a(t)\cdot v(t)\bigr)
-\hat H_p(t)|\Psi(t)\rangle
-$$
+$$ \mathbf P(t) = \bigl(a(t)\cdot v(t)\bigr) \hat H_p(t)|\Psi(t)\rangle $$
 
 This expression separates three roles:
 
@@ -170,19 +139,11 @@ This expression separates three roles:
 
 At a local floor or node:
 
-$$
-p_i(t)=a_i(t)v_i(t)
-$$
+$$ p_i(t)=a_i(t)v_i(t) $$
 
 Because the experimental release does not introduce the physical mass of each floor, `a·v` is treated as a **mass-normalized, work-compatible Power-state proxy**:
 
-$$
-\frac{dW}{m}
-\approx
-a\,du
-=
-a\,v\,dt
-$$
+$$ \frac{dW}{m} \approx a\,du = a\,v\,dt $$
 
 The current outputs therefore do not claim absolute watts or joules.
 
@@ -190,40 +151,21 @@ The current outputs therefore do not claim absolute watts or joules.
 
 For a selected target state:
 
-$$
-F_{\mathrm{id}}^{\mathrm{target}}(t)
-=
-\left|
-\langle\Psi_{\mathrm{target}}|\Psi(t)\rangle
-\right|^2
-$$
+$$ F_{\mathrm{id}}^{\mathrm{target}}(t) = \left| \langle\Psi_{\mathrm{target}}|\Psi(t)\rangle \right|^2 $$
 
 When the target is simplified as node or floor $i$:
 
-$$
-F_{\mathrm{id},i}(t)=|\Psi_i(t)|^2
-$$
+$$ F_{\mathrm{id},i}(t)=|\Psi_i(t)|^2 $$
 
 Fidelity is a normalized hit ratio. It is not total structural energy and it is not, by itself, the complete Power manifestation.
 
 The target-hit Power is interpreted as:
 
-$$
-P_{\mathrm{real}}^{\mathrm{target}}(t)
-\sim
-P_{\mathrm{input}}(t)
-F_{\mathrm{id}}^{\mathrm{target}}(t)
-$$
+$$ P_{\mathrm{real}}^{\mathrm{target}}(t) \sim P_{\mathrm{input}}(t) F_{\mathrm{id}}^{\mathrm{target}}(t) $$
 
 and the accumulated target-hit work-compatible quantity is:
 
-$$
-W_{\mathrm{hit}}^{\mathrm{target}}(T)
-=
-\int_0^T
-P_{\mathrm{input}}(t)
-F_{\mathrm{id}}^{\mathrm{target}}(t)\,dt
-$$
+$$ W_{\mathrm{hit}}^{\mathrm{target}}(T) = \int_0^T P_{\mathrm{input}}(t) F_{\mathrm{id}}^{\mathrm{target}}(t)\,dt $$
 
 ## 2.5 Empirical wavefunction implemented in V11
 
@@ -231,62 +173,27 @@ The NEES files provide measured or derived floor displacement, velocity, and acc
 
 For each floor $i$, the code first constructs robustly normalized signals:
 
-$$
-\tilde u_i(t),\qquad
-\tilde v_i(t),\qquad
-\tilde a_i(t)
-$$
+$$ \tilde u_i(t),\qquad \tilde v_i(t),\qquad \tilde a_i(t) $$
 
 and estimates a dominant angular frequency $\omega_i$ from displacement. With a reference frequency $\omega_{\mathrm{ref}}$:
 
-$$
-\bar\omega_i=\frac{\omega_i}{\omega_{\mathrm{ref}}}
-$$
+$$ \bar\omega_i=\frac{\omega_i}{\omega_{\mathrm{ref}}} $$
 
 The implemented empirical state-intensity measure is:
 
-$$
-E_i(t)
-=
-\tilde v_i^2(t)
-+
-\bigl(\bar\omega_i\tilde u_i(t)\bigr)^2
-+
-0.25\,\tilde a_i^2(t)
-+
-\varepsilon
-$$
+$$ E_i(t) = \tilde v_i^2(t) + \bigl(\bar\omega_i\tilde u_i(t)\bigr)^2 + 0.25\,\tilde a_i^2(t) + \varepsilon $$
 
 The normalized amplitude is:
 
-$$
-A_i(t)
-=
-\sqrt{
-\frac{E_i(t)}
-{\sum_j E_j(t)}
-}
-$$
+$$ A_i(t) = \sqrt{ \frac{E_i(t)} {\sum_j E_j(t)} } $$
 
 The phase is:
 
-$$
-\theta_i(t)
-=
-\operatorname{atan2}
-\left(
-\bar\omega_i\tilde u_i(t),
-\tilde v_i(t)
-\right)
-$$
+$$ \theta_i(t) = \operatorname{atan2} \left( \bar\omega_i\tilde u_i(t), \tilde v_i(t) \right) $$
 
 The measured empirical wavefunction is then:
 
-$$
-\Psi_i^{\mathrm{meas}}(t)
-=
-A_i(t)e^{i\theta_i(t)}
-$$
+$$ \Psi_i^{\mathrm{meas}}(t) = A_i(t)e^{i\theta_i(t)} $$
 
 followed by complex-vector normalization.
 
@@ -296,40 +203,15 @@ This construction is the present experimental bridge from measured structural mo
 
 At time step $k$, V11 builds the current Hamiltonian and unitary operator:
 
-$$
-U_k=e^{-iH_k\Delta t}
-$$
+$$ U_k=e^{-iH_k\Delta t} $$
 
 A measured Power-state source is constructed from the sign, magnitude, and phase of the local `a·v` field. In schematic form:
 
-$$
-s_{i,k}
-=
-\sqrt{|\tilde p_{i,k}|}
-\exp\!\left[
-i\left(
-\theta_{i,k}
-+
-\pi\,\mathbf 1_{p_{i,k}<0}
-\right)
-\right]
-$$
+$$ s_{i,k} = \sqrt{|\tilde p_{i,k}|} \exp\!\left[ i\left( \theta_{i,k} + \pi\,\mathbf 1_{p_{i,k}<0} \right) \right] $$
 
 The one-step prior is:
 
-$$
-|\Psi^-_{k+1}\rangle
-=
-\mathcal N
-\left[
-U_k
-\left(
-|\Psi_k\rangle
-+
-g_s\Delta t\,|s_k\rangle
-\right)
-\right]
-$$
+$$ |\Psi^-_{k+1}\rangle = \mathcal N \left[ U_k \left( |\Psi_k\rangle + g_s\Delta t\,|s_k\rangle \right) \right] $$
 
 where $\mathcal N$ denotes normalization and $g_s$ is the source gain.
 
@@ -342,23 +224,11 @@ The unchanged numerical gains are:
 
 This prior is compared with the next measured empirical state before assimilation:
 
-$$
-F_{\mathrm{state},k+1}
-=
-\left|
-\left\langle
-\Psi^{\mathrm{meas}}_{k+1}
-\middle|
-\Psi^-_{k+1}
-\right\rangle
-\right|^2
-$$
+$$ F_{\mathrm{state},k+1} = \left| \left\langle \Psi^{\mathrm{meas}}_{k+1} \middle| \Psi^-_{k+1} \right\rangle \right|^2 $$
 
 The nodal fidelity used for floor-wise manifestation is:
 
-$$
-F_{i,k+1}=|\Psi^-_{i,k+1}|^2
-$$
+$$ F_{i,k+1}=|\Psi^-_{i,k+1}|^2 $$
 
 ## 2.7 V11 Power-state projection
 
@@ -366,50 +236,23 @@ The canonical equation contains the operator action $\hat H_p|\Psi\rangle$. The 
 
 For floor-state assimilation:
 
-$$
-P_{\mathrm{scale},k}
-=
-\sum_i |a_{i,k}v_{i,k}|
-$$
+$$ P_{\mathrm{scale},k} = \sum_i |a_{i,k}v_{i,k}| $$
 
 For the boundary-input-only reference:
 
-$$
-P_{\mathrm{scale},k}^{\mathrm{boundary}}
-=
-|a_{1,k}v_{1,k}|
-$$
+$$ P_{\mathrm{scale},k}^{\mathrm{boundary}} = |a_{1,k}v_{1,k}| $$
 
 The implemented one-step floor manifestation is:
 
-$$
-\widehat p_{i,k+1|k}
-=
-P_{\mathrm{scale},k}
-F_{i,k+1}
-s_{i,k+1}^{\mathrm{phase}}
-$$
+$$ \widehat p_{i,k+1|k} = P_{\mathrm{scale},k} F_{i,k+1} s_{i,k+1}^{\mathrm{phase}} $$
 
 where the directional sign is derived from the evolved complex phase:
 
-$$
-s_{i,k+1}^{\mathrm{phase}}
-=
-\operatorname{sign}
-\left[
--\sin\!\left(2\arg\Psi^-_{i,k+1}\right)
-\right]
-$$
+$$ s_{i,k+1}^{\mathrm{phase}} = \operatorname{sign} \left[ -\sin\!\left(2\arg\Psi^-_{i,k+1}\right) \right] $$
 
 The code then compares:
 
-$$
-\widehat p_{i,k+1|k}
-\quad\text{with}\quad
-p_{i,k+1}^{\mathrm{meas}}
-=
-a_{i,k+1}v_{i,k+1}
-$$
+$$ \widehat p_{i,k+1|k} \quad\text{with}\quad p_{i,k+1}^{\mathrm{meas}} = a_{i,k+1}v_{i,k+1} $$
 
 This is the formal one-step QSM evidence reported by V11.
 
@@ -417,26 +260,11 @@ This is the formal one-step QSM evidence reported by V11.
 
 After the one-step comparison, the measurement residual is:
 
-$$
-r_{k+1}
-=
-|\Psi^{\mathrm{meas}}_{k+1}\rangle
--
-|\Psi^-_{k+1}\rangle
-$$
+$$ r_{k+1} = |\Psi^{\mathrm{meas}}_{k+1}\rangle - |\Psi^-_{k+1}\rangle $$
 
 The next assimilated state is:
 
-$$
-|\Psi_{k+1}\rangle
-=
-\mathcal N
-\left[
-|\Psi^-_{k+1}\rangle
-+
-g_m r_{k+1}
-\right]
-$$
+$$ |\Psi_{k+1}\rangle = \mathcal N \left[ |\Psi^-_{k+1}\rangle + g_m r_{k+1} \right] $$
 
 The release therefore performs a sequence of:
 
@@ -491,13 +319,7 @@ The viewpoint defines what is being observed. The topology records relationships
 
 A general QTE Hamiltonian can include both geometric/topological coupling and a background potential:
 
-$$
-H
-=
-\kappa L_{\mathrm{geo}}
-+
-\alpha_V\operatorname{diag}(V_{\mathrm{bg}})
-$$
+$$ H = \kappa L_{\mathrm{geo}} + \alpha_V\operatorname{diag}(V_{\mathrm{bg}}) $$
 
 V11 uses a bounded floor-domain form without a separately modelled background-potential vector.
 
@@ -513,38 +335,23 @@ with no direct `1F–3F` edge.
 
 The weighted adjacency matrix is:
 
-$$
-W=
-\begin{bmatrix}
-0&w_{12}&0\\
-w_{12}&0&w_{23}\\
-0&w_{23}&0
-\end{bmatrix}
-$$
+$$ W= \begin{bmatrix} 0&w_{12}&0\\ w_{12}&0&w_{23}\\ 0&w_{23}&0 \end{bmatrix} $$
 
 The degree matrix and graph Laplacian are:
 
-$$
-D=\operatorname{diag}(W\mathbf 1),
-\qquad
-L=D-W
-$$
+$$ D=\operatorname{diag}(W\mathbf 1), \qquad L=D-W $$
 
 V11 retains two Hamiltonian forms:
 
 ### Laplacian field
 
-$$
-H_L=L
-$$
+$$ H_L=L $$
 
 This includes node–channel balance and represents the physicalized floor topology.
 
 ### Zero-diagonal relational field
 
-$$
-H_Z=-W
-$$
+$$ H_Z=-W $$
 
 This isolates inter-node relational transmission and preserves the earlier QSM channel view.
 
@@ -554,34 +361,15 @@ The two operators are retained as different observation structures. Their conver
 
 For a complex state $\Psi$ and Hamiltonian $H$, V11 computes the two floor-edge currents:
 
-$$
-J_{12}
-=
-2\,\operatorname{Im}
-\left(
-\Psi_1^*H_{12}\Psi_2
-\right)
-$$
+$$ J_{12} = 2\,\operatorname{Im} \left( \Psi_1^*H_{12}\Psi_2 \right) $$
 
-$$
-J_{23}
-=
-2\,\operatorname{Im}
-\left(
-\Psi_2^*H_{23}\Psi_3
-\right)
-$$
+$$ J_{23} = 2\,\operatorname{Im} \left( \Psi_2^*H_{23}\Psi_3 \right) $$
 
 These currents carry phase-sensitive information. They are distinct from the adaptive path weights.
 
 The cross-case indicator is the RMS current ratio:
 
-$$
-R_J
-=
-\frac{\operatorname{RMS}(|J_{12}|)}
-{\operatorname{RMS}(|J_{23}|)}
-$$
+$$ R_J = \frac{\operatorname{RMS}(|J_{12}|)} {\operatorname{RMS}(|J_{23}|)} $$
 
 A ratio above one indicates stronger field-current concentration on the `1F–2F` edge over the record.
 
@@ -589,9 +377,7 @@ A ratio above one indicates stronger field-current concentration on the `1F–2F
 
 The path weights begin from:
 
-$$
-w_{12}=w_{23}=1
-$$
+$$ w_{12}=w_{23}=1 $$
 
 For each time step, the code combines:
 
@@ -603,25 +389,11 @@ For each time step, the code combines:
 
 The implemented update is:
 
-$$
-\widetilde w_{ij,k+1}
-=
-(1-\lambda\Delta t)w_{ij,k}
-+
-\alpha_J|J_{ij,k}|\Delta t
-+
-\alpha_P\Delta P_{ij,k}\Delta t
-+
-\alpha_R\Delta r_{ij,k}\Delta t
-+
-\alpha_H\Delta h_{ij,k}\Delta t
-$$
+$$ \widetilde w_{ij,k+1} = (1-\lambda\Delta t)w_{ij,k} + \alpha_J|J_{ij,k}|\Delta t + \alpha_P\Delta P_{ij,k}\Delta t + \alpha_R\Delta r_{ij,k}\Delta t + \alpha_H\Delta h_{ij,k}\Delta t $$
 
 The two weights are then normalized so that:
 
-$$
-w_{12,k+1}+w_{23,k+1}=2
-$$
+$$ w_{12,k+1}+w_{23,k+1}=2 $$
 
 The unchanged V11 numerical coefficients are:
 
@@ -639,12 +411,7 @@ No case-specific parameter fitting is applied.
 
 The normalized path-dominance indicator is:
 
-$$
-D_p(t)
-=
-\frac{w_{12}(t)-w_{23}(t)}
-{w_{12}(t)+w_{23}(t)}
-$$
+$$ D_p(t) = \frac{w_{12}(t)-w_{23}(t)} {w_{12}(t)+w_{23}(t)} $$
 
 Interpretation:
 
@@ -697,17 +464,7 @@ Its concern is the continued viability of an open, changing system. Awareness id
 
 The operational loop can be expressed schematically as:
 
-$$
-\mathcal F_t
-\xrightarrow{\mathrm{Aware\_power}}
-\mathcal O_t
-\xrightarrow{\mathrm{Alert\_control}}
-(\mathcal T_t,H_t)
-\rightarrow
-(\mathcal T_{t+1},H_{t+1})
-\xrightarrow{\mathrm{Alive\_evolve}}
-\mathcal F_{t+1}
-$$
+$$ \mathcal F_t \xrightarrow{\mathrm{Aware\_power}} \mathcal O_t \xrightarrow{\mathrm{Alert\_control}} (\mathcal T_t,H_t) \rightarrow (\mathcal T_{t+1},H_{t+1}) \xrightarrow{\mathrm{Alive\_evolve}} \mathcal F_{t+1} $$
 
 where $\mathcal F$ is the evolving field, $\mathcal O$ is the awareness state, $\mathcal T$ is topology, and $H$ is the Hamiltonian.
 
@@ -731,13 +488,7 @@ Dynamic `w12`, `w23`, $D_p$, $J_{12}$, and $J_{23}$ retain the location and hist
 
 The code records:
 
-$$
-\widehat p_{i,k+1|k},
-\qquad
-|\widehat p_{i,k+1|k}|,
-\qquad
-W_{\mathrm{hit},i}(t)
-$$
+$$ \widehat p_{i,k+1|k}, \qquad |\widehat p_{i,k+1|k}|, \qquad W_{\mathrm{hit},i}(t) $$
 
 as work-compatible manifestation proxies.
 
@@ -747,13 +498,7 @@ Displacement is retained as downstream response evidence through a causal displa
 
 The current hidden-work proxy is:
 
-$$
-h_i(t)
-=
-\widetilde W_{\mathrm{hit},i}(t)
--
-\widetilde u_{\mathrm{env},i}(t)
-$$
+$$ h_i(t) = \widetilde W_{\mathrm{hit},i}(t) - \widetilde u_{\mathrm{env},i}(t) $$
 
 This is a comparative proxy between normalized accumulated manifestation and normalized displacement response. It is not a physical unmeasured-energy quantity.
 
@@ -944,9 +689,7 @@ All four cases use the same numerical settings and the same initial condition:
 
 
 
-$$
-w_{12}=w_{23}=1
-$$
+$$ w_{12}=w_{23}=1 $$
 
 
 
