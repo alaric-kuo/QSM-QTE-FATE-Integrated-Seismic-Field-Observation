@@ -1,0 +1,13 @@
+QSM-QTE-FATE Integrated Seismic Field Observation — NEES-2011-1076 V11
+Case: Morgan Hill 1.00 — passive-off
+Source: morgan_1_p_off_avg_converted.csv
+
+Floor-state path indication: 1F-2F lower-interface indication
+Floor-state dynamic support: 3/3
+Main final path dominance: 0.079086
+Boundary final path dominance: -0.003633
+Main mean abs a*v alignment: 0.951639
+Boundary mean abs a*v alignment: 0.699008
+Mean manifested work ratio: 0.552421
+Mean unmanifested work margin: 0.447579
+Maximum downstream response floor: 2F

@@ -1,0 +1,16 @@
+# Experimental source data
+data/raw/
+data/converted/
+*_converted.csv
+
+# Runtime caches
+_v11_cache/
+__pycache__/
+*.pyc
+
+# Local Python environments
+.venv/
+env/
+
+# Temporary archives
+*.zip

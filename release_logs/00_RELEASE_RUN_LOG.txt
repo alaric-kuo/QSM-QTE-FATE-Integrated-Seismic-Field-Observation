@@ -1,0 +1,21 @@
+QSM-QTE-FATE Integrated Seismic Field Observation
+NEES-2011-1076 Formal Release V11
+
+Run started UTC: 2026-07-18T03:24:07.479654+00:00
+Run finished UTC: 2026-07-18T03:24:44.283209+00:00
+Project root: D:\OneDrive\文件\QSM-QTE-FATE\QSM-QTE-FATE Seismic Field Evolution - NEES-2011-1076\Data Source
+Output root: D:\OneDrive\文件\QSM-QTE-FATE\QSM-QTE-FATE Seismic Field Evolution - NEES-2011-1076\outputs_qsm_qte_fate_nees_2011_1076_v11
+Logical processors detected: 24
+CSV preparation workers: 2
+Parallel probe workers: 8
+Cases completed: 4
+Probe tasks completed: 20
+
+Wall-clock timing
+  Phase 1 — data preparation: 3.214 s
+  Phase 2 — parallel field probes: 19.900 s
+  Phase 3 — artifact generation: 13.573 s
+  Total release elapsed: 36.800 s
+
+Interpretation note
+  Per-case logs include each worker-process probe time. Their sums represent computational task load, while the phase and total values above are wall-clock times.

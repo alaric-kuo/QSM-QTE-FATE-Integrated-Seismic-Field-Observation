@@ -1,0 +1,125 @@
+{
+  "release": "QSM-QTE-FATE Integrated Seismic Field Observation — NEES-2011-1076 V11",
+  "case": {
+    "case_id": "kobe_035_semi_active",
+    "display_name": "Kobe 0.35 — semi-active",
+    "event_name": "Kobe",
+    "input_scale": "0.35",
+    "control_mode": "semi-active",
+    "acquisition_context": "averaged converted record",
+    "filename": "kobe_035_semi_active_avg_converted.csv",
+    "aliases": [
+      "*kobe*035*semi*active*avg*converted.csv"
+    ]
+  },
+  "project": {
+    "project_id": "NEES-2011-1076",
+    "project_title": "RTHS and Shake Table Comparison for Smart Structural Systems",
+    "doi": "10.7277/TPS7-V877",
+    "nsf_award": "CMMI-1011534 (NEESR)",
+    "method_chain": "QSM power-state evolution -> QTE floor-domain path indication -> FATE Aware_power observation"
+  },
+  "source_read_metadata": {
+    "source_file": "kobe_035_semi_active_avg_converted.csv",
+    "source_path": "D:\\OneDrive\\文件\\QSM-QTE-FATE\\QSM-QTE-FATE Seismic Field Evolution - NEES-2011-1076\\Data Source\\kobe_035_semi_active_avg_converted.csv",
+    "detected_header_row_1_based": 12,
+    "data_start_row_1_based": 13,
+    "read_stride": 5,
+    "chunk_rows": 200000,
+    "chunks_read": 1,
+    "source_rows_seen": 81431,
+    "rows_loaded": 16287,
+    "columns_loaded": 10,
+    "selected_columns": [
+      "Time",
+      "First Floor Displacement - Analytical",
+      "Second Floor Displacement - Analytical",
+      "Third Floor Displacement - Analytical",
+      "First Floor Acceleration - Analytical",
+      "Second Floor Acceleration - Analytical",
+      "Third Floor Acceleration - Analytical",
+      "First Floor Velocity Sensor - Analytical",
+      "Second Floor Velocity Sensor - Analytical",
+      "Third Floor Velocity Sensor - Analytical"
+    ],
+    "parser": "pandas C engine with vectorized chunk stride"
+  },
+  "signal_provenance": {
+    "1F": {
+      "u": "direct:First Floor Displacement - Analytical",
+      "v": "direct:First Floor Velocity Sensor - Analytical",
+      "a": "direct:First Floor Acceleration - Analytical"
+    },
+    "2F": {
+      "u": "direct:Second Floor Displacement - Analytical",
+      "v": "direct:Second Floor Velocity Sensor - Analytical",
+      "a": "direct:Second Floor Acceleration - Analytical"
+    },
+    "3F": {
+      "u": "direct:Third Floor Displacement - Analytical",
+      "v": "direct:Third Floor Velocity Sensor - Analytical",
+      "a": "direct:Third Floor Acceleration - Analytical"
+    }
+  },
+  "event_window_seconds": {
+    "start": 7.597167989333119,
+    "end": 31.025878928900834,
+    "selection": "automatic cumulative acceleration-state activity window"
+  },
+  "method_scope": {
+    "QSM": "one-step structure-coupled power-state evolution",
+    "QTE": "floor-domain topology-path indication at the available experimental resolution",
+    "FATE": "Aware_power observation layer only"
+  },
+  "performance_engine": {
+    "parallel_probe_workers": 8,
+    "csv_reader": "C engine + chunked vector stride + selected columns",
+    "feature_reuse": "computed once per case, memory-mapped across probes",
+    "time_complexity": "O(n) running work maximum",
+    "blas_threads_per_worker": 1
+  },
+  "execution_timing": {
+    "data_preparation_seconds": 0.22680570000375155,
+    "probe_elapsed_seconds": {
+      "laplacian_dynamic_feedback": 2.6500184000033187,
+      "zero_diagonal_dynamic_feedback": 2.6028285999927903,
+      "boundary_input_only_evolution": 2.196755500001018,
+      "dynamic_path_no_response_feedback": 2.6914098000124795,
+      "fixed_path_reference": 1.800115599995479
+    },
+    "probe_elapsed_sum_seconds": 11.941127900005085,
+    "probe_elapsed_max_seconds": 2.6914098000124795,
+    "case_finalization_seconds": 2.778424799995264,
+    "accounted_case_task_seconds": 14.946358400004101,
+    "timing_interpretation": "Probe elapsed values are worker-process times. Because probes run in parallel, their sum is a compute-load indicator rather than case wall-clock time."
+  },
+  "two_observation_modes": [
+    "boundary-input-only diagnostic reference",
+    "floor-state-assimilated structure-coupled field evolution"
+  ],
+  "one_step_evolved_field_check": "evolved a*v at k+1|k is compared with measured a*v at k+1",
+  "method_chain_order": "QSM power-state evolution -> QTE floor-domain path indication -> FATE Aware_power observation",
+  "displacement_role": "downstream response evidence",
+  "output_files": [
+    "01_qsm_qte_fate_mode_comparison.csv",
+    "02_qsm_qte_fate_manifestation_summary.csv",
+    "03_qsm_qte_fate_floor_target_summary.csv",
+    "04_qsm_qte_fate_core_history.csv",
+    "05_CASE_REPORT.md",
+    "06_release_report.txt",
+    "07_energy_path_manifestation_consensus.png",
+    "08_floor_assimilated_path_evolution.png",
+    "09_boundary_input_only_path_evolution.png",
+    "10_edge_current_concentration.png",
+    "11_1f_evolved_av_next_vs_measured_av.png",
+    "12_2f_evolved_av_next_vs_measured_av.png",
+    "13_3f_evolved_av_next_vs_measured_av.png",
+    "14_boundary_vs_assimilated_av_alignment.png",
+    "15_boundary_vs_assimilated_path_dominance.png",
+    "16_work_capacity_summary_by_floor.png",
+    "17_force_displacement_work_loop_proxy.png",
+    "18_response_manifestation_by_floor.png",
+    "19_release_run_log.txt",
+    "20_release_file_manifest.json"
+  ]
+}

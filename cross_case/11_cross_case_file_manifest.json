@@ -1,0 +1,30 @@
+{
+  "release": "QSM-QTE-FATE Integrated Seismic Field Observation — NEES-2011-1076 V11",
+  "project": {
+    "project_id": "NEES-2011-1076",
+    "project_title": "RTHS and Shake Table Comparison for Smart Structural Systems",
+    "doi": "10.7277/TPS7-V877",
+    "nsf_award": "CMMI-1011534 (NEESR)",
+    "method_chain": "QSM power-state evolution -> QTE floor-domain path indication -> FATE Aware_power observation"
+  },
+  "case_count": 4,
+  "case_ids": [
+    "el_centro_050_uncontrolled",
+    "el_centro_050_passive_off",
+    "kobe_035_semi_active",
+    "morgan_hill_100_passive_off"
+  ],
+  "output_files": [
+    "01_cross_case_summary.csv",
+    "02_cross_case_floor_method_correlation.csv",
+    "03_cross_case_probe_comparison.csv",
+    "04_case_registry.json",
+    "05_cross_case_mean_abs_correlation.png",
+    "06_cross_case_floor_abs_correlation.png",
+    "07_cross_case_path_dominance.png",
+    "08_cross_case_edge_current_ratio.png",
+    "09_cross_case_work_manifestation.png",
+    "10_CROSS_CASE_REPORT.md",
+    "11_cross_case_file_manifest.json"
+  ]
+}

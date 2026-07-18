@@ -1,0 +1,13 @@
+QSM-QTE-FATE Integrated Seismic Field Observation — NEES-2011-1076 V11
+Case: El Centro 0.50 — uncontrolled
+Source: elcentro_0p50_07312012_unc_donghua_converted.csv
+
+Floor-state path indication: 1F-2F lower-interface indication
+Floor-state dynamic support: 3/3
+Main final path dominance: 0.140220
+Boundary final path dominance: -0.000380
+Main mean abs a*v alignment: 0.615440
+Boundary mean abs a*v alignment: 0.765068
+Mean manifested work ratio: 0.506902
+Mean unmanifested work margin: 0.493098
+Maximum downstream response floor: 3F

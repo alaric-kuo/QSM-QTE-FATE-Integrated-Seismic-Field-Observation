@@ -1,0 +1,59 @@
+QSM-QTE-FATE Integrated Seismic Field Observation — NEES-2011-1076 V11
+Case: El Centro 0.50 — uncontrolled
+Source file: elcentro_0p50_07312012_unc_donghua_converted.csv
+Output directory: D:\OneDrive\文件\QSM-QTE-FATE\QSM-QTE-FATE Seismic Field Evolution - NEES-2011-1076\outputs_qsm_qte_fate_nees_2011_1076_v11\cases\el_centro_050_uncontrolled
+Output files: 20 / 20
+Figure event window: 51.152400–165.785600 s
+
+Method scope
+  QSM: one-step structure-coupled power-state evolution.
+  QTE: floor-domain topology-path indication at the available resolution.
+  FATE: Aware_power observation layer only in this release.
+  Displacement: downstream response evidence.
+
+Floor-state path indication
+  Higher-weight final path indication: 1F-2F lower-interface indication
+  Supporting floor-state dynamic probes: 3 / 3
+  Main final path-dominance index: 0.140
+  Mean edge-current ratio 1F-2F / 2F-3F: 3.745
+
+Boundary-input-only diagnostic reference
+  Final path indication: near-equal / no clear final path indication
+  Final path-dominance index: -0.000
+  Mean signed a*v correlation: -0.039
+  Mean absolute-envelope a*v correlation: 0.765
+
+Floor correlation: boundary-input-only vs floor-state assimilated
+  1F: boundary signed=-0.058, boundary abs=0.792; assimilated signed=0.778, assimilated abs=0.900
+  2F: boundary signed=0.003, boundary abs=0.770; assimilated signed=0.093, assimilated abs=0.477
+  3F: boundary signed=-0.060, boundary abs=0.733; assimilated signed=0.097, assimilated abs=0.469
+
+Work-compatible proxy summary
+  Work-capacity scale: 12.231
+  Mean manifested work ratio: 0.507
+  Mean unmanifested work margin: 0.493
+
+Selected signal provenance
+  1F: u=direct:First Floor Relative Displacement Sensor; v=derived:d(displacement)/dt; a=direct:First Floor Acceleration Sensor
+  2F: u=direct:Second Floor Absolute Displacement Sensor; v=derived:d(displacement)/dt; a=direct:Second Floor Acceleration Sensor
+  3F: u=direct:Third Floor Absolute Displacement Sensor; v=derived:d(displacement)/dt; a=direct:Third Floor Acceleration Sensor
+
+Execution timing
+  Data preparation: 2.567 s
+  Probe worker elapsed times:
+    laplacian_dynamic_feedback: 17.350 s
+    zero_diagonal_dynamic_feedback: 17.662 s
+    boundary_input_only_evolution: 12.309 s
+    dynamic_path_no_response_feedback: 17.443 s
+    fixed_path_reference: 11.945 s
+  Sum of probe worker elapsed: 76.709 s
+  Longest probe worker elapsed: 17.662 s
+  Case artifact generation/finalization: 3.785 s
+  Accounted case task time: 83.061 s
+  Timing note: probe worker times are process elapsed times and are not directly additive as wall-clock time because probes run in parallel.
+
+V11 performance engine
+  Parallel probe workers: 8
+  CSV parser: pandas C engine, chunked and column-selected
+  Field features: computed once per case and shared by memory map
+  Probe loop: O(n) running work maximum
