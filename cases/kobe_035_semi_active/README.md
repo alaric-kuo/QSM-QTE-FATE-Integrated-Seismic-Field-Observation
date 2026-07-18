@@ -154,7 +154,7 @@ Because these probes ran concurrently, their sum is a computational-load indicat
 The machine-readable release timing is retained in:
 
 ```text
-../../00_RELEASE_RUN_LOG.txt
+../../release_logs/00_RELEASE_RUN_LOG.txt
 19_release_run_log.txt
 20_release_file_manifest.json
 ```
@@ -274,7 +274,7 @@ no stable path dominance
 
 rather than as meaningful evidence for a `2F–3F` path.
 
-[Insert Figure 1 here: `07_energy_path_manifestation_consensus.png` — place immediately after the probe-consensus table.]
+![Observed final path indicators across field probes](07_energy_path_manifestation_consensus.png)
 
 ---
 
@@ -291,15 +291,15 @@ w23 = 0.457
 
 The `1F–2F` path becomes increasingly manifested, while the `2F–3F` path loses relative weight. The path indication is obtained from the evolving field history rather than assigned as an initial label.
 
-[Insert Figure 2 here: `08_floor_assimilated_path_evolution.png` — place after this paragraph.]
+![Floor-state-assimilated path-weight evolution](08_floor_assimilated_path_evolution.png)
 
 The boundary-input-only evolution behaves differently. Its two path weights oscillate around equality and decay toward an almost balanced state. This means that the incoming seismic wave can excite the topology, but the incoming-wave record alone does not contain enough information to establish the internal structure-coupled path.
 
-[Insert Figure 3 here: `09_boundary_input_only_path_evolution.png` — place after this paragraph.]
+![Boundary-input-only path-weight evolution](09_boundary_input_only_path_evolution.png)
 
 The direct comparison of path dominance makes this distinction visible: the floor-state field develops a sustained positive dominance, while the boundary-only reference continues to fluctuate around zero.
 
-[Insert Figure 4 here: `15_boundary_vs_assimilated_path_dominance.png` — place after this paragraph.]
+![Observed path-dominance histories by observation mode](15_boundary_vs_assimilated_path_dominance.png)
 
 ### Interpretation
 
@@ -331,7 +331,7 @@ The main Laplacian field contains approximately `4.392` times as much RMS edge c
 
 The two operators produce similar final path indications together with a comparable concentration pattern in the relational field flow.
 
-[Insert Figure 5 here: `10_edge_current_concentration.png` — place after the edge-current table.]
+![QSM edge-current concentration ratio across field probes](10_edge_current_concentration.png)
 
 ---
 
@@ -339,7 +339,7 @@ The two operators produce similar final path indications together with a compara
 
 The principal QSM check compares the one-step evolved `a*v` field at `k+1|k` with the measured `a*v` at `k+1`.
 
-### 10.1 Floor-level results
+### 11.1 Floor-level results
 
 | Floor | Signed correlation | Absolute-envelope correlation | Residual RMSE | Peak-time offset | Max downstream response envelope |
 |---|---:|---:|---:|---:|---:|
@@ -361,15 +361,15 @@ r_{|a v|}=0.918
 
 These values do not mean that the blue and orange traces are identical at every oscillation. They mean that the one-step evolved field retains substantial agreement with the measured sign, phase tendency, event envelope, and decay structure.
 
-[Insert Figure 6 here: `11_1f_evolved_av_next_vs_measured_av.png` — place after the 1F discussion.]
+![1F one-step evolved-field comparison](11_1f_evolved_av_next_vs_measured_av.png)
 
 At 1F, the absolute-envelope correlation is `0.851` and the signed correlation is `0.567`. The first floor is closest to the incoming excitation and contains the strongest direct boundary influence.
 
-[Insert Figure 7 here: `12_2f_evolved_av_next_vs_measured_av.png` — place after the 2F discussion.]
+![2F one-step evolved-field comparison](12_2f_evolved_av_next_vs_measured_av.png)
 
 At 2F, the absolute-envelope correlation rises to `0.949` and the signed correlation to `0.709`.
 
-[Insert Figure 8 here: `13_3f_evolved_av_next_vs_measured_av.png` — place after the 3F discussion.]
+![3F one-step evolved-field comparison](13_3f_evolved_av_next_vs_measured_av.png)
 
 At 3F, the absolute-envelope correlation reaches `0.955` with a signed correlation of `0.693`. The peak-time offset is only `0.004883` s, equal to approximately one retained sample step in this processed record.
 
@@ -387,7 +387,7 @@ The boundary-input-only mean absolute-envelope alignment is `0.677`. The floor-s
 
 The difference grows with height. The boundary record still contains useful information near the first floor, but it progressively loses the ability to represent the internal upper-floor state. Floor-state assimilation restores the structure-coupled field.
 
-[Insert Figure 9 here: `14_boundary_vs_assimilated_av_alignment.png` — place after this comparison.]
+![Observed a*v alignment by observation mode](14_boundary_vs_assimilated_av_alignment.png)
 
 This comparison is consistent with the QSM distinction between:
 
@@ -449,7 +449,7 @@ The mean manifested work ratio is `0.611`, while the mean unmanifested margin is
 
 These ratios are normalized within the case by a work-capacity scale of `1.654`. They should be read as **case-internal work-compatible manifestation proxies**, not as absolute percentages of physical energy dissipated by the real structure.
 
-[Insert Figure 10 here: `16_work_capacity_summary_by_floor.png` — place after the work-manifestation table.]
+![Work-compatible proxy ratios by floor](16_work_capacity_summary_by_floor.png)
 
 The case-level pattern is:
 
@@ -473,7 +473,7 @@ The acceleration–displacement loops provide a familiar structural-dynamics bri
 
 The plotted loops are normalized proxies. They contain the combined effect of multi-frequency excitation, phase difference, floor coupling, and the semi-active experimental condition. They are not direct damper hysteresis loops and should not be interpreted as absolute dissipated energy.
 
-[Insert Figure 11 here: `17_force_displacement_work_loop_proxy.png` — place after this paragraph.]
+![Normalized acceleration–displacement work-loop proxy](17_force_displacement_work_loop_proxy.png)
 
 The loop area is consistent with work-like exchange in the measured states, while the QSM evolution reorganizes that exchange as a field rather than treating each floor trace as an isolated signal.
 
@@ -489,7 +489,7 @@ The largest downstream displacement response occurs at 3F.
 | 2F | 3.802 |
 | 3F | 4.174 |
 
-[Insert Figure 12 here: `18_response_manifestation_by_floor.png` — place after the displacement table.]
+![Observed downstream displacement-response envelope by floor](18_response_manifestation_by_floor.png)
 
 The combined observation is:
 
@@ -509,7 +509,7 @@ The location through which the power-state field becomes concentrated is not nec
 
 ## 18. What this case currently indicates
 
-### 17.1 QSM observations
+### 18.1 QSM observations
 
 This case provides preliminary support for the following QSM observations:
 
@@ -520,7 +520,7 @@ This case provides preliminary support for the following QSM observations:
 5. Similar alignment under fixed and dynamic paths shows that QSM field evolution can be evaluated separately from QTE path adaptation.
 6. The zero-diagonal relational operator remains meaningful as a QSM observation of pure inter-node transmission.
 
-### 17.2 Floor-domain QTE observations
+### 18.2 Floor-domain QTE observations
 
 At the current floor-domain resolution, this case provides preliminary support for the following QTE observations:
 
@@ -539,7 +539,7 @@ The QTE result remains partial because:
 - member stiffness, mass distribution, joint behavior, dampers, and boundaries were not encoded as a full physical graph;
 - the manifested `1F–2F` path has not yet been matched to an independently documented component-level weak plane or damage location.
 
-### 17.3 FATE Aware_power scope
+### 18.3 FATE Aware_power scope
 
 This case represents:
 
@@ -625,27 +625,23 @@ The root repository should additionally preserve:
 
 ---
 
-## 21. Recommended repository structure
+## 21. Repository location
+
+This case is part of the formal repository structure:
 
 ```text
-QSM-QTE-FATE-Integrated-Seismic-Field-Observation/
-├── README.md
-├── methodology/
-│   ├── QSM.md
-│   ├── QTE.md
-│   └── FATE.md
-├── code/
-│   └── qsm_qte_fate_nees_multicase_release_v11.py
-├── cases/
-│   ├── kobe_035_semi_active/
-│   │   ├── README.md
-│   │   └── 01...20 generated files
-│   ├── morgan_hill_100_passive_off/
-│   ├── el_centro_050_uncontrolled/
-│   └── el_centro_050_passive_off/
-└── synthesis/
-    └── README.md
+cases/
+└── kobe_035_semi_active/
+    ├── README.md
+    └── 20 formal V11 artifacts
 ```
+
+Related material:
+
+- [Repository overview](../../README.md)
+- [Four-case scientific synthesis](../../cross_case/README.md)
+- [Data-source instructions](../../data/README.md)
+- [Formal release log](../../release_logs/00_RELEASE_RUN_LOG.txt)
 
 ---
 
