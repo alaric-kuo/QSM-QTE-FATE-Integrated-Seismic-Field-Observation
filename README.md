@@ -4,6 +4,7 @@
 
 **Author and theory developer:** Dr. Han-Jung (Alaric) Kuo  
 **Organization:** A&J Management Consulting Limited Company 
+
 **Numerical engine:** V11  
 **Documentation revision:** V11.1
 
@@ -819,6 +820,6 @@ Copyright © 2026 A&J Management Consulting Limited Company. All rights reserved
 This repository is published for scientific inspection, citation, and reproducibility evaluation. The original NEES experimental data remain with the dataset provider and are subject to the original source terms.
 
 **Theory developer and corresponding author:** Dr. Han-Jung (Alaric) Kuo  
-**Organization:** A&J Management Consulting Limited  
+**Organization:** A&J Management Consulting Limited Company  
 **Location:** Taiwan
 
