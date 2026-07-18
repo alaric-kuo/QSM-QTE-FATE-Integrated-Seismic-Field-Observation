@@ -52,7 +52,7 @@ $$ \frac{P}{m}=a\cdot v $$
 
 The NEES records do not provide the physical floor masses required to convert every floor channel into absolute watts. V11 therefore uses $a\cdot v$ as a mass-normalized, work-compatible Power input:
 
-$$ \frac{dW}{m}\approx a\,du=a\,v\,dt $$
+$$ \frac{dW}{m}\approx a\cdot du=a\cdot v\cdot dt $$
 
 The code preserves both the signed quantity $a\cdot v$ and its absolute accumulated work-compatible quantity.
 
