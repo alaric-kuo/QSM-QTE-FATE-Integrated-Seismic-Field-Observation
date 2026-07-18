@@ -119,9 +119,13 @@ All three floors use direct analytical displacement, velocity, and acceleration 
 
 The power-state quantity is represented as:
 
-\[
+
+
+$$
 p_i(t)=a_i(t)v_i(t)
-\]
+$$
+
+
 
 In this release, `a*v` is treated as a **work-compatible power-state proxy**. Floor mass is not inserted explicitly, so the result should not be read as absolute power in watts.
 
@@ -154,21 +158,33 @@ Probe-worker times are process elapsed times. Because probes run in parallel, th
 
 The initial path weights are:
 
-\[
+
+
+$$
 w_{12}=1,\qquad w_{23}=1
-\]
+$$
+
+
 
 with:
 
-\[
+
+
+$$
 w_{12}+w_{23}=2
-\]
+$$
+
+
 
 The final path-dominance index is:
 
-\[
+
+
+$$
 D=\frac{w_{12}-w_{23}}{w_{12}+w_{23}}
-\]
+$$
+
+
 
 Interpretation:
 
@@ -212,15 +228,23 @@ The three floor-state dynamic probes all end with a higher `1F–2F` weight. The
 
 The main final dominance is:
 
-\[
+
+
+$$
 D=0.079
-\]
+$$
+
+
 
 This is a positive but comparatively modest final indication. The boundary-input-only reference ends at:
 
-\[
+
+
+$$
 D=-0.004
-\]
+$$
+
+
 
 and is therefore reported as:
 
@@ -299,15 +323,23 @@ The ratios are above one, but much closer to one than in a strongly concentrated
 
 The main mean signed correlation is:
 
-\[
+
+
+$$
 r_{signed}=0.753
-\]
+$$
+
+
 
 The main mean absolute-envelope correlation is:
 
-\[
+
+
+$$
 r_{|av|}=0.952
-\]
+$$
+
+
 
 These values indicate substantial one-step alignment across all three floors.
 
@@ -360,9 +392,13 @@ The boundary record retains part of the event envelope, but the upper-floor stru
 
 The fixed-path reference keeps:
 
-\[
+
+
+$$
 w_{12}=w_{23}=1
-\]
+$$
+
+
 
 Its mean absolute-envelope correlation is `0.951639`, compared with `0.951639` for the dynamic Laplacian probe.
 
@@ -407,9 +443,13 @@ The floor pattern is:
 
 The normalized acceleration–displacement histories provide a work-like representation related to:
 
-\[
+
+
+$$
 \int a\,du
-\]
+$$
+
+
 
 The traces are proxies and should not be interpreted as direct damper hysteresis loops or absolute dissipated energy.
 

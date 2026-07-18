@@ -121,9 +121,13 @@ Velocity is not a direct channel. It is reconstructed by differentiating the sel
 
 Therefore:
 
-\[
+
+
+$$
 a(t)v(t)
-\]
+$$
+
+
 
 combines a direct acceleration signal with a velocity derived from displacement channels that do not all use the same coordinate semantics.
 
@@ -231,21 +235,33 @@ The path history is therefore retained as a QTE trend indicator even though the 
 
 The mean edge-current ratio across the three floor-state dynamic probes is:
 
-\[
+
+
+$$
 1.997
-\]
+$$
+
+
 
 The main Laplacian ratio is:
 
-\[
+
+
+$$
 2.010
-\]
+$$
+
+
 
 The boundary-only ratio is:
 
-\[
+
+
+$$
 0.970
-\]
+$$
+
+
 
 This difference indicates that the lower-interface tendency appears primarily after floor-state information enters the field representation.
 

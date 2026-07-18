@@ -174,9 +174,13 @@ This case is suitable for the primary power-state comparison because displacemen
 
 This matters because the work-compatible power-state proxy
 
-\[
+
+
+$$
 p_i(t)=a_i(t)v_i(t)
-\]
+$$
+
+
 
 is phase-sensitive. Direct and synchronized `a` and `v` channels provide a more coherent basis than mixing direct acceleration with velocity reconstructed from a different displacement coordinate system.
 
@@ -194,21 +198,33 @@ The first integrated model contains three floor nodes and two inter-floor paths:
 
 The path weights begin from an unbiased state:
 
-\[
+
+
+$$
 w_{12}=1,\qquad w_{23}=1
-\]
+$$
+
+
 
 and are normalized so that:
 
-\[
+
+
+$$
 w_{12}+w_{23}=2
-\]
+$$
+
+
 
 The path-dominance index is:
 
-\[
+
+
+$$
 D=\frac{w_{12}-w_{23}}{w_{12}+w_{23}}
-\]
+$$
+
+
 
 Its interpretation is:
 
@@ -254,15 +270,23 @@ The three dynamic probes that assimilate floor states produce the same higher-we
 
 The principal Laplacian result reaches:
 
-\[
+
+
+$$
 D=0.543
-\]
+$$
+
+
 
 with an edge-current concentration ratio of:
 
-\[
+
+
+$$
 J_{12}/J_{23}=4.392
-\]
+$$
+
+
 
 The mean edge-current ratio across the three supporting floor-state dynamic probes is `4.564`.
 
@@ -349,15 +373,23 @@ The principal QSM check compares the one-step evolved `a*v` field at `k+1|k` wit
 
 The mean signed correlation across the three floors is:
 
-\[
+
+
+$$
 r_{signed}=0.656
-\]
+$$
+
+
 
 The mean absolute-envelope correlation is:
 
-\[
+
+
+$$
 r_{|a v|}=0.918
-\]
+$$
+
+
 
 These values do not mean that the blue and orange traces are identical at every oscillation. They mean that the one-step evolved field retains substantial agreement with the measured sign, phase tendency, event envelope, and decay structure.
 
@@ -403,9 +435,13 @@ the field that exists after wave–structure coupling
 
 The fixed-path reference keeps:
 
-\[
+
+
+$$
 w_{12}=w_{23}=1
-\]
+$$
+
+
 
 throughout the entire record. Its mean absolute-envelope correlation is `0.918435`, almost identical to the dynamic Laplacian result of `0.918428`.
 
@@ -467,9 +503,13 @@ This does not mean that the main path is located at 3F. It means that the field 
 
 The acceleration–displacement loops provide a familiar structural-dynamics bridge to the work interpretation:
 
-\[
+
+
+$$
 \int a\,du
-\]
+$$
+
+
 
 The plotted loops are normalized proxies. They contain the combined effect of multi-frequency excitation, phase difference, floor coupling, and the semi-active experimental condition. They are not direct damper hysteresis loops and should not be interpreted as absolute dissipated energy.
 

@@ -42,9 +42,13 @@ DOI: [10.13140/RG.2.2.27121.13928](https://doi.org/10.13140/RG.2.2.27121.13928)
 
 QSM treats the structural state as an evolving field rather than only as a collection of stiffness assets and downstream responses. In this release, the work-compatible power-state proxy is:
 
-\[
+
+
+$$
 p_i(t)=a_i(t)v_i(t)
-\]
+$$
+
+
 
 where acceleration and velocity jointly describe the local rate and direction of work-compatible state change.
 
@@ -62,9 +66,13 @@ QTE observes how an evolving field manifests through topology. The V11 experimen
 
 with no direct `1F–3F` edge. The path-dominance indicator is:
 
-\[
+
+
+$$
 D_p=\frac{w_{12}-w_{23}}{w_{12}+w_{23}}
-\]
+$$
+
+
 
 A positive value indicates a higher `1F–2F` path weight; a value near zero indicates no clear final path separation.
 
@@ -165,9 +173,13 @@ These are five computational observation settings, not five physical paths. The 
 
 All four cases use the same numerical settings and the same initial condition:
 
-\[
+
+
+$$
 w_{12}=w_{23}=1
-\]
+$$
+
+
 
 No case-specific optimizer, grid search, or target-driven parameter fitting is used.
 
