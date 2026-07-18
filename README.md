@@ -2,13 +2,13 @@
 
 ## NEES-2011-1076 · Formal Release V11.1
 
-**Theory-disclosure and implementation-mapping release for the integrated computational observation of Quantum Structural Mechanics (QSM), Quantum Topology Express (QTE), and the `Aware_power` layer of Fractal Alive Topology Evolution (FATE).**
+**Complete theory and implementation record for Quantum Structural Mechanics (QSM), Quantum Topology Express (QTE), and the `Aware_power` layer of Fractal Alive Topology Evolution (FATE).**
 
 **Author and theory developer:** Dr. Han-Jung (Alaric) Kuo  
 **Organization:** A&J Management Consulting Limited  
 **Formal release:** V11.1  
 **Numerical engine:** V11, unchanged  
-**Release character:** documentation, theory–code mapping, and scientific-boundary clarification
+**Release scope:** theory, code mapping, implementation status, and reproducibility
 
 This repository records a four-case seismic experiment on a three-story steel-frame dataset. It connects three theoretical layers into one reproducible computational chain:
 
@@ -21,17 +21,17 @@ measured structural state
 → FATE Aware_power observation
 ```
 
-V11.1 does not change the V11 numerical algorithm or regenerate the formal case artifacts. It makes the theoretical core visible, states exactly how the code operationalizes that core, and separates the implemented layer from the still-open parts of QSM, QTE, and FATE.
+V11.1 presents the theoretical core, maps each equation to the current code, and records the implementation status of QSM, QTE, and FATE. The V11 numerical algorithm and formal case artifacts remain unchanged.
 
 The release boundary is:
 
 | Theory layer | Full theoretical role | V11.1 implementation | Current evidence boundary |
 |---|---|---|---|
-| **QSM** | Hamiltonian evolution of a structural Power state; fidelity as target-state hit ratio; Power manifestation and accumulated hit work | Empirical complex floor-state wavefunction, `U = exp(-iHΔt)`, one-step prior-state evolution, state fidelity, nodal fidelity, work-compatible `a·v` projection, and measurement assimilation | Strongly repeated in two direct-channel records; one-step assimilated observation, not unrestricted long-horizon free evolution |
-| **QTE** | Viewpoint → topology → channel → evolution → manifestation → action | Fixed three-floor viewpoint, two-edge graph, Laplacian and zero-diagonal Hamiltonians, edge currents, adaptive path weights, path-dominance history | Floor-domain only; no member-level BIM/IFC graph, no explicit background-potential field, no independently verified physical weak-plane location |
-| **FATE** | `Aware_power → Alert_control → Alive_evolve`, with intervention rewriting the topology or Hamiltonian and the field re-evolving | `Aware_power`: incoming-wave awareness, structure-coupled field awareness, path awareness, work/response awareness, ablation awareness, and data-semantic/provenance awareness | No automated alert rule, no control action, no topology/Hamiltonian rewrite, no post-intervention re-evolution, no cross-scale fractal recursion |
+| **QSM** | Hamiltonian evolution of a structural Power state; fidelity as target-state hit ratio; Power manifestation and accumulated hit work | Empirical complex floor-state wavefunction, `U = exp(-iHΔt)`, one-step prior-state evolution, state fidelity, nodal fidelity, work-compatible `a·v` projection, and measurement assimilation | Strongly repeated in two direct-channel records through one-step assimilated evolution |
+| **QTE** | Viewpoint → topology → channel → evolution → manifestation → action | Fixed three-floor viewpoint, two-edge graph, Laplacian and zero-diagonal Hamiltonians, edge currents, adaptive path weights, path-dominance history | Floor-domain resolution; member-level BIM/IFC topology, background potential, and physical weak-plane verification remain open |
+| **FATE** | `Aware_power → Alert_control → Alive_evolve`, with intervention rewriting the topology or Hamiltonian and the field re-evolving | `Aware_power`: incoming-wave awareness, structure-coupled field awareness, path awareness, work/response awareness, ablation awareness, and data-semantic/provenance awareness | `Alert_control`, control action, topology/Hamiltonian rewrite, post-intervention re-evolution, and cross-scale recursion remain open |
 
-The central achievement is a **shared, executable, inspectable, cross-case computational trace** in which the theory, code, measurements, outputs, and limits can be read together.
+The repository places the theory, code, measurements, outputs, and implementation limits in one traceable cross-case record.
 
 ---
 
@@ -99,7 +99,7 @@ damage only as asset loss
 → possible blockage, redirection, or concentration of Power flow
 ```
 
-QSM uses the quantum-mechanical state formalism as the computational mechanics of this evolution. It is not reduced to the scalar product `a·v`.
+QSM uses quantum-mechanical state evolution to describe how structural Power moves through the channel topology. The scalar product `a·v` supplies the work-compatible input scale within that larger formulation.
 
 ## 2.2 Canonical QSM state evolution
 
@@ -135,17 +135,17 @@ This expression separates three roles:
 |---|---|
 | $a(t)\cdot v(t)$ | real dynamic, work-compatible input scale |
 | $\hat H_p(t)$ | structural channel transformation |
-| $|\Psi(t)\rangle$ | evolving structural Power state |
+| $\lvert\Psi(t)\rangle$ | evolving structural Power state |
 
 At a local floor or node:
 
 $$ p_i(t)=a_i(t)v_i(t) $$
 
-Because the experimental release does not introduce the physical mass of each floor, `a·v` is treated as a **mass-normalized, work-compatible Power-state proxy**:
+The dataset does not provide the physical mass of each floor. The release therefore treats `a·v` as a **mass-normalized, work-compatible Power-state proxy**:
 
 $$ \frac{dW}{m} \approx a\,du = a\,v\,dt $$
 
-The current outputs therefore do not claim absolute watts or joules.
+The reported quantities are mass-normalized proxies rather than absolute watts or joules.
 
 ## 2.4 Fidelity as target-state hit ratio
 
@@ -157,7 +157,7 @@ When the target is simplified as node or floor $i$:
 
 $$ F_{\mathrm{id},i}(t)=|\Psi_i(t)|^2 $$
 
-Fidelity is a normalized hit ratio. It is not total structural energy and it is not, by itself, the complete Power manifestation.
+Fidelity gives the normalized hit ratio of a target state. Complete Power manifestation also requires the input scale and Hamiltonian action.
 
 The target-hit Power is interpreted as:
 
@@ -189,7 +189,7 @@ $$ A_i(t) = \sqrt{ \frac{E_i(t)} {\sum_j E_j(t)} } $$
 
 The phase is:
 
-$$ \theta_i(t) = \operatorname{atan2} \left( \bar\omega_i\tilde u_i(t), \tilde v_i(t) \right) $$
+$$ \theta_i(t) = \mathrm{atan2} \left( \bar\omega_i\tilde u_i(t), \tilde v_i(t) \right) $$
 
 The measured empirical wavefunction is then:
 
@@ -197,7 +197,7 @@ $$ \Psi_i^{\mathrm{meas}}(t) = A_i(t)e^{i\theta_i(t)} $$
 
 followed by complex-vector normalization.
 
-This construction is the present experimental bridge from measured structural motion into the QSM state space. It is an operational choice of V11, not the only possible empirical wavefunction for future QSM studies.
+This construction provides the present experimental bridge from measured structural motion into the QSM state space. Future studies may adopt other empirically justified wavefunction constructions.
 
 ## 2.6 One-step Hamiltonian prior implemented in V11
 
@@ -248,7 +248,7 @@ $$ \widehat p_{i,k+1|k} = P_{\mathrm{scale},k} F_{i,k+1} s_{i,k+1}^{\mathrm{phas
 
 where the directional sign is derived from the evolved complex phase:
 
-$$ s_{i,k+1}^{\mathrm{phase}} = \operatorname{sign} \left[ -\sin\!\left(2\arg\Psi^-_{i,k+1}\right) \right] $$
+$$ s_{i,k+1}^{\mathrm{phase}} = \mathrm{sgn} \left[ -\sin\!\left(2\arg\Psi^-_{i,k+1}\right) \right] $$
 
 The code then compares:
 
@@ -276,20 +276,20 @@ measured state at k
 → next one-step evolution
 ```
 
-This is an assimilated one-step field observation. It is not an unrestricted autonomous prediction over the full earthquake record.
+The release evaluates assimilated one-step field evolution throughout each record. Autonomous long-horizon propagation remains a separate validation task.
 
 ## 2.9 QSM implementation status
 
 | QSM element | Status in V11.1 | Implementation |
 |---|---|---|
-| Complex structural state $|\Psi\rangle$ | **Implemented** | Three-floor empirical wavefunction from normalized `u`, `v`, and `a` |
+| Complex structural state $\lvert\Psi\rangle$ | **Implemented** | Three-floor empirical wavefunction from normalized `u`, `v`, and `a` |
 | Hamiltonian time evolution | **Implemented** | Exact eigendecomposition of the real symmetric $3\times3$ Hamiltonian and $U=e^{-iH\Delta t}$ |
 | Source-driven Power-state evolution | **Implemented** | Complex source from local `a·v` magnitude, sign, and measured phase |
-| State fidelity | **Implemented** | $|\langle\Psi^{meas}_{k+1}|\Psi^-_{k+1}\rangle|^2$ |
-| Nodal fidelity | **Implemented** | $|\Psi^-_i|^2$ |
+| State fidelity | **Implemented** | $\left\lvert\left\langle\Psi^{\mathrm{meas}}_{k+1}\middle\vert\Psi^-_{k+1}\right\rangle\right\rvert^2$ |
+| Nodal fidelity | **Implemented** | $\lvert\Psi^-_i\rvert^2$ |
 | Work-compatible target manifestation | **Implemented as proxy** | Total `a·v` scale projected through nodal fidelity and evolved phase |
 | Accumulated hit work | **Implemented as proxy** | Time integration of absolute evolved floor manifestation |
-| Canonical $\mathbf P=(a\cdot v)\hat H_p|\Psi\rangle$ evaluated directly as a physical vector | **Partially implemented** | Hamiltonian evolution and fidelity projection are implemented; absolute physical Power and direct calibrated operator-valued manifestation remain open |
+| Canonical $\mathbf P=(a\cdot v)\hat H_p\lvert\Psi\rangle$ as a calibrated physical vector | **Partially implemented** | Hamiltonian evolution and fidelity projection are implemented; absolute physical Power and calibrated operator-valued manifestation remain open |
 | Long-horizon free Schrödinger evolution | **Not yet established** | Measurement assimilation follows each one-step comparison |
 | Physical watts/joules | **Not implemented** | Floor masses and complete physical calibration are absent |
 | Member-level target state | **Not implemented** | Current state space contains three floor nodes |
@@ -319,7 +319,7 @@ The viewpoint defines what is being observed. The topology records relationships
 
 A general QTE Hamiltonian can include both geometric/topological coupling and a background potential:
 
-$$ H = \kappa L_{\mathrm{geo}} + \alpha_V\operatorname{diag}(V_{\mathrm{bg}}) $$
+$$ H = \kappa L_{\mathrm{geo}} + \alpha_V\mathrm{diag}(V_{\mathrm{bg}}) $$
 
 V11 uses a bounded floor-domain form without a separately modelled background-potential vector.
 
@@ -339,7 +339,7 @@ $$ W= \begin{bmatrix} 0&w_{12}&0\\ w_{12}&0&w_{23}\\ 0&w_{23}&0 \end{bmatrix} $$
 
 The degree matrix and graph Laplacian are:
 
-$$ D=\operatorname{diag}(W\mathbf 1), \qquad L=D-W $$
+$$ D=\mathrm{diag}(W\mathbf 1), \qquad L=D-W $$
 
 V11 retains two Hamiltonian forms:
 
@@ -355,21 +355,21 @@ $$ H_Z=-W $$
 
 This isolates inter-node relational transmission and preserves the earlier QSM channel view.
 
-The two operators are retained as different observation structures. Their convergence on the same lower-interface tendency is treated as supporting evidence, not as proof that the operators are universally interchangeable.
+The two operators serve different observation roles. Their convergence on the same lower-interface tendency provides supporting evidence while preserving their distinct physical meanings.
 
 ## 3.3 Quantum edge current
 
 For a complex state $\Psi$ and Hamiltonian $H$, V11 computes the two floor-edge currents:
 
-$$ J_{12} = 2\,\operatorname{Im} \left( \Psi_1^*H_{12}\Psi_2 \right) $$
+$$ J_{12} = 2\,\mathrm{Im} \left( \Psi_1^*H_{12}\Psi_2 \right) $$
 
-$$ J_{23} = 2\,\operatorname{Im} \left( \Psi_2^*H_{23}\Psi_3 \right) $$
+$$ J_{23} = 2\,\mathrm{Im} \left( \Psi_2^*H_{23}\Psi_3 \right) $$
 
 These currents carry phase-sensitive information. They are distinct from the adaptive path weights.
 
 The cross-case indicator is the RMS current ratio:
 
-$$ R_J = \frac{\operatorname{RMS}(|J_{12}|)} {\operatorname{RMS}(|J_{23}|)} $$
+$$ R_J = \frac{\mathrm{RMS}(|J_{12}|)} {\mathrm{RMS}(|J_{23}|)} $$
 
 A ratio above one indicates stronger field-current concentration on the `1F–2F` edge over the record.
 
@@ -405,7 +405,7 @@ The unchanged V11 numerical coefficients are:
 | $\alpha_R$ | 0.06 | assimilation-residual contribution |
 | $\alpha_H$ | 0.05 | hidden-work/response contribution |
 
-No case-specific parameter fitting is applied.
+Every case uses the same coefficients.
 
 ## 3.5 Path-dominance indicator
 
@@ -419,7 +419,7 @@ Interpretation:
 |---:|---|
 | $D_p>0$ | higher `1F–2F` path weight |
 | $D_p<0$ | higher `2F–3F` path weight |
-| $|D_p|\le 0.02$ | near-equal / no clear final path indication |
+| $\lvert D_p\rvert\le 0.02$ | near-equal / no clear final path indication |
 
 The full history is retained because formation, concentration, transition, recovery, and redistribution may lead to similar final values through different event histories.
 
@@ -494,17 +494,17 @@ as work-compatible manifestation proxies.
 
 ### 5. Response awareness
 
-Displacement is retained as downstream response evidence through a causal displacement envelope. It is not used as the sole definition of the internal field.
+Displacement enters as downstream response evidence through a causal displacement envelope. The evolved structural state defines the internal field.
 
 The current hidden-work proxy is:
 
 $$ h_i(t) = \widetilde W_{\mathrm{hit},i}(t) - \widetilde u_{\mathrm{env},i}(t) $$
 
-This is a comparative proxy between normalized accumulated manifestation and normalized displacement response. It is not a physical unmeasured-energy quantity.
+The hidden-work proxy compares normalized accumulated manifestation with normalized displacement response. Its scale is comparative rather than a physical energy unit.
 
 ### 6. Data-semantic and provenance awareness
 
-The El Centro cases preserve irregularities associated with mixed displacement coordinates, numerically differentiated velocity, direct acceleration, sensing, acquisition, conversion, processing, and possible experimental intervention. The method does not silently smooth these traces into a cleaner narrative.
+The El Centro cases preserve irregularities associated with mixed displacement coordinates, numerically differentiated velocity, direct acceleration, sensing, acquisition, conversion, processing, and possible experimental intervention. These traces remain visible in the observation record.
 
 This extends `Aware_power` from signal detection to awareness of whether the observation field itself is physically coherent and semantically trustworthy.
 
@@ -590,7 +590,7 @@ The main implementation is in:
 
 | Theory object | Code object/function | Role |
 |---|---|---|
-| Empirical $|\Psi^{meas}\rangle$ | `build_empirical_wavefunction(...)` | Converts floor `u`, `v`, `a` into normalized complex amplitude and phase |
+| Empirical $\lvert\Psi^{\mathrm{meas}}\rangle$ | `build_empirical_wavefunction(...)` | Converts floor `u`, `v`, `a` into normalized complex amplitude and phase |
 | $W$, $D$, $L$, $H$ | `build_path_operator(...)` | Builds adjacency, degree, Laplacian, and selected Hamiltonian |
 | $U=e^{-iH\Delta t}$ | `build_path_operator_and_unitary(...)` | Eigendecomposes $H$ and constructs exact one-step unitary evolution |
 | $J_{12}$, $J_{23}$ | `edge_currents(...)` | Computes phase-sensitive topology currents |
@@ -618,7 +618,7 @@ The three methods also correspond to different information conditions across a B
 | As-built / commissioning | Physicalized nodes, channels, boundaries, and tested system conditions | **QTE Laplacian topology field** |
 | Operation / seismic event | Incoming excitation, measured state, intervention, and re-evolution | **FATE operational evolution** |
 
-The zero-diagonal and Laplacian operators are therefore not treated as two arbitrary algorithms competing for the best score.
+The zero-diagonal and Laplacian operators represent two distinct structural viewpoints.
 
 - The **zero-diagonal operator** isolates inter-node relational transmission.
 - The **Laplacian operator** includes node–channel balance in a physicalized topology.
@@ -649,9 +649,9 @@ All four records come from:
 NEES / DesignSafe Data Depot.  
 DOI: [10.7277/TPS7-V877](https://doi.org/10.7277/TPS7-V877)
 
-The source records used by the V11 numerical engine were taken directly from the files provided in the original NEES-2011-1076 dataset package. No additional author-side signal conversion, filtering, smoothing, denoising, coordinate harmonization, or manual preprocessing was applied before the formal analysis.
+The V11 numerical engine reads the source records directly from the original NEES-2011-1076 dataset package. The formal analysis uses those files without additional author-side conversion, filtering, smoothing, denoising, coordinate harmonization, or manual preprocessing.
 
-The source records are **not redistributed** in this repository. See [`data/README.md`](data/README.md) for the exact filenames and local data placement.
+The repository records the exact filenames and local placement instructions in [`data/README.md`](data/README.md); the original source records remain with the dataset provider.
 
 ## 9.1 Four formal cases
 
@@ -662,7 +662,7 @@ The source records are **not redistributed** in this repository. See [`data/READ
 | [Kobe 0.35 — semi-active](cases/kobe_035_semi_active/) | Kobe | 0.35 | Semi-active | Initial integrated QSM–QTE–FATE observation record |
 | [Morgan Hill 1.00 — passive-off](cases/morgan_hill_100_passive_off/) | Morgan Hill | 1.00 | Passive-off | Cross-scenario replication with a distinct redistribution history |
 
-The four cases form a **partial cross-wave and cross-control robustness matrix**, not a balanced factorial experiment. Only the two El Centro cases hold the earthquake and scale approximately fixed while changing the control condition.
+The four cases form a **partial cross-wave and cross-control robustness matrix**. The two El Centro cases hold the earthquake and scale approximately fixed while changing the control condition.
 
 ---
 
@@ -678,7 +678,7 @@ Every case is processed with the same five probes.
 | **Floor-state dynamic path without response feedback** | Tests sensitivity to the current downstream response-feedback term |
 | **Fixed-path reference** | Separates QSM one-step field alignment from QTE path adaptation |
 
-These are five computational observation settings, not five physical paths. The present floor graph contains only:
+The five probes are computational observation settings. The floor graph contains two physical paths:
 
 ```text
 1F–2F
@@ -693,7 +693,7 @@ $$ w_{12}=w_{23}=1 $$
 
 
 
-No case-specific optimizer, grid search, or target-driven parameter fitting is used.
+All four cases use the same numerical configuration without case-specific optimization, grid search, or target-driven fitting.
 
 ---
 
@@ -716,11 +716,11 @@ Under one unchanged V11 numerical configuration, both cases reproduce strong one
 
 ![Cross-case a*v alignment by observation mode](cross_case/05_cross_case_mean_abs_correlation.png)
 
-This is the strongest current evidence that QSM has moved beyond a single-case computational result. It remains a one-step evolved-field test and should not be described as unrestricted multi-step prediction.
+These two direct-channel records provide the strongest current cross-case evidence for QSM. The tested scope is one-step evolved-field alignment with measurement assimilation.
 
 ## 11.2 Boundary input and internal structural field are distinguishable
 
-Across all four records, boundary-input-only evolution ends near equal path weighting. It does not produce a clear internal final path indication.
+Across all four records, boundary-input-only evolution ends near equal path weighting and yields no clear internal final path indication.
 
 After floor-state assimilation, every case ends with a positive `1F–2F` floor-domain indication.
 
@@ -734,7 +734,7 @@ incoming seismic wave
 field formed after wave–structure coupling
 ```
 
-## 11.3 A common interface does not erase event-specific evolution
+## 11.3 A common interface contains different event histories
 
 All four cases indicate the `1F–2F` floor interface, but their histories differ.
 
@@ -752,7 +752,7 @@ Morgan Hill:
 strong intermediate concentration → substantial return toward equality
 ```
 
-The method therefore retains formation, concentration, transition, recovery, and redistribution rather than reducing each event to one final label.
+The method retains formation, concentration, transition, recovery, and redistribution across the full event history.
 
 ## 11.4 Edge current provides a second path indicator
 
@@ -787,7 +787,7 @@ acceleration:
 directly measured
 ```
 
-Their Figure 17 work-loop proxies retain a broad restoring-response orientation but contain multiple branches, crossings, and long excursions. These irregularities are not silently removed.
+Their Figure 17 work-loop proxies retain a broad restoring-response orientation together with multiple branches, crossings, and long excursions.
 
 The method preserves possible traces of:
 
@@ -798,7 +798,7 @@ The method preserves possible traces of:
 - conversion and processing;
 - experimental operation and human intervention.
 
-This does not turn every irregularity into a structural conclusion. It makes the origin and trustworthiness of the observed field part of FATE awareness.
+FATE awareness therefore includes the origin and trustworthiness of the observed field. Structural interpretation remains tied to the available provenance.
 
 ## 11.6 QSM, QTE, and FATE require separate evidence
 
@@ -812,7 +812,7 @@ path-weight evolution and edge-current concentration
 → QTE evidence
 ```
 
-Removing response feedback changes the current path indication only slightly. The V11/V11.1 release has therefore not yet demonstrated a strong feedback-driven topology rewrite, which is consistent with FATE remaining at `Aware_power`.
+Removing response feedback changes the current path indication only slightly. The present implementation therefore reaches `Aware_power`; feedback-driven topology rewrite belongs to the next FATE stage.
 
 ---
 
@@ -829,7 +829,7 @@ Removing response feedback changes the current path indication only slightly. Th
 - Detection of data-semantic inconsistency without automatically discarding irregular traces.
 - First integrated computational chain from QSM through QTE to FATE `Aware_power`.
 
-## 12.2 Not yet established
+## 12.2 Open validation tasks
 
 - Member-, joint-, or component-level topology localization.
 - A complete BIM/IFC or as-built structural field.
@@ -897,7 +897,7 @@ The full formal release contains:
 
 # 14. Reproducing V11.1
 
-V11.1 retains the V11 numerical engine and the existing formal outputs. The executable filename remains `qsm_qte_fate_nees_multicase_release_v11.py` so that the documentation release does not imply an unperformed numerical change.
+V11.1 uses the existing V11 numerical engine and formal outputs. The executable filename remains `qsm_qte_fate_nees_multicase_release_v11.py`.
 
 ## 14.1 Requirements
 
@@ -926,7 +926,7 @@ morgan_1_p_off_avg_converted.csv
 ```
 
 > **Source-file provenance note**  
-> The filenames contain terms such as `converted` or `avg` because those are the filenames supplied in the original dataset package used for this release. This repository does not claim that these files were converted or averaged by the author. V11 reads the files directly as supplied.
+> The terms `converted` and `avg` are part of the filenames supplied in the original dataset package. V11 reads these files directly as supplied.
 
 
 ## 14.3 Direct execution
@@ -1050,7 +1050,7 @@ Copyright © 2026 A&J Management Consulting Limited. All rights reserved.
 
 The repository is currently published for scientific inspection, citation, and reproducibility evaluation. A formal software and research-content license will be specified in a subsequent release.
 
-The original NEES experimental data are not redistributed and remain subject to their original source terms.
+The original NEES experimental data remain with the dataset provider and are subject to the original source terms.
 
 ---
 
