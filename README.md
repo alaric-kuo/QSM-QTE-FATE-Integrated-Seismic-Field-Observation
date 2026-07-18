@@ -427,7 +427,7 @@ R = {1F, 2F, 3F}
 
 The weighted adjacency matrix is:
 
-$$ W=\begin{bmatrix}0&w_{12}&0\\w_{12}&0&w_{23}\\0&w_{23}&0\end{bmatrix} $$
+$$ W=\begin{bmatrix} 0 & w_{12} & 0 \\\\ w_{12} & 0 & w_{23} \\\\ 0 & w_{23} & 0 \end{bmatrix} $$
 
 The degree matrix and Laplacian are:
 
