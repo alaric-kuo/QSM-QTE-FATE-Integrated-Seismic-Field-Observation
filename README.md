@@ -698,6 +698,7 @@ The public root keeps only the files needed to understand, cite, reproduce, veri
 
 ```text
 QSM-QTE-FATE-Integrated-Seismic-Field-Observation/
+├── .gitignore
 ├── README.md
 ├── CITATION.cff
 ├── CHANGELOG.md

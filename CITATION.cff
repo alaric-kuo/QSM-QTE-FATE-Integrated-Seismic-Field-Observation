@@ -3,7 +3,7 @@ message: "Please cite the original NEES dataset, the theoretical preprints, and 
 title: "QSM-QTE-FATE Integrated Seismic Field Observation: NEES-2011-1076 Formal Release V11.1"
 type: software
 version: "11.1.0"
-date-released: 2026-07-18
+date-released: 2026-07-19
 authors:
   - family-names: Kuo
     given-names: Han-Jung (Alaric)
