@@ -250,8 +250,7 @@ Here, **Manifestation** is the readable emergence of density, Power difference, 
 
 The computational dataflow is:
 
-**$R$ → $A$ → $W$ → $L_{\mathrm{geo}}$ → $V_{\mathrm{bg}}$ → $H$ → $\psi(0)$ → $\psi(t)$ → $
-ho(t)$ → $\Delta V_{\mathrm{resp}}(t)$ → $J(t)$ → $\Gamma(t)$ → $m(t)$ → $M(t)$**
+**$R$ → $A$ → $W$ → $L_{\mathrm{geo}}$ → $V_{\mathrm{bg}}$ → $H$ → $\psi(0)$ → $\psi(t)$ → $\rho(t)$ → $\Delta V_{\mathrm{resp}}(t)$ → $J(t)$ → $\Gamma(t)$ → $m(t)$ → $M(t)$**
 
 where:
 
@@ -784,13 +783,19 @@ Morgan Hill: 1.53 × 10^-13
 
 ## 15.1 Theoretical works
 
-- Kuo, Han-Jung (Alaric). *Quantum Structural Mechanics: From Stiffness Assets to Value Flow.* ResearchGate preprint. DOI: [10.13140/RG.2.2.27121.13928](https://doi.org/10.13140/RG.2.2.27121.13928)
-- Kuo, Han-Jung (Alaric). *Quantum Topology Express Method.* ResearchGate preprint. DOI: [10.13140/RG.2.2.22329.12645](https://doi.org/10.13140/RG.2.2.22329.12645)
-- Kuo, Han-Jung (Alaric). *Fractal Alive Topology Evolution.* ResearchGate preprint. DOI: [10.13140/RG.2.2.27969.72806](https://doi.org/10.13140/RG.2.2.27969.72806)
+- Kuo, Han-Jung (Alaric). *Quantum Structural Mechanics: From Stiffness Assets to Value Flow.* ResearchGate preprint.  
+  DOI: [10.13140/RG.2.2.27121.13928](https://doi.org/10.13140/RG.2.2.27121.13928)
+
+- Kuo, Han-Jung (Alaric). *Quantum Topology Express Method.* ResearchGate preprint.  
+  DOI: [10.13140/RG.2.2.22329.12645](https://doi.org/10.13140/RG.2.2.22329.12645)
+
+- Kuo, Han-Jung (Alaric). *Fractal Alive Topology Evolution.* ResearchGate preprint.  
+  DOI: [10.13140/RG.2.2.27969.72806](https://doi.org/10.13140/RG.2.2.27969.72806)
 
 ## 15.2 Experimental dataset
 
-Zhang, J., Wu, B., and Dyke, S. *RTHS and Shake Table Comparison for Smart Structural Systems (NEES-2011-1076)* [Data set]. NEES / DesignSafe Data Depot. DOI: [10.7277/TPS7-V877](https://doi.org/10.7277/TPS7-V877)
+Zhang, J., Wu, B., and Dyke, S. *RTHS and Shake Table Comparison for Smart Structural Systems (NEES-2011-1076)* [Data set]. NEES / DesignSafe Data Depot.  
+DOI: [10.7277/TPS7-V877](https://doi.org/10.7277/TPS7-V877)
 
 ## 15.3 Software
 
@@ -808,7 +813,11 @@ The release establishes a reproducible experimental bridge from **QSM Power-stat
 
 # 17. Rights and attribution
 
-Copyright © 2026 A&J Management Consulting Limited. All rights reserved. The repository is published for scientific inspection, citation, and reproducibility evaluation. The original NEES experimental data remain with the dataset provider and are subject to the original source terms.
+Copyright © 2026 A&J Management Consulting Limited. All rights reserved.
 
-**Theory developer and corresponding author:** Dr. Han-Jung (Alaric) Kuo, A&J Management Consulting Limited, Taiwan.
+This repository is published for scientific inspection, citation, and reproducibility evaluation. The original NEES experimental data remain with the dataset provider and are subject to the original source terms.
+
+**Theory developer and corresponding author:** Dr. Han-Jung (Alaric) Kuo  
+**Organization:** A&J Management Consulting Limited  
+**Location:** Taiwan
 
