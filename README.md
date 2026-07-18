@@ -3,7 +3,7 @@
 ## NEES-2011-1076 - Formal Release V11.1
 
 **Author and theory developer:** Dr. Han-Jung (Alaric) Kuo  
-**Organization:** A&J Management Consulting Limited  
+**Organization:** A&J Management Consulting Limited Company 
 **Numerical engine:** V11  
 **Documentation revision:** V11.1
 
@@ -814,7 +814,7 @@ The release establishes a reproducible experimental bridge from **QSM Power-stat
 
 # 17. Rights and attribution
 
-Copyright © 2026 A&J Management Consulting Limited. All rights reserved.
+Copyright © 2026 A&J Management Consulting Limited Company. All rights reserved.
 
 This repository is published for scientific inspection, citation, and reproducibility evaluation. The original NEES experimental data remain with the dataset provider and are subject to the original source terms.
 
