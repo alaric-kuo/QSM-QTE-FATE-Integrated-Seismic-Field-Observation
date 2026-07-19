@@ -43,7 +43,7 @@ The current resolution is floor-domain awareness. Member-level damage localizati
 
 **Theoretical order:** RPG → QSM → QTE → FATE
 
-**Implemented chain:** measured floor motion → work-compatible input scale `a·v` → empirical structural state → QSM Hamiltonian Power-state evolution → target-state fidelity and target-hit work → QTE floor-domain path and edge-current manifestation → FATE `Aware_power`
+**Implemented chain:** measured floor motion → work-compatible input scale `a·v` → empirical structural state → QSM Hamiltonian Power-state evolution → target-state fidelity and target-hit work → QTE floor-domain path and edge current manifestation → FATE `Aware_power`
 
 ## 1.3 Why this repository exists
 
@@ -296,7 +296,7 @@ The QTE methodological mainline is:
 
 **Viewpoint → Topology → Channel → Evolution → Manifestation → Action**
 
-Here, **Manifestation** is the readable emergence of density, Power difference, edge current, manifestation rate, cumulative manifestation quantity, and manifestation score from the evolving topology-field state.
+Here, **Manifestation** is the readable emergence of Power Power density, dynamic Power difference, edge current, manifestation rate, cumulative manifestation quantity, and manifestation score from the evolving topology-field state.
 
 The computational dataflow is:
 
@@ -361,7 +361,7 @@ The edge current is:
 
 $$ J_{ij}(t)=2\,\mathrm{Im}\left(\psi_i^*(t)H_{ij}\psi_j(t)\right) $$
 
-The local velocity field is derived from edge flow:
+The local velocity field is derived from edge current:
 
 $$ v_i(t)=\frac{\sum_j J_{ij}(t)u_{ij}}{\rho_i(t)+\epsilon} $$
 
@@ -414,7 +414,7 @@ The two V11 observation probes are:
 
 The full background field $V_{\mathrm{bg}}$ is not yet constructed from material capacity, structural strength, damage state, BIM semantics, or sensor-returned component conditions. The Laplacian probe therefore represents the QTE **pure-topology condition**, rather than the complete field-driven Hamiltonian.
 
-## 5.5 Edge-current and path observation
+## 5.5 edge current and path observation
 
 V11 computes:
 
@@ -428,7 +428,7 @@ $$ w_{12}(0)=w_{23}(0)=1 $$
 
 The code updates the two path weights from:
 
-- edge-current magnitude;
+- edge current magnitude;
 - floor-to-floor $a\cdot v$ difference;
 - measurement residual difference;
 - optional displacement-response feedback;
@@ -531,7 +531,7 @@ V11 implements an `Aware_power` observation record through:
 | Incoming-wave observation | Implemented |
 | Structure-coupled field observation | Implemented |
 | Target-state hit observation | Implemented |
-| Floor-path and edge-current observation | Implemented |
+| Floor-path and edge current observation | Implemented |
 | Work/response observation | Implemented as normalized proxies |
 | Provenance and data-semantic observation | Implemented |
 | Fatal-topology criterion | Open |
@@ -704,7 +704,7 @@ The common interface is a repeated floor-domain observation. Component-level phy
 
 ## 11.4 Edge current
 
-The floor-state dynamic probes show stronger RMS edge-current concentration at `1F-2F` than at `2F-3F`. The edge-current ratio provides a phase-sensitive observation separate from the final path weights.
+The floor-state dynamic probes show stronger RMS edge current concentration at `1F-2F` than at `2F-3F`. The edge current ratio provides a phase-sensitive observation separate from the final path weights.
 
 ## 11.5 Path manifestation and displacement response
 
@@ -721,7 +721,7 @@ The repository preserves both histories.
 
 The fixed-path and dynamic-path probes retain similar one-step absolute-envelope correlations. This assigns the one-step $a\cdot v$ alignment primarily to QSM state evolution.
 
-The dynamic path weights and edge-current concentration provide the QTE evidence.
+The dynamic path weights and edge current concentration provide the QTE evidence.
 
 The current FATE evidence is the continuously updated `Aware_power` record. The control and re-evolution stages remain the next implementation step.
 
