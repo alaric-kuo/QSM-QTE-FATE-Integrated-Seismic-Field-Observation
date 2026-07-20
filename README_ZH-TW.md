@@ -88,7 +88,7 @@ V11 數值引擎及其 92 個正式輸出成果均未變更。V11.1 的工作，
 
 # 3. 共鳴能勢梯度理論（Resonance Power Gradient Theory）的輸入語言
 
-FATE 理論階層由 RPG 的質量生滅方程式開始：
+量子結構力學 QSM 理論階層由 共鳴能勢梯度 RPG 的質量生滅方程式開始：
 
 $$
 \frac{1}{m}\frac{dm}{dt}=\frac{a\cdot v}{c^2}
