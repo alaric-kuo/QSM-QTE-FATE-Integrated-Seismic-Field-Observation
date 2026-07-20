@@ -88,7 +88,7 @@ This floor-domain graph is the observational resolution available from the archi
 
 # 3. Resonance Power Gradient input language
 
-The FATE theoretical hierarchy begins with the RPG mass generation-dissolution equation:
+The QSM theoretical hierarchy begins with the RPG mass generation-dissolution equation:
 
 $$ \frac{1}{m}\frac{dm}{dt}=\frac{a\cdot v}{c^2} $$
 
