@@ -1,0 +1,7 @@
+QSM-QTE-FATE Integrated Seismic Field Observation — V12.2
+Case: El Centro 0.50 — passive-off
+Source: elcentro_0p50_07312012_poff_donghua_converted.csv
+
+QSM: mean signed corr=0.001585; mean abs-envelope corr=0.616659; final path dominance=0.000000; edge-current ratio=1.001457; mean manifested-work ratio=0.679362
+QTE: mean signed corr=0.037321; mean abs-envelope corr=0.737213; final path dominance=-0.003240; edge-current ratio=0.970402; mean manifested-work ratio=0.488207
+FATE: mean signed corr=0.258037; mean abs-envelope corr=0.589291; final path dominance=0.149563; edge-current ratio=2.010446; mean manifested-work ratio=0.555298

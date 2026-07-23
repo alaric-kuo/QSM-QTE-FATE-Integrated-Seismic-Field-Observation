@@ -1,72 +1,94 @@
 # Changelog
 
+## V12.2 — Three-stage public method chain and complete observation presentation
+
+**Numerical engine:** V12.2  
+**Documentation revision:** V12.2  
+**Release date:** 2026-07-23
+
+### Method architecture
+
+- Replaced the former five-probe public presentation with the intended sequential chain:
+
+  ```text
+  QSM → QTE → FATE
+  ```
+
+- Defined QSM as zero-diagonal, fixed-channel, boundary-input Power-state evolution with `H = -W`.
+- Defined QTE as Laplacian spatial topology-path evolution with `H = L(W)` and no continuous floor-state assimilation.
+- Defined FATE as the sensor-aware stage that continuously assimilates the measured three-floor state and response feedback at `Aware_power`.
+- Removed boundary-only, fixed-path, no-feedback, and other sensitivity groups from the public method list.
+
+### Physical observation outputs
+
+- Retained independent physical observations under the relevant method instead of treating them as extra algorithms.
+- Restored and standardized per-case figures for:
+  - Edge Current Ratio;
+  - QTE path-weight evolution;
+  - FATE sensor-aware path evolution;
+  - QTE/FATE edge-current histories;
+  - QTE/FATE path-dominance histories;
+  - target-hit and state awareness;
+  - work-compatible proxy ratios;
+  - acceleration/force–displacement work-loop proxy;
+  - downstream response manifestation.
+- Standardized the main method figures as one QSM, one QTE, and one FATE three-floor waveform figure per case.
+- Split cross-case FATE path dominance and manifested-work ratio into independent figures.
+- Restored a cross-case three-floor comparison with separate QSM, QTE, and FATE panels.
+
+### Data and documentation
+
+- Replaced the former case CSV arrangement with:
+  - `01_qsm_qte_fate_method_summary.csv`;
+  - `02_qsm_qte_fate_floor_summary.csv`;
+  - `03_qsm_qte_fate_full_history.csv`.
+- Expanded the canonical history to 149 columns while retaining a maximum of 3,000 inspection rows.
+- Rewrote all four case READMEs and the cross-case README in one consistent format.
+- Updated the English and Traditional Chinese GitHub landing pages to V12.2 filenames, results, method boundaries, lifecycle position, and reproduction instructions.
+
+### Numerical continuity
+
+- V12.1 and V12.2 histories are numerically identical for all four cases across all 149 columns.
+- V12.2 FATE mapped core histories are numerically identical to the former V11 principal sensor-assimilated Laplacian histories.
+- V12.2 changes organization, artifact completeness, and presentation; it does not silently alter the retained FATE result.
+
+---
+
+## V12.1 — Complete physical observation restoration
+
+- Preserved the sequential QSM→QTE→FATE method architecture introduced in V12.
+- Restored physical observation outputs that had been hidden by the four-figure V12 compression.
+- Restored Edge Current Ratio, path weights, edge-current histories, path dominance, target hit, work proxies, traditional work loops, and response manifestation.
+- Restored the full-history trace with measured and three-stage fields.
+
+---
+
+## V12 — Three-stage method refactor
+
+- Replaced the five parallel observation settings with the intended sequential method architecture.
+- Introduced separate QSM, QTE, and FATE execution configurations.
+- Standardized stage order and three-floor waveform figures.
+- The first V12 presentation over-compressed the independent observation outputs; this was corrected in V12.1.
+
+---
+
 ## V11.1 — Theory, implementation, and repository presentation
 
-**Documentation revision:** V11.1  
-**Numerical engine:** V11  
-**Formal numerical outputs:** unchanged
-
-### Theory alignment
-
-- Restored the canonical QSM distinction between the Hamiltonian channel law $\hat H$ and the Hamiltonian Power operator $\hat H_p=-i(\hat H/\hbar)$.
-- Documented the QSM evolution $\lvert\Psi(t)\rangle=e^{\hat H_p t}\lvert\Psi(0)\rangle$ and the Power manifestation equation $P(t)=(a\cdot v)\hat H_p\lvert\Psi(t)\rangle$.
-- Documented fidelity as the target-state hit ratio and separated it from total Power manifestation.
-- Aligned the QTE methodological mainline as `Viewpoint → Topology → Channel → Evolution → Manifestation → Action`.
-- Corrected the QTE dataflow to include $\rho(t)$ between $\psi(t)$ and $\Delta V_{\mathrm{resp}}(t)$.
-- Documented the bridge from QSM channels to the QTE field-driven Hamiltonian through $V_{\mathrm{bg}}$.
-- Documented the FATE sequence `Aware_power → Alert_control → Alive_evolve`.
-
-### Implementation map
-
-- Recorded the empirical complex state compiled from measured displacement, velocity, and acceleration.
-- Recorded the numerical evolution `U = exp(-iHΔt)` and its relation to $e^{\hat H_p\Delta t}$ under normalized units.
-- Recorded state fidelity, nodal fidelity, target-hit work-compatible reconstruction, edge current, and dynamic floor-path manifestation.
-- Marked the present implementation as floor-domain `Aware_power`.
-- Identified the open layers: physical Power calibration, member-level topology, background Power field, complete manifestation score, alert control, intervention, and post-intervention re-evolution.
-
-### Building life cycle
-
-- Added design-stage exploration of Power input, geometry, topology, channel continuity, blockage, weak-plane placement, and dissipation alternatives.
-- Added as-built and commissioning use of verified geometry, materials, members, joints, devices, and boundary conditions to form field-driven channels.
-- Added operation-stage sensing, state correction, feedback, active control, and re-evolution.
-
-### Repository presentation
-
-- Reorganized the repository root around seven public-facing files.
-- Consolidated V11 and V11.1 history into this `CHANGELOG.md`.
-- Removed local publishing instructions and duplicate release documents from the repository root.
-- Improved README equation rendering, matrix rendering, arrow-flow layout, citations, DOI placement, and rights attribution.
-- Regenerated `SHA256SUMS.txt` after the final root cleanup.
+- Documented the canonical distinction between the Hamiltonian channel law and the Hamiltonian Power operator.
+- Aligned the QTE methodological mainline and field-driven Hamiltonian roadmap.
+- Documented `Aware_power → Alert_control → Alive_evolve`.
+- Added the building-life-cycle interpretation.
 
 ---
 
 ## V11 — Formal integrated observation release
 
-### Method-chain presentation
+- Established the first four-case integrated executable observation release.
+- Preserved source provenance, timing, case manifests, cross-case summaries, and fixed numerical settings.
+- Used a five-probe experimental presentation that was later reorganized in V12.
 
-- Renamed the release to **QSM–QTE–FATE Integrated Seismic Field Observation**.
-- Added QSM–QTE–FATE to every case and cross-case figure title.
-- Added the integrated method chain to generated CSV tables.
-- Renamed the four case CSV files to include `qsm_qte_fate`.
+### Repository layout continuity
 
-### Interpretation
-
-- Reported QTE as a floor-domain path indication at the available experimental resolution.
-- Reported FATE as `Aware_power`.
-- Retained displacement as downstream response evidence.
-- Used `near-equal / no clear final path indication` for near-zero path dominance.
-- Applied one unchanged numerical configuration across all cases without case-specific fitting.
-
-### Timing and provenance
-
-- Added preparation, probe-worker, artifact-generation, and wall-clock timing.
-- Added a root release log.
-- Added execution timing to each case JSON manifest.
-- Preserved source-file and signal-provenance information.
-
-### Numerical engine
-
-- Retained the V10 multi-core process engine.
-- Retained chunked C-engine CSV parsing.
-- Retained memory-mapped case feature sharing.
-- Retained the O(n) running work maximum.
+- Preserved the established public repository structure: `cases/`, `code/`, `cross_case/`, `data/`, `release_logs/`, and `scripts/`.
+- Mapped the V12.2 cross-case artifacts into `cross_case/` rather than publishing the generated output-folder name `00_cross_case/` at the repository root.
+- Retained dataset provenance in `data/README.md`, execution history in `release_logs/`, and PowerShell utilities in `scripts/`.

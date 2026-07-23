@@ -1,0 +1,7 @@
+QSM-QTE-FATE Integrated Seismic Field Observation — V12.2
+Case: Kobe 0.35 — semi-active
+Source: kobe_035_semi_active_avg_converted.csv
+
+QSM: mean signed corr=0.064779; mean abs-envelope corr=0.582002; final path dominance=0.000000; edge-current ratio=0.998045; mean manifested-work ratio=0.676755
+QTE: mean signed corr=-0.015933; mean abs-envelope corr=0.676630; final path dominance=-0.007221; edge-current ratio=0.958443; mean manifested-work ratio=0.548859
+FATE: mean signed corr=0.656291; mean abs-envelope corr=0.918428; final path dominance=0.542635; edge-current ratio=4.391884; mean manifested-work ratio=0.610816

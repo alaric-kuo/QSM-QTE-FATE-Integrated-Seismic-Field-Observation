@@ -1,8 +1,6 @@
-# Experimental Data
+# Experimental Data — V12.2
 
 The original NEES source files used by this release are not redistributed in this repository.
-
-The terms `converted` and `avg` are part of the filenames supplied in the dataset package. No additional author-side conversion, filtering, smoothing, denoising, coordinate harmonization, or manual preprocessing was applied before the formal V11 analysis.
 
 ## Source dataset
 
@@ -20,6 +18,12 @@ kobe_035_semi_active_avg_converted.csv
 morgan_1_p_off_avg_converted.csv
 ```
 
-Place these files in the local data-source directory supplied to the V11 numerical engine.
+Place these files in the local `Data Source` directory beside the repository when running the V12.2 scripts.
+
+## Signal provenance
+
+- Kobe and Morgan Hill use direct analytical displacement, velocity, and acceleration channels on all three floors.
+- The El Centro records use mixed displacement-coordinate semantics; velocity is derived from displacement while acceleration is directly measured.
+- These provenance differences are retained in the case-level and cross-case interpretation rather than silently harmonized.
 
 The source files remain excluded from Git because of file size and data-redistribution considerations.

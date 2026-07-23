@@ -1,59 +1,18 @@
-QSM-QTE-FATE Integrated Seismic Field Observation — NEES-2011-1076 V11
+QSM-QTE-FATE Integrated Seismic Field Observation
+NEES-2011-1076 Three-Stage Complete Observation Release V12.2
+
 Case: Kobe 0.35 — semi-active
-Source file: kobe_035_semi_active_avg_converted.csv
-Output directory: D:\OneDrive\文件\QSM-QTE-FATE\QSM-QTE-FATE Seismic Field Evolution - NEES-2011-1076\outputs_qsm_qte_fate_nees_2011_1076_v11\cases\kobe_035_semi_active
-Output files: 20 / 20
-Figure event window: 7.597168–31.025879 s
+Source: kobe_035_semi_active_avg_converted.csv
+Event window: 7.597168 s to 31.025879 s
+Data preparation: 0.226 s
+Artifact generation: 4.233 s
+Parallel method workers configured: 8
 
-Method scope
-  QSM: one-step structure-coupled power-state evolution.
-  QTE: floor-domain topology-path indication at the available resolution.
-  FATE: Aware_power observation layer only in this release.
-  Displacement: downstream response evidence.
+Method elapsed times:
+  QSM: 0.486 s
+  QTE: 0.723 s
+  FATE: 0.852 s
 
-Floor-state path indication
-  Higher-weight final path indication: 1F-2F lower-interface indication
-  Supporting floor-state dynamic probes: 3 / 3
-  Main final path-dominance index: 0.543
-  Mean edge-current ratio 1F-2F / 2F-3F: 4.564
-
-Boundary-input-only diagnostic reference
-  Final path indication: near-equal / no clear final path indication
-  Final path-dominance index: -0.007
-  Mean signed a*v correlation: -0.016
-  Mean absolute-envelope a*v correlation: 0.677
-
-Floor correlation: boundary-input-only vs floor-state assimilated
-  1F: boundary signed=0.087, boundary abs=0.757; assimilated signed=0.567, assimilated abs=0.851
-  2F: boundary signed=0.012, boundary abs=0.725; assimilated signed=0.709, assimilated abs=0.949
-  3F: boundary signed=-0.147, boundary abs=0.548; assimilated signed=0.693, assimilated abs=0.955
-
-Work-compatible proxy summary
-  Work-capacity scale: 1.654
-  Mean manifested work ratio: 0.611
-  Mean unmanifested work margin: 0.389
-
-Selected signal provenance
-  1F: u=direct:First Floor Displacement - Analytical; v=direct:First Floor Velocity Sensor - Analytical; a=direct:First Floor Acceleration - Analytical
-  2F: u=direct:Second Floor Displacement - Analytical; v=direct:Second Floor Velocity Sensor - Analytical; a=direct:Second Floor Acceleration - Analytical
-  3F: u=direct:Third Floor Displacement - Analytical; v=direct:Third Floor Velocity Sensor - Analytical; a=direct:Third Floor Acceleration - Analytical
-
-Execution timing
-  Data preparation: 0.227 s
-  Probe worker elapsed times:
-    laplacian_dynamic_feedback: 2.650 s
-    zero_diagonal_dynamic_feedback: 2.603 s
-    boundary_input_only_evolution: 2.197 s
-    dynamic_path_no_response_feedback: 2.691 s
-    fixed_path_reference: 1.800 s
-  Sum of probe worker elapsed: 11.941 s
-  Longest probe worker elapsed: 2.691 s
-  Case artifact generation/finalization: 2.778 s
-  Accounted case task time: 14.946 s
-  Timing note: probe worker times are process elapsed times and are not directly additive as wall-clock time because probes run in parallel.
-
-V11 performance engine
-  Parallel probe workers: 8
-  CSV parser: pandas C engine, chunked and column-selected
-  Field features: computed once per case and shared by memory map
-  Probe loop: O(n) running work maximum
+Public method order: QSM -> QTE -> FATE
+No boundary-only, fixed-path, or no-feedback sensitivity groups are generated.
+The complete physical observation suite is retained: alignment, path weights, edge current, path dominance, target hit, work proxies, structural work loops, and response manifestation.

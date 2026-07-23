@@ -1,0 +1,17 @@
+{
+  "release": "V12.2",
+  "output_files": [
+    "README.md",
+    "01_cross_case_method_summary.csv",
+    "02_cross_case_floor_summary.csv",
+    "03_cross_case_qsm_qte_fate_bar.png",
+    "04_cross_case_edge_current_ratio.png",
+    "05_cross_case_fate_path_dominance.png",
+    "06_cross_case_fate_manifested_work_ratio.png",
+    "07_cross_case_three_floor_alignment.png",
+    "08_CROSS_CASE_REPORT.md",
+    "09_case_registry.json",
+    "10_cross_case_file_manifest.json"
+  ],
+  "documentation_revision": "V12.2 README narrative update"
+}

@@ -1,874 +1,464 @@
-# QSM-QTE-FATE Integrated Seismic Field Observation
+# QSM–QTE–FATE Integrated Seismic Field Observation
 
-## NEES-2011-1076 - Formal Release V11.1
+## NEES-2011-1076 — Formal Release V12.2
+
+[繁體中文](README_ZH-TW.md)
 
 **Author and theory developer:** Dr. Han-Jung (Alaric) Kuo  
-**Organization:** A&J Management Consulting Limited Company 
+**Organization:** A&J Management Consulting Limited Company  
+**Numerical engine:** V12.2  
+**Documentation revision:** V12.2
 
-**Numerical engine:** V11  
-**Documentation revision:** V11.1
+> **One sequential method chain; complete physical observation outputs.**
 
-# 1. Start here: what this study observes
+```text
+RPG → QSM → QTE → FATE
+```
 
-This study asks a direct engineering question:
+This repository applies the QSM–QTE–FATE framework to four archived records from the NEES-2011-1076 three-story steel-frame experiment. It asks a direct engineering question:
 
-> **When earthquake motion enters a structure, along which structural channels does Power travel, where does it concentrate, and can archived sensor records reveal that evolving path?**
+> **When earthquake motion enters a structure, how does the Power state evolve, how does the spatial path become organized, and what becomes visible after the measured structural state continuously enters the observation?**
 
-The archived NEES records provide displacement, velocity, and acceleration histories at different floors. Those measurements usually appear as separate response quantities. This release reads them together as a time-evolving structural Power state and follows the chain from seismic input, through structural coupling, to target-state hit, path concentration, and downstream displacement response.
+V12.2 is organized around three successive methods only:
 
-The resulting observation is easier to understand in one line:
+```text
+QSM → QTE → FATE
+```
 
-**earthquake input → measured structural motion → evolving Power state → dominant transmission path → awareness of where intervention may be needed**
-
-## 1.1 What the four records show
-
-Across four seismic records and three control conditions, the present implementation produces three recurring observations.
-
-First, the Kobe 0.35 semi-active and Morgan Hill 1.00 passive-off records show strong one-step alignment between the QSM-evolved floor-wise `a·v` manifestation and the next measured response. Their mean absolute-envelope correlations are 0.918 and 0.916.
-
-Second, all four structure-coupled cases repeatedly indicate the `1F-2F` floor interface. The boundary-input-only reference remains close to equal path weighting. The internal path indication therefore emerges from the measured structural state rather than from the earthquake input by itself.
-
-Third, the El Centro cases preserve the effects of mixed signal coordinates and derived velocity. Their irregularity remains part of the observation record, making data provenance and measurement semantics visible within the analysis.
-
-The current resolution is floor-domain awareness. Member-level damage localization, physical Power calibration, automated alert criteria, and closed-loop control remain later implementation stages.
-
-## 1.2 What RPG, QSM, QTE, and FATE each contribute
-
-| Layer | Plain-language role |
-|---|---|
-| **RPG** | Supplies `a·v` as the measurable unit-Power language connecting motion to Power per unit mass. |
-| **QSM** | Evolves the structural Power state through Hamiltonian Power channels and asks which target state the evolving field hits. |
-| **QTE** | Makes the topology, edge current, path concentration, and manifestation history readable. |
-| **FATE** | Carries the observation toward Power awareness, alert and control, and post-intervention re-evolution. |
-
-**Theoretical order:** RPG → QSM → QTE → FATE
-
-**Implemented chain:** measured floor motion → work-compatible input scale `a·v` → empirical structural state → QSM Hamiltonian Power-state evolution → target-state fidelity and target-hit work → QTE floor-domain path and edge current manifestation → FATE `Aware_power`
-
-## 1.3 Why this repository exists
-
-The three theory papers establish the conceptual and mathematical architecture. This repository shows how that architecture behaves when it is forced to pass through real experimental records, executable code, fixed parameters, cross-case comparison, provenance, and reproducibility checks.
-
-The V11 numerical engine and its 92 formal output artifacts remain unchanged. V11.1 makes the theory–code relationship explicit and places the method across the building life cycle:
-
-- **Design:** explore how candidate Power inputs interact with geometry and topology.
-- **As-built / commissioning:** introduce verified geometry, material properties, members, joints, devices, and boundary conditions to form field-driven channels.
-- **Operation:** use sensing to correct the evolving state and connect awareness to feedback, intervention, and re-evolution.
-
-## 1.4 How to read the repository
-
-For a first reading, this chapter and Chapter 11 provide the research question and the main cross-case findings.
-
-For the conceptual architecture, Chapters 2, 6, and 7 explain the theory hierarchy, FATE, and the building life cycle.
-
-For the technical implementation, Chapters 3 through 9 map RPG, QSM, QTE, FATE, the numerical flow, and the five observation probes.
-
-For reproduction and verification, Chapters 10 and 13 through 16 provide the dataset, repository structure, execution instructions, timing record, and citations.
+The previous five-probe presentation is no longer used. Edge current, path dominance, target hit, work-compatible proxies, acceleration/force–displacement work loops, and response manifestation remain in the release because they are independent physical observations—not extra algorithms and not sensitivity groups.
 
 ---
 
-# 2. Theory hierarchy and implementation scope
+# 1. Start here: what V12.2 actually implements
 
-| Layer | Theoretical role | V11 implementation |
+| Stage | V12.2 operator and information state | Present role |
 |---|---|---|
-| **RPG** | Provides the unit-Power and mass-boundary language through $a\cdot v$ | Uses measured floor acceleration and velocity to form the work-compatible input scale |
-| **QSM** | Converts stiffness coupling into Hamiltonian Power channels and evolves the structural Power state | Uses effective three-floor channel matrices, complex state evolution, fidelity, and target-hit work |
-| **QTE** | Compiles viewpoint, topology, channel, evolution, manifestation, and action | Implements a floor-domain topology, Laplacian and zero-diagonal probes, edge current, and dynamic path indication |
-| **FATE** | Extends QTE into `Aware_power · Alert_control · Alive_evolve` | Reaches the `Aware_power` observation layer |
+| **QSM** | `H = -W`; zero diagonal; fixed relational channels; boundary input | Evolves the input-driven Power state through non-diagonal structural relations |
+| **QTE** | `H = L(W)`; Laplacian diagonal restored; dynamic path; boundary input | Adds spatial topology and observes path-weight and edge-current evolution |
+| **FATE** | QTE evolution + continuous three-floor state assimilation + response feedback | Forms sensor-aware `Aware_power`, including path, target hit, work-compatible manifestation, and response |
 
-The current state space contains three floor nodes and two inter-floor paths:
+The stages are sequential and receive different information. Their correlations are therefore **not a leaderboard between three competing prediction models**.
+
+The current QTE execution is a **topology-only floor-domain implementation**. It does not claim that a complete as-built field diagonal containing physical mass, stiffness, damping, member capacities, joints, damage states, and control-device states has already been inserted.
+
+The complete future QTE field-driven Hamiltonian is represented conceptually as:
+
+$$
+H_{QTE}=\kappa L_{\mathrm{geo}}(W)+\alpha_v\operatorname{diag}(V_{\mathrm{bg}})
+$$
+
+V12.2 currently executes the first term at the available three-floor resolution.
+
+---
+
+# 2. Main four-case results
+
+## 2.1 Stage-wise one-step observation alignment
+
+Values are reported as:
+
+```text
+mean signed correlation / mean absolute-envelope correlation
+```
+
+| Case | QSM | QTE | FATE | QSM→QTE Δabs | QTE→FATE Δabs |
+|---|---:|---:|---:|---:|---:|
+| El Centro 0.50 — uncontrolled | -0.135 / 0.671 | -0.039 / 0.765 | 0.323 / 0.615 | +0.094 | -0.150 |
+| El Centro 0.50 — passive-off | 0.002 / 0.617 | 0.037 / 0.737 | 0.258 / 0.589 | +0.121 | -0.148 |
+| Kobe 0.35 — semi-active | 0.065 / 0.582 | -0.016 / 0.677 | **0.656 / 0.918** | +0.095 | +0.242 |
+| Morgan Hill 1.00 — passive-off | 0.049 / 0.604 | 0.046 / 0.699 | **0.753 / 0.952** | +0.095 | +0.253 |
+
+![Cross-case QSM-QTE-FATE stage-wise alignment](cross_case/03_cross_case_qsm_qte_fate_bar.png)
+
+The repeated QSM→QTE increase indicates that the Laplacian topology organizes the event envelope before continuous floor-state assimilation. Signed correlations remain close to zero at QSM and QTE, showing that boundary-driven evolution alone does not reconstruct the internal floor-specific direction and phase.
+
+Kobe and Morgan Hill use direct analytical displacement, velocity, and acceleration channels on all floors. When those measured floor states continuously enter FATE, the mean absolute-envelope correlations rise to `0.918` and `0.952`.
+
+The two El Centro records use mixed displacement coordinates—1F relative, 2F and 3F absolute—and velocity differentiated from displacement. Their FATE mean-envelope correlations decrease while the 1F signed and envelope alignment remain substantially stronger than the upper-floor values. This is retained as a **data-semantic observation**, not averaged away.
+
+## 2.2 Floor-wise FATE alignment
+
+| Case | 1F signed/abs | 2F signed/abs | 3F signed/abs |
+|---|---:|---:|---:|
+| El Centro 0.50 — uncontrolled | 0.778 / 0.900 | 0.093 / 0.477 | 0.097 / 0.469 |
+| El Centro 0.50 — passive-off | 0.680 / 0.799 | 0.053 / 0.501 | 0.040 / 0.468 |
+| Kobe 0.35 — semi-active | 0.567 / 0.851 | 0.709 / 0.949 | 0.693 / 0.955 |
+| Morgan Hill 1.00 — passive-off | 0.733 / 0.907 | 0.785 / 0.974 | 0.740 / 0.974 |
+
+![Cross-case three-floor alignment](cross_case/07_cross_case_three_floor_alignment.png)
+
+## 2.3 Sensor-aware path manifestation
+
+| Case | FATE final dominance `D` | FATE mean `D` | FATE maximum `D` | FATE edge-current ratio `J12/J23` | Mean manifested-work ratio |
+|---|---:|---:|---:|---:|---:|
+| El Centro 0.50 — uncontrolled | 0.140 | 0.435 | 0.692 | 3.763 | 0.507 |
+| El Centro 0.50 — passive-off | 0.150 | 0.210 | 0.421 | 2.010 | 0.555 |
+| Kobe 0.35 — semi-active | **0.543** | 0.368 | 0.619 | **4.392** | **0.611** |
+| Morgan Hill 1.00 — passive-off | 0.079 | 0.205 | 0.462 | 1.368 | 0.552 |
+
+![Cross-case Edge Current Ratio](cross_case/04_cross_case_edge_current_ratio.png)
+
+![Cross-case FATE final path dominance](cross_case/05_cross_case_fate_path_dominance.png)
+
+QSM and QTE remain near equal in path weighting and edge-current ratio under boundary-driven observation. A positive `1F–2F` path indication appears in all four FATE cases after measured floor states enter the field. The temporal histories are not identical:
+
+- **Kobe:** strong and comparatively persistent lower-interface concentration.
+- **Morgan Hill:** stronger intermediate concentration followed by substantial redistribution; the final value alone understates the event history.
+- **El Centro uncontrolled:** sustained concentration with a modest final return.
+- **El Centro passive-off:** sharper mid-record transition and later redistribution.
+
+This is a floor-domain path manifestation. It is not yet independent proof of a member-level damage plane.
+
+## 2.4 Work-compatible manifestation
+
+![Cross-case FATE manifested-work ratio](cross_case/06_cross_case_fate_manifested_work_ratio.png)
+
+The work-compatible ratios are normalized within each case. They support internal reading of manifested and unmanifested proxy capacity; they are **not physical energy percentages for direct comparison between earthquakes**. The repeated 3F ceiling in the current normalization is documented as an implementation-bound behavior rather than an independently calibrated efficiency.
+
+---
+
+# 3. Theoretical and engineering chain
+
+## 3.1 RPG: directly calculable unit-Power language
+
+The theoretical lineage begins with Resonance Power Gradient Theory:
+
+$$
+\frac{1}{m}\frac{dm}{dt}=\frac{a\cdot v}{c^2}
+$$
+
+At the engineering observation level used here:
+
+$$
+\frac{P}{m}=a\cdot v
+$$
+
+The NEES release does not provide the physical floor masses required for absolute watts. V12.2 therefore retains `a·v` as a mass-normalized, work-compatible Power-state quantity. It is the direct calculable expression used by the model, not merely a plotting convenience.
+
+The connection to conventional structural dynamics begins from:
+
+$$
+m\ddot{x}+c\dot{x}+kx=f(t)
+$$
+
+Multiplying by velocity produces the instantaneous Power balance between kinetic change, elastic storage, damping dissipation, and external input. Figure `17_force_displacement_work_loop_proxy.png` is retained in every case as the traditional structural-mechanics entrance to that Power reading.
+
+## 3.2 QSM: zero-diagonal Hamiltonian Power-state evolution
+
+QSM removes the diagonal self-wells and exposes non-diagonal structural relations:
+
+$$
+H_{QSM}=-W
+$$
+
+Under normalized units, the code evolves the complex structural state through:
+
+$$
+U(\Delta t)=e^{-iH\Delta t}
+$$
+
+The current V12.2 QSM stage is deliberately clean:
+
+```text
+boundary input
+→ zero-diagonal relational Hamiltonian
+→ one-step Power-state evolution
+```
+
+It establishes what the incoming excitation can carry through the relational channel structure before topology and continuous sensing are added.
+
+## 3.3 QTE: Laplacian spatial topology-path evolution
+
+QTE restores the Laplacian diagonal:
+
+$$
+L(W)=D(W)-W
+$$
+
+and currently executes:
+
+$$
+H_{QTE}=L(W)
+$$
+
+The two observable floor-domain paths are:
 
 ```text
 [1F] —— w12 —— [2F] —— w23 —— [3F]
 ```
 
-This floor-domain graph is the observational resolution available from the archived records. Member-, joint-, and component-level topology requires a corresponding BIM/IFC or as-built structural graph.
-
----
-
-# 3. Resonance Power Gradient input language
-
-The QSM theoretical hierarchy begins with the RPG mass generation-dissolution equation:
-
-$$ \frac{1}{m}\frac{dm}{dt}=\frac{a\cdot v}{c^2} $$
-
-The local unit-Power criterion is:
-
-$$ P_u(t)=a(t)\cdot v(t) $$
-
-At engineering scale, $a\cdot v$ expresses Power per unit mass:
-
-$$ \frac{P}{m}=a\cdot v $$
-
-The NEES records do not provide the physical floor masses required to convert every floor channel into absolute watts. V11 therefore uses $a\cdot v$ as a mass-normalized, work-compatible Power input:
-
-$$ \frac{dW}{m}\approx a\cdot du=a\cdot v\cdot dt $$
-
-The code preserves both the signed quantity $a\cdot v$ and its absolute accumulated work-compatible quantity.
-
----
-
-# 4. Quantum Structural Mechanics
-
-## 4.1 From stiffness assets to Power channels
-
-Classical structural mechanics writes:
-
-$$ F=Kx $$
-
-QSM rereads the stiffness matrix as both a resistance asset and a map of structural coupling. In the first QSM channel condition, the diagonal self-Power wells are removed so that the off-diagonal transmission channels become visible.
-
-**QSM transformation:** stiffness matrix $K$ → remove diagonal self-Power wells → retain off-diagonal coupling → form Hamiltonian Power channels
-
-A channel transmission coefficient $\gamma_{ij}$ describes the ability of Power to pass between nodes $i$ and $j$. Channel narrowing, damage, or obstruction changes $\gamma_{ij}$ and redirects the evolving structural state.
-
-## 4.2 Hamiltonian Power operator
-
-QSM begins from the standard Hamiltonian evolution equation:
-
-$$ i\hbar\frac{d}{dt}\lvert\Psi(t)\rangle=\hat H\lvert\Psi(t)\rangle $$
-
-QSM defines the **Hamiltonian Power operator** as:
-
-$$ \hat H_p=-i\left(\frac{\hat H}{\hbar}\right) $$
-
-The structural Power state therefore satisfies:
-
-$$ \frac{d}{dt}\lvert\Psi(t)\rangle=\hat H_p\lvert\Psi(t)\rangle $$
-
-Its formal time evolution is:
-
-$$ \lvert\Psi(t)\rangle=e^{\hat H_p t}\lvert\Psi(0)\rangle $$
-
-This operator definition is central to QSM:
-
-- $\hat H$ is the Hamiltonian description of the structural channel law.
-- $\hat H_p$ absorbs the phase factor $-i$ and the scale factor $\hbar^{-1}$.
-- $e^{\hat H_p t}$ advances the structural Power state directly.
-
-## 4.3 QSM Power manifestation
-
-The QSM Power manifestation equation is:
-
-$$ P(t)=(a\cdot v)\hat H_p\lvert\Psi(t)\rangle $$
-
-For a spatial structural state:
-
-$$ P(x,t)=(a\cdot v)\hat H_p\lvert\Psi(x,t)\rangle $$
-
-The three factors have distinct roles:
-
-| QSM object | Role |
-|---|---|
-| $a\cdot v$ | Real dynamic Power input scale per unit mass |
-| $\hat H_p$ | Hamiltonian Power transformation through structural channels |
-| $\lvert\Psi(t)\rangle$ | Evolving structural Power state |
-
-For experimental applications, the effective input may be written as $P_{\mathrm{input}}(t)$:
-
-$$ P(t)\sim P_{\mathrm{input}}(t)\hat H_p\lvert\Psi(t)\rangle $$
-
-The measured $a(t)\cdot v(t)$ provides the direct first-order basis for $P_{\mathrm{input}}(t)$ in this release.
-
-## 4.4 Fidelity as target-state hit ratio
-
-QSM observes where the evolving state hits through fidelity:
-
-$$ Fid(t)=\left\lvert\langle\Psi_{\mathrm{target}}\vert\Psi(t)\rangle\right\rvert^2 $$
-
-For a target reduced to structural node $n$:
-
-$$ Fid^{(n)}(t)=\lvert\Psi_n(t)\rvert^2 $$
-
-Fidelity is the target-state hit ratio. The real target-hit Power is interpreted as:
-
-$$ P_{\mathrm{real}}^{\mathrm{target}}(t)\sim P_{\mathrm{input}}(t)Fid^{\mathrm{target}}(t) $$
-
-The accumulated target-hit effective work is:
-
-$$ W_{\mathrm{hit}}^{\mathrm{target}}(T)=\int_0^T P_{\mathrm{input}}(t)Fid^{\mathrm{target}}(t)\,dt $$
-
-These equations separate the input scale, the evolving state, and the target hit.
-
-## 4.5 Exact correspondence between QSM theory and V11 code
-
-The V11 code stores the effective channel matrix in the variable `H`. It then computes:
-
-```python
-evals, evecs = np.linalg.eigh(H)
-U = (evecs * np.exp(-1j * evals * dt)) @ evecs.conj().T
-```
-
-This is the numerical form:
-
-$$ U(\Delta t)=e^{-iH\Delta t} $$
-
-Under normalized units $\hbar=1$, this corresponds to:
-
-$$ e^{\hat H_p\Delta t}=e^{-iH\Delta t} $$
-
-The code does **not** redefine $\hat H_p$ as the matrix `H`. The correspondence is:
-
-| Representation level | Object |
-|---|---|
-| Theoretical Hamiltonian channel law | $\hat H$ |
-| QSM Hamiltonian Power operator | $\hat H_p=-i(\hat H/\hbar)$ |
-| Code-level effective channel matrix | `H` |
-| Code-level evolution operator | `U = exp(-iHΔt)` |
-
-The code uses two effective channel matrices:
-
-```python
-if operator_key == "laplacian":
-    H = L
-elif operator_key == "zero_diagonal":
-    H = -W
-```
-
-The zero-diagonal form isolates off-diagonal transmission channels. The Laplacian form carries the pure-topology channel condition used in the QTE bridge.
-
-## 4.6 Measurement-driven state construction in V11
-
-The theoretical QSM state is $\lvert\Psi(t)\rangle$. The archived experiment provides displacement, velocity, and acceleration records rather than a directly measured complex wavefunction.
-
-V11 therefore compiles the measured floor signals into a normalized complex state. The code uses:
-
-```python
-energy = v_norm**2 + (omega_norm * u_norm)**2 + 0.25 * a_norm**2
-amp = np.sqrt(energy / np.sum(energy, axis=1, keepdims=True))
-phase = np.arctan2(omega_norm * u_norm, v_norm)
-psi = amp * np.exp(1j * phase)
-```
-
-This is the **V11 measurement encoding** used to enter the QSM state space. It is an implementation choice for this dataset. It does not replace the canonical QSM equations and does not create a new theoretical definition of $\lvert\Psi(t)\rangle$.
-
-## 4.7 One-step evolution and measurement update
-
-For each time step, V11 uses measurements through time $k$ → builds the current complex structural state → evolves that state with `U = exp(-iHΔt)` → reads the evolved target-state fidelity → reconstructs the next floor-wise `a·v` manifestation → compares it with measured `a·v` at $k+1$ → assimilates the $k+1$ state.
-
-The code-level evolution is:
-
-```python
-psi_prior = normalize_complex(U @ (psi + source_gain * dt * source))
-```
-
-The state fidelity and nodal fidelity are computed as:
-
-```python
-state_fidelity = abs(np.vdot(psi_meas[k + 1], psi_prior)) ** 2
-fid = np.abs(psi_prior) ** 2
-```
-
-The floor-wise work-compatible manifestation used for the one-step comparison is:
-
-```python
-evolved_av_next[k + 1] = p_total * fid * evolved_sign
-```
-
-This line is the V11 observational reconstruction of the next signed $a\cdot v$ field. It is a code-level operationalization of target-hit Power. The canonical QSM Power equation remains:
-
-$$ P(t)=(a\cdot v)\hat H_p\lvert\Psi(t)\rangle $$
-
-V11 currently validates the state-evolution and fidelity-weighted manifestation chain. Absolute calibration of the full operator-valued Power vector remains a later engineering step.
-
-## 4.8 QSM implementation status
-
-| QSM element | V11 status | Current implementation |
-|---|---|---|
-| Stiffness-to-channel ontology | **Implemented at floor-domain level** | Three-floor effective channel graph |
-| Off-diagonal channel condition | **Implemented** | Zero-diagonal probe with `H = -W` |
-| Hamiltonian Power operator evolution | **Implemented numerically** | `U = exp(-iHΔt)` corresponds to `exp(H_p Δt)` under normalized units |
-| Structural complex state | **Implemented as measurement encoding** | Complex state compiled from measured `u`, `v`, and `a` |
-| Target-state fidelity | **Implemented** | Full-state overlap and nodal modulus square |
-| Target-hit Power | **Implemented as work-compatible reconstruction** | Measured `a·v` scale distributed through nodal fidelity and evolved phase |
-| Target-hit work | **Implemented as proxy** | Time integration of the reconstructed floor manifestation |
-| Absolute watts and joules | **Open calibration task** | Requires physical floor masses and complete channel calibration |
-| Long-horizon autonomous evolution | **Open validation task** | Current record uses one-step evolution followed by measurement update |
-| Member-level target states | **Open model-resolution task** | Current targets are three floor nodes |
-
----
-
-# 5. Quantum Topology Express
-
-## 5.1 QTE methodological mainline
-
-The QTE methodological mainline is:
-
-**Viewpoint → Topology → Channel → Evolution → Manifestation → Action**
-
-Here, **Manifestation** is the readable emergence of Power Power density, dynamic Power difference, edge current, manifestation rate, cumulative manifestation quantity, and manifestation score from the evolving topology-field state.
-
-The computational dataflow is:
-
-**$R$ → $A$ → $W$ → $L_{\mathrm{geo}}$ → $V_{\mathrm{bg}}$ → $H$ → $\psi(0)$ → $\psi(t)$ → $\rho(t)$ → $\Delta V_{\mathrm{resp}}(t)$ → $J(t)$ → $\Gamma(t)$ → $m(t)$ → $M(t)$**
-
-where:
-
-| Symbol | QTE meaning |
-|---|---|
-| $R$ | Node set |
-| $A$ | Adjacency matrix |
-| $W$ | Geometric or channel weights |
-| $L_{\mathrm{geo}}$ | Geometric Laplacian |
-| $V_{\mathrm{bg}}$ | Background Power field |
-| $H$ | Complete field-driven Hamiltonian |
-| $\psi(t)$ | Evolving QTE state |
-| $\rho(t)$ | Power density |
-| $\Delta V_{\mathrm{resp}}(t)$ | Dynamic Power difference |
-| $J(t)$ | Edge current |
-| $\Gamma(t)$ | Manifestation rate |
-| $m(t)$ | Cumulative manifestation quantity |
-| $M(t)$ | Manifestation score |
-
-## 5.2 Bridge from QSM to QTE
-
-In the QTE pure-topology condition:
-
-$$ \hat H_p=\kappa L_{\mathrm{geo}} $$
-
-QTE restores the background Power wells and forms the complete field-driven Hamiltonian:
-
-$$ H=\hat H_p+\alpha_v\mathrm{diag}(V_{\mathrm{bg}}) $$
-
-Therefore:
-
-$$ H=\kappa L_{\mathrm{geo}}+\alpha_v\mathrm{diag}(V_{\mathrm{bg}}) $$
-
-**QSM →** removes self-Power wells and exposes Power channels.  
-**QTE →** uses the channel term $\hat H_p$ and restores the background Power field $V_{\mathrm{bg}}$.
-
-The full QTE state evolves as:
-
-$$ i\hbar\frac{d}{dt}\lvert\Psi(t)\rangle=H\lvert\Psi(t)\rangle $$
-
 with:
 
-$$ \lvert\Psi(t)\rangle=e^{-iHt/\hbar}\lvert\Psi(0)\rangle $$
+$$
+w_{12}+w_{23}=2
+$$
 
-Here, $H$ is the complete QTE field-driven Hamiltonian. It contains both the channel term and the background Power wells.
+and path dominance:
 
-## 5.3 QTE observables
+$$
+D_p(t)=\frac{w_{12}(t)-w_{23}(t)}{w_{12}(t)+w_{23}(t)}
+$$
 
-Power density is:
+QTE also observes edge current:
 
-$$ \rho_i(t)=\lvert\psi_i(t)\rvert^2 $$
+$$
+J_{ij}(t)=2\,\operatorname{Im}\left(\psi_i^*(t)H_{ij}\psi_j(t)\right)
+$$
 
-The dynamic Power difference is:
+V12.2 preserves path-weight, dominance, and edge-current histories as separate physical observations.
 
-$$ \Delta V_{\mathrm{resp}}(t)=-L_{\mathrm{geo}}\rho(t) $$
+## 3.4 FATE: sensor-aware evolution
 
-The edge current is:
-
-$$ J_{ij}(t)=2\,\mathrm{Im}\left(\psi_i^*(t)H_{ij}\psi_j(t)\right) $$
-
-The local velocity field is derived from edge current:
-
-$$ v_i(t)=\frac{\sum_j J_{ij}(t)u_{ij}}{\rho_i(t)+\epsilon} $$
-
-The local acceleration is:
-
-$$ a_i(t)\approx\frac{v_i(t+\Delta t)-v_i(t)}{\Delta t} $$
-
-The local unit Power and manifestation rate are:
-
-$$ P_{u,i}(t)=a_i(t)\cdot v_i(t) $$
-
-$$ \Gamma_i(t)=\frac{a_i(t)\cdot v_i(t)}{c^2}=\frac{1}{m_i}\frac{dm_i}{dt} $$
-
-The cumulative manifestation quantity is:
-
-$$ m_i(t)=m_i(0)\exp\left(\int_0^t\Gamma_i(\tau)\,d\tau\right) $$
-
-The manifestation score integrates the QTE observables and engineering criteria:
-
-$$ M_i(t)=\lambda_1\lvert\Delta V_{\mathrm{resp},i}(t)\rvert+\lambda_2\max(\Gamma_i(t),0)+\lambda_3\max(\Delta V_{\mathrm{bg},i},0)+\lambda_4\log m_i(t) $$
-
-## 5.4 Floor-domain QTE implemented in V11
-
-V11 implements the beginning and middle of the QTE dataflow at floor-domain resolution:
-
-**$R$ → $A$ → $W(t)$ → $L_{\mathrm{geo}}(t)$ → effective $H(t)$ → $\psi(t)$ → nodal density/fidelity → $J_{12}(t),J_{23}(t)$ → dynamic floor-path manifestation**
-
-The node set is:
+FATE does not introduce a fourth competing Hamiltonian. It places continuously measured structural state into the QSM–QTE evolution chain:
 
 ```text
-R = {1F, 2F, 3F}
+sensor state at t
+→ update Ψ(t)
+→ evolve topology and path
+→ observe target hit, edge current, work proxy, residual, and response
+→ assimilate the next measured state
 ```
 
-The weighted adjacency matrix is:
-
-$$ W=\begin{bmatrix} 0 & w_{12} & 0 \\\\ w_{12} & 0 & w_{23} \\\\ 0 & w_{23} & 0 \end{bmatrix} $$
-
-The degree matrix and Laplacian are:
-
-$$ D_{ii}=\sum_j W_{ij} $$
-
-$$ L_{\mathrm{geo}}=D-W $$
-
-The two V11 observation probes are:
-
-| Probe | Code matrix | Theoretical reading |
-|---|---|---|
-| Zero-diagonal | `H = -W` | QSM off-diagonal Power-channel observation |
-| Laplacian | `H = Lgeo` | QTE pure-topology channel condition with normalized $\kappa=1$ |
-
-The full background field $V_{\mathrm{bg}}$ is not yet constructed from material capacity, structural strength, damage state, BIM semantics, or sensor-returned component conditions. The Laplacian probe therefore represents the QTE **pure-topology condition**, rather than the complete field-driven Hamiltonian.
-
-## 5.5 edge current and path observation
-
-V11 computes:
-
-$$ J_{12}(t)=2\,\mathrm{Im}\left(\psi_1^*(t)H_{12}\psi_2(t)\right) $$
-
-$$ J_{23}(t)=2\,\mathrm{Im}\left(\psi_2^*(t)H_{23}\psi_3(t)\right) $$
-
-The path weights begin at:
-
-$$ w_{12}(0)=w_{23}(0)=1 $$
-
-The code updates the two path weights from:
-
-- edge current magnitude;
-- floor-to-floor $a\cdot v$ difference;
-- measurement residual difference;
-- optional displacement-response feedback;
-- path-memory decay.
-
-The weights are normalized to:
-
-$$ w_{12}(t)+w_{23}(t)=2 $$
-
-The floor-domain path-dominance indicator is:
-
-$$ D_p(t)=\frac{w_{12}(t)-w_{23}(t)}{w_{12}(t)+w_{23}(t)} $$
-
-Interpretation:
-
-| Indicator | Floor-domain reading |
-|---|---|
-| $D_p>0$ | Greater `1F-2F` path manifestation |
-| $D_p<0$ | Greater `2F-3F` path manifestation |
-| $\lvert D_p\rvert\le 0.02$ | Near-equal final path weights |
-
-This adaptive path rule is the V11 floor-domain observation mechanism. It is not yet the complete QTE chain through $\Gamma(t)$, $m(t)$, and $M(t)$.
-
-## 5.6 QTE implementation status
-
-| QTE element | V11 status |
-|---|---|
-| Viewpoint | Three-floor observation viewpoint |
-| Node set $R$ | Implemented |
-| Adjacency $A$ | Implemented |
-| Dynamic weights $W(t)$ | Implemented |
-| Geometric Laplacian $L_{\mathrm{geo}}(t)$ | Implemented |
-| QSM channel probe | Implemented through zero-diagonal `H = -W` |
-| QTE pure-topology probe | Implemented through Laplacian `H = Lgeo` |
-| Complex state evolution | Implemented |
-| Density/fidelity $\rho_i=\lvert\psi_i\rvert^2$ | Implemented |
-| Edge current $J_{ij}$ | Implemented |
-| Dynamic floor-path indication | Implemented |
-| Background Power field $V_{\mathrm{bg}}$ | Open |
-| Complete field-driven Hamiltonian $H=\hat H_p+\alpha_v\mathrm{diag}(V_{\mathrm{bg}})$ | Open |
-| Canonical $\Delta V_{\mathrm{resp}}$ field | Open as a direct QTE output |
-| Manifestation rate $\Gamma$ | Open |
-| Cumulative manifestation quantity $m$ | Open |
-| Manifestation score $M$ | Open |
-| Governance trigger and action | Open |
-| BIM/IFC member-level topology | Open |
-
----
-
-# 6. Fractal Alive Topology Evolution
-
-## 6.1 Core equation
-
-FATE is:
-
-$$ \mathrm{F.A.T.E.}=\mathrm{Aware}_{\mathrm{power}}\cdot\mathrm{Alert}_{\mathrm{control}}\cdot\mathrm{Alive}_{\mathrm{evolve}} $$
-
-**Engineering sequence:** sense the paths of Power fluctuation → alert and control fatal topologies → survive through evolution and open dissipation
-
-The three stages connect to QTE as follows:
-
-| FATE stage | QTE relation | Engineering role |
-|---|---|---|
-| `Aware_power` | Viewpoint → Topology → Channel → Evolution → Manifestation | Read Power influx, channel flow, concentration, response, and provenance |
-| `Alert_control` | Manifestation → Action | Identify fatal topology and issue an engineering intervention |
-| `Alive_evolve` | Action → Re-evolution | Rewrite $V_{\mathrm{bg}}$, $W$, $L_{\mathrm{geo}}$, $\hat H_p$, or $H$, then observe the new state |
-
-A FATE intervention may change damping, stiffness, coupling intensity, reaction force, or Power-transmission routes. The rewritten field then enters the next evolution cycle.
-
-## 6.2 `Aware_power` in V11
-
-V11 implements an `Aware_power` observation record through:
-
-1. **Incoming-wave awareness**  
-   The boundary-input-only probe reads what the boundary source can produce through the floor topology.
-
-2. **Structure-coupled state awareness**  
-   Floor-state assimilation inserts the measured internal structural state into the QSM evolution cycle.
-
-3. **Target-state awareness**  
-   Fidelity records where the evolved structural Power state hits.
-
-4. **Topology-path awareness**  
-   Dynamic $w_{12}$, $w_{23}$, $D_p$, $J_{12}$, and $J_{23}$ preserve the evolving floor-domain path.
-
-5. **Work and response awareness**  
-   Target-hit work is compared with a work-compatible displacement-side record.
-
-6. **Provenance awareness**  
-   Direct and derived signal channels, coordinate differences, numerical differentiation, acquisition, and processing remain visible in each case record.
-
-7. **Ablation awareness**  
-   Floor-state, boundary-only, fixed-path, zero-diagonal, Laplacian, and response-feedback conditions separate the roles of QSM, QTE, and the current response term.
-
-## 6.3 FATE implementation status
-
-| FATE element | V11 status |
-|---|---|
-| `Aware_power` | Implemented at floor-domain observation level |
-| Incoming-wave observation | Implemented |
-| Structure-coupled field observation | Implemented |
-| Target-state hit observation | Implemented |
-| Floor-path and edge current observation | Implemented |
-| Work/response observation | Implemented as normalized proxies |
-| Provenance and data-semantic observation | Implemented |
-| Fatal-topology criterion | Open |
-| Manifestation score governance threshold | Open |
-| `Alert_control` | Open |
-| Physical control command | Open |
-| Rewrite of $V_{\mathrm{bg}}$, $W$, $L_{\mathrm{geo}}$, $\hat H_p$, or $H$ | Open |
-| `Alive_evolve` after intervention | Open |
-| Cross-scale fractal recursion | Open |
-
----
-
-# 7. Lifecycle deployment: design, as-built, and operation
-
-QSM, QTE, and FATE use the same theoretical chain across the building life cycle, while the available evidence changes from design assumptions to verified physical properties and then to live feedback. The method therefore develops from **exploring possible Power channels**, to **constructing field-driven channels from actual building data**, and finally to **correcting and controlling the evolving field during operation**.
-
-| Life-cycle stage | Available evidence | QSM-QTE-FATE role |
-|---|---|---|
-| **Design** | Geometry, topology, boundary conditions, design materials, candidate structural systems, and possible seismic inputs | Explore how the input Power field interacts with geometric and topological relationships. Compile $R$, $A$, $W$, and $L_{\mathrm{geo}}$; compare channel continuity, concentration, blockage, weak-plane placement, and dissipation alternatives before construction. |
-| **As-built / commissioning** | Actual geometry, installed member sections, material properties, joints, connections, dampers, isolation devices, test results, and verified boundary conditions | Convert the design topology into a field-driven channel model. Actual material and capacity information forms the background Power field $V_{\mathrm{bg}}$, allowing the channel term and the physical Power wells to enter the complete Hamiltonian. |
-| **Operation** | Sensor measurements, displacement, velocity, acceleration, strain, drift, device states, inspection records, maintenance history, and observed damage | Continuously update $\Psi(t)$, $V_{\mathrm{bg}}(t)$, $W(t)$, and $H(t)$. FATE reads the evolving field through `Aware_power`, evaluates intervention through `Alert_control`, and returns the modified system to `Alive_evolve`. |
-
-## 7.1 Design-stage topology and Power-input exploration
-
-During design, the main task is to examine how possible Power inputs encounter the proposed geometry and topology:
-
-**candidate seismic input → geometric and semantic relationships → $R$ → $A$ → $W$ → $L_{\mathrm{geo}}$ → possible Power channels → concentration, blockage, reflection, and dissipation paths**
-
-At this stage, QSM exposes the transmission relationships carried by structural coupling, while QTE manifests how different viewpoints, topologies, and channel arrangements change the possible evolution. The comparison can support decisions on structural layout, weak-plane governance, damping placement, isolation strategy, and acceptable local dissipation routes.
-
-## 7.2 As-built field-driven channels
-
-After construction, the model can incorporate the physical building that was actually delivered. Verified material properties, member dimensions, joint conditions, installed devices, and commissioning results provide the background Power field:
-
-$$ H=\hat H_p+\alpha_v\mathrm{diag}(V_{\mathrm{bg}}) $$
-
-or, under the QTE channel expression:
-
-$$ H=\kappa L_{\mathrm{geo}}+\alpha_v\mathrm{diag}(V_{\mathrm{bg}}) $$
-
-The as-built stage therefore joins **actual material capacity** with **actual topology**. It establishes the initial field-driven Hamiltonian against which later sensing and structural change can be interpreted.
-
-## 7.3 Operational sensing, correction, and active control
-
-During operation, sensing returns the structure's current state to the model:
-
-**sensor return → state and field correction → $\Psi(t)$, $V_{\mathrm{bg}}(t)$, $W(t)$, $H(t)$ → renewed QSM-QTE evolution → FATE awareness, alert, intervention, and re-evolution**
-
-An active or semi-active intervention may alter damping, stiffness, coupling strength, reaction force, or a Power-transmission path. The altered system is then observed again. This closes the FATE cycle:
-
-$$ \mathrm{Aware}_{\mathrm{power}}\rightarrow\mathrm{Alert}_{\mathrm{control}}\rightarrow\mathrm{Alive}_{\mathrm{evolve}} $$
-
-The present NEES release occupies the **operation-stage observation** position: it uses archived sensor records to reconstruct floor-level state evolution and topology-path manifestation. Design-stage BIM/geometry compilation, as-built material-field construction, and live closed-loop control define the next implementation layers.
-
-
-# 8. End-to-end V11 computational flow
+The implemented layer is:
 
 ```text
-1. Read the original NEES source files.
-
-2. Select or derive floor displacement u(t), velocity v(t), and acceleration a(t).
-
-3. Form the measured unit-Power record:
-   Pu(t) = a(t)·v(t).
-
-4. Compile u, v, and a into the V11 complex measurement state.
-
-5. Build the current floor-domain channel matrix:
-   zero-diagonal H = -W
-   or
-   Laplacian H = Lgeo.
-
-6. Compute:
-   U = exp(-iHΔt).
-
-7. Evolve the current state one time step.
-
-8. Compute:
-   full-state fidelity
-   and
-   nodal fidelity |ψi|².
-
-9. Reconstruct the next floor-wise signed a·v manifestation.
-
-10. Compare the evolved manifestation at k+1|k
-    with measured a·v at k+1.
-
-11. Assimilate the new measured state.
-
-12. Compute edge currents J12 and J23.
-
-13. Update w12 and w23 for the dynamic-path probes.
-
-14. Accumulate target-hit work and downstream response evidence.
-
-15. Save the complete history, figures, summaries, provenance, and logs.
+Aware_power
 ```
 
----
-
-# 9. Five observation probes
-
-Each case uses the same five observation settings:
-
-| Probe | Channel matrix / condition | Function |
-|---|---|---|
-| Laplacian floor-state field | `H = Lgeo`, floor-state assimilation, dynamic path, response feedback | Main integrated QSM-QTE observation |
-| Zero-diagonal floor-state field | `H = -W`, floor-state assimilation, dynamic path, response feedback | QSM off-diagonal channel observation |
-| Boundary-input-only reference | Laplacian, boundary source, no upper-floor assimilation | Separates input-driven evolution from internal structure-coupled observation |
-| Dynamic path without response feedback | Laplacian, floor-state assimilation, response term removed | Tests the influence of downstream response feedback |
-| Fixed-path reference | Laplacian with `w12 = w23 = 1` | Separates QSM state alignment from QTE path adaptation |
-
-The numerical coefficients are unchanged across all cases.
-
----
-
-# 10. Dataset and formal cases
-
-**Project:** NEES-2011-1076  
-**Title:** *RTHS and Shake Table Comparison for Smart Structural Systems*  
-**Dataset DOI:** [10.7277/TPS7-V877](https://doi.org/10.7277/TPS7-V877)  
-**NSF award:** CMMI-1011534 (NEESR)
-
-The source files are read directly from the original dataset package:
+The future sequence remains:
 
 ```text
-elcentro_0p50_07312012_unc_donghua_converted.csv
-elcentro_0p50_07312012_poff_donghua_converted.csv
-kobe_035_semi_active_avg_converted.csv
-morgan_1_p_off_avg_converted.csv
+Aware_power → Alert_control → Alive_evolve
 ```
 
-The four formal cases are:
-
-| Case | Event | Scale | Control condition | Velocity provenance |
-|---|---|---:|---|---|
-| El Centro uncontrolled | El Centro | 0.50 | Uncontrolled | Derived from displacement |
-| El Centro passive-off | El Centro | 0.50 | Passive-off | Derived from displacement |
-| Kobe semi-active | Kobe | 0.35 | Semi-active | Direct velocity channels |
-| Morgan Hill passive-off | Morgan Hill | 1.00 | Passive-off | Direct velocity channels |
-
-The El Centro cases provide a signal-semantic stress test because acceleration is direct while velocity is differentiated from displacement records that do not share exactly the same coordinate semantics.
+V12.2 does not claim an automated alarm threshold, a completed control action, or post-intervention closed-loop re-evolution.
 
 ---
 
-# 11. Cross-case findings
+# 4. Building-life-cycle position
 
-## 11.1 QSM one-step state evolution
+The three methods form a life-cycle progression rather than isolated software modules.
 
-The direct-channel Kobe and Morgan Hill records show the strongest signed and absolute-envelope alignment between the evolved floor-wise $a\cdot v$ manifestation and the next measured record.
+## Design
 
-| Case | Mean signed correlation | Mean absolute-envelope correlation |
-|---|---:|---:|
-| Kobe 0.35 semi-active | 0.656 | 0.918 |
-| Morgan Hill 1.00 passive-off | 0.649 | 0.916 |
+BIM/IFC geometry and structural relations can be compiled into nodes, adjacency, and candidate channels. QSM can expose non-diagonal transmission relations; QTE can examine how alternative topologies permit concentration, blockage, reflection, and dissipation.
 
-The El Centro cases retain lower signed coherence while preserving substantial absolute-envelope correspondence. Their result follows the mixed coordinate and derived-velocity provenance recorded in the source channels.
+## Construction, as-built, and commissioning
 
-## 11.2 Boundary input and internal structural state
+Verified member properties, mass, stiffness, damping, joints, devices, boundaries, installation state, and commissioning results can form the background field `V_bg`. This is the stage at which the complete field-driven Hamiltonian becomes possible:
 
-The boundary-input-only reference remains close to equal final path weighting across the four records. Floor-state assimilation repeatedly produces an internal lower-interface indication.
+$$
+H=\kappa L_{\mathrm{geo}}+\alpha_v\operatorname{diag}(V_{\mathrm{bg}})
+$$
 
-This difference shows that the observed floor path depends on the structure-coupled state and cannot be recovered from the boundary input alone under the present observation settings.
+## Operation and Digital Twin
 
-## 11.3 Repeated floor-domain path indication
-
-All four floor-state cases indicate the `1F-2F` floor interface. The histories differ in concentration, transition, recovery, and redistribution.
-
-The common interface is a repeated floor-domain observation. Component-level physical interpretation requires the original structural configuration, control layout, sensor placement, and member-level topology.
-
-## 11.4 Edge current
-
-The floor-state dynamic probes show stronger RMS edge current concentration at `1F-2F` than at `2F-3F`. The edge current ratio provides a phase-sensitive observation separate from the final path weights.
-
-## 11.5 Path manifestation and displacement response
-
-The dominant floor path and the maximum displacement-response floor occupy different observation layers:
-
-| Observation layer | Meaning |
-|---|---|
-| QTE path manifestation | Where the evolving Power state concentrates or passes |
-| Downstream displacement response | Where motion becomes geometrically visible |
-
-The repository preserves both histories.
-
-## 11.6 Evidence separation
-
-The fixed-path and dynamic-path probes retain similar one-step absolute-envelope correlations. This assigns the one-step $a\cdot v$ alignment primarily to QSM state evolution.
-
-The dynamic path weights and edge current concentration provide the QTE evidence.
-
-The current FATE evidence is the continuously updated `Aware_power` record. The control and re-evolution stages remain the next implementation step.
-
----
-
-# 12. Current evidence and development horizon
-
-The four-case release provides a common computational record for QSM state evolution, QTE floor-domain path observation, and FATE `Aware_power`. Its strongest evidence is the repeated one-step alignment in the direct-channel Kobe and Morgan Hill records, the separation between boundary-only and structure-coupled observation, and the recurring `1F-2F` floor-interface indication across all four cases.
-
-| Layer | Evidence established in this release | Development horizon |
-|---|---|---|
-| **QSM** | Hamiltonian state evolution, target-state fidelity, and work-compatible target-hit reconstruction | Physical calibration of $\hat H$, $\hat H_p$, floor mass, absolute Power units, long-horizon autonomous evolution, and member-level target states |
-| **QTE** | Three-floor topology, dynamic channel weights, Laplacian and zero-diagonal probes, edge current, and path history | BIM/IFC or as-built topology, $V_{\mathrm{bg}}$, complete field-driven Hamiltonian, $\Delta V_{\mathrm{resp}}$, $\Gamma$, $m$, $M$, and verified weak-plane localization |
-| **FATE** | Incoming-wave, structure-coupled field, target-state, path, response, provenance, and ablation awareness | Fatal-topology criteria, governance thresholds, `Alert_control`, physical intervention, and `Alive_evolve` |
-| **Life cycle** | Retrospective operation-stage observation from archived sensing records | Design-stage topology exploration, as-built material-field construction, and live operational feedback control |
-
-The release preserves its current observation resolution. The repeated floor-interface result is a floor-domain manifestation; the physical member, joint, device, or boundary responsible for that manifestation requires the original experimental configuration or a finer as-built graph.
-
----
-
-# 13. Repository structure
-
-The public root keeps only the files needed to understand, cite, reproduce, verify, and version the research:
+Sensors continuously update the observed state and path. FATE then provides the path from Power awareness to control strategy, intervention, and re-evolution. The intended operational chain is:
 
 ```text
-QSM-QTE-FATE-Integrated-Seismic-Field-Observation/
-├── .gitignore
-├── README.md
-├── CITATION.cff
-├── CHANGELOG.md
-├── QA_REGRESSION.md
-├── SHA256SUMS.txt
-├── requirements.txt
-├── code/
-│   └── qsm_qte_fate_nees_multicase_release_v11.py
-├── scripts/
-├── data/
-│   └── README.md
-├── cases/
-│   ├── el_centro_050_uncontrolled/
-│   ├── el_centro_050_passive_off/
-│   ├── kobe_035_semi_active/
-│   └── morgan_hill_100_passive_off/
-├── cross_case/
-└── release_logs/
+BIM/IFC topology
+→ as-built field-driven Hamiltonian
+→ live sensing
+→ Digital Twin awareness
+→ control strategy
+→ measured post-intervention re-evolution
 ```
 
-Each case folder contains four evidence tables and histories, two generated reports, twelve figures, one execution log, and one provenance manifest. Across four cases, the release contains 80 case artifacts, 11 cross-case artifacts, and one root execution log: **92 generated files in total**.
+The present NEES release is a retrospective operation-stage floor-domain observation using archived sensing.
 
 ---
 
-# 14. Reproduction
+# 5. Experimental records and provenance
 
-## 14.1 Requirements
+| Case | Source file | Signal condition | Rows loaded after stride | Waveform event window |
+|---|---|---|---:|---|
+| El Centro 0.50 — uncontrolled | `elcentro_0p50_07312012_unc_donghua_converted.csv` | 1F relative displacement; 2F–3F absolute displacement; velocity derived | 203,578 | 51.152400–165.785600 s |
+| El Centro 0.50 — passive-off | `elcentro_0p50_07312012_poff_donghua_converted.csv` | Same mixed coordinate structure; velocity derived | 117,271 | 1.609550–115.161450 s |
+| Kobe 0.35 — semi-active | `kobe_035_semi_active_avg_converted.csv` | Direct analytical `u`, `v`, `a` on all floors | 16,287 | 7.597168–31.025879 s |
+| Morgan Hill 1.00 — passive-off | `morgan_1_p_off_avg_converted.csv` | Direct analytical `u`, `v`, `a` on all floors | 16,202 | 4.754883–16.700195 s |
 
-- Python 3.10 or later
-- NumPy
-- pandas
-- Matplotlib
+Dataset:
+
+> Zhang, J., Wu, B., and Dyke, S. *RTHS and Shake Table Comparison for Smart Structural Systems (NEES-2011-1076)*. DOI: [10.7277/TPS7-V877](https://doi.org/10.7277/TPS7-V877)
+
+The original NEES data and converted source CSV files are not redistributed in this repository.
+
+---
+
+# 6. Repository reading order
+
+## Cross-case synthesis
+
+- [`cross_case/README.md`](cross_case/README.md) — four-case scientific interpretation.
+- `01_cross_case_method_summary.csv` — one row per case and stage.
+- `02_cross_case_floor_summary.csv` — one row per case, stage, and floor.
+- Figures `03–07` — stage alignment, edge current, path dominance, work manifestation, and three-floor comparison.
+
+## Case-level records
+
+- [El Centro 0.50 — uncontrolled](cases/el_centro_050_uncontrolled/README.md)
+- [El Centro 0.50 — passive-off](cases/el_centro_050_passive_off/README.md)
+- [Kobe 0.35 — semi-active](cases/kobe_035_semi_active/README.md)
+- [Morgan Hill 1.00 — passive-off](cases/morgan_hill_100_passive_off/README.md)
+
+Every case uses the same 20-file generated format plus one narrative README.
+
+<details>
+<summary>Per-case V12.2 filenames</summary>
+
+```text
+01_qsm_qte_fate_method_summary.csv
+02_qsm_qte_fate_floor_summary.csv
+03_qsm_qte_fate_full_history.csv
+04_CASE_REPORT.md
+05_release_report.txt
+06_qsm_qte_fate_stage_bar.png
+07_qsm_three_floor_waveforms.png
+08_qte_three_floor_waveforms.png
+09_fate_three_floor_waveforms.png
+10_qsm_qte_fate_edge_current_ratio.png
+11_qte_path_weight_evolution.png
+12_fate_sensor_aware_path_evolution.png
+13_qte_fate_edge_current_evolution.png
+14_qte_fate_path_dominance_evolution.png
+15_fate_target_hit_state_awareness.png
+16_fate_work_proxy_ratios_by_floor.png
+17_force_displacement_work_loop_proxy.png
+18_response_manifestation_by_floor.png
+19_release_run_log.txt
+20_release_file_manifest.json
+README.md
+```
+
+</details>
+
+`03_qsm_qte_fate_full_history.csv` contains 149 columns and is downsampled to at most 3,000 rows for GitHub inspection. It retains measured channels, all three stages, residuals, target hit, cumulative work-compatible quantities, path weights, path dominance, edge currents, state fidelity, and residual norm.
+
+---
+
+# 7. Reproduction
+
+## 7.1 Requirements
 
 ```powershell
-python -m pip install -r requirements.txt
+conda activate ifcman
+pip install -r requirements.txt
 ```
 
-## 14.2 Direct execution
+The tested dependencies are NumPy, pandas, and Matplotlib.
+
+## 7.2 Expected local layout
+
+```text
+<base folder>/
+├─ QSM-QTE-FATE-Integrated-Seismic-Field-Observation/
+│  ├─ code/
+│  ├─ scripts/
+│  │  ├─ run_all_cases_v12_2.ps1
+│  │  ├─ run_smoke_test_morgan_v12_2.ps1
+│  │  └─ update_sha256_from_git.ps1
+│  └─ ...
+└─ Data Source/
+   ├─ elcentro_0p50_07312012_unc_donghua_converted.csv
+   ├─ elcentro_0p50_07312012_poff_donghua_converted.csv
+   ├─ kobe_035_semi_active_avg_converted.csv
+   └─ morgan_1_p_off_avg_converted.csv
+```
+
+Run all four cases:
 
 ```powershell
-python .\code\qsm_qte_fate_nees_multicase_release_v11.py `
-    --root "D:\path\to\Data Source" `
-    --out ".\outputs_qsm_qte_fate_nees_2011_1076_v11" `
-    --stride 5 `
-    --workers 8 `
-    --prepare-workers 2 `
-    --chunk-rows 200000
+Set-ExecutionPolicy -Scope Process Bypass
+.\scripts\run_all_cases_v12_2.ps1
 ```
 
-The formal run used temporary ASCII drive mappings for Windows paths containing Chinese characters. The corresponding script is preserved in `scripts/`.
+The default result folder is created beside the repository:
+
+```text
+outputs_qsm_qte_fate_nees_2011_1076_v12_2
+```
+
+Direct Python execution:
+
+```powershell
+python .\code\qsm_qte_fate_nees_multicase_release_v12_2.py `
+  --root "D:\path\to\Data Source" `
+  --out "D:\path\to\outputs_qsm_qte_fate_nees_2011_1076_v12_2" `
+  --stride 5 `
+  --workers 8 `
+  --prepare-workers 2 `
+  --chunk-rows 200000
+```
 
 ---
 
-# 15. Formal execution record
+# 8. Formal run and quality assurance
 
-The V11 formal run used:
+The formal V12.2 run completed all four records with one unchanged configuration:
 
 ```text
 24 logical processors
 2 CSV preparation workers
-8 parallel probe workers
-20 probe tasks
+8 parallel method workers
+12 method tasks
+42.881 s total internal elapsed time
 ```
 
-| Phase | Time |
-|---|---:|
-| Data reading and case-field preparation | 3.2 s |
-| Parallel QSM-QTE-FATE probes | 19.9 s |
-| Case and cross-case artifact generation | 13.6 s |
-| Internal V11 wall-clock time | 36.8 s |
-| End-to-end PowerShell time | 39.17 s |
-
-Regression checks against V10 produced floating-point-scale differences:
+The numerical engine generated:
 
 ```text
-Kobe:        4.18 × 10^-14
-Morgan Hill: 1.53 × 10^-13
+4 cases × 20 generated files = 80
+10 cross-case generated files = 10
+1 root release log = 1
+Total formal generated artifacts = 91
 ```
 
----
+The five narrative READMEs are maintained separately for interpretation.
 
-# 16. Citation
+Regression checks confirm:
 
-## 16.1 Theoretical works
+- V12.1 and V12.2 share identical 149-column histories for all four cases; maximum numerical difference is `0`.
+- The V12.2 FATE core histories match the former V11 principal sensor-assimilated Laplacian histories for the mapped state, target-hit, path-weight, fidelity, residual, displacement, and hidden-work fields; maximum numerical difference is `0`.
+- V12.2 changes method organization and cross-case presentation; it does not silently change the retained FATE result.
 
-- Kuo, Han-Jung (Alaric). *Quantum Structural Mechanics: From Stiffness Assets to Value Flow.* ResearchGate preprint.  
-  DOI: [10.13140/RG.2.2.27121.13928](https://doi.org/10.13140/RG.2.2.27121.13928)
-
-- Kuo, Han-Jung (Alaric). *Quantum Topology Express Method.* ResearchGate preprint.  
-  DOI: [10.13140/RG.2.2.22329.12645](https://doi.org/10.13140/RG.2.2.22329.12645)
-
-- Kuo, Han-Jung (Alaric). *Fractal Alive Topology Evolution.* ResearchGate preprint.  
-  DOI: [10.13140/RG.2.2.27969.72806](https://doi.org/10.13140/RG.2.2.27969.72806)
-
-## 16.2 Experimental dataset
-
-Zhang, J., Wu, B., and Dyke, S. *RTHS and Shake Table Comparison for Smart Structural Systems (NEES-2011-1076)* [Data set]. NEES / DesignSafe Data Depot.  
-DOI: [10.7277/TPS7-V877](https://doi.org/10.7277/TPS7-V877)
-
-## 16.3 Software
-
-The repository citation is provided in [`CITATION.cff`](CITATION.cff).
+See [`QA_REGRESSION.md`](QA_REGRESSION.md) for scope and details.
 
 ---
 
-# 17. Research position
+# 9. Evidence boundary
 
-Under one unchanged computational configuration, V11 applies QSM Hamiltonian Power-state evolution, target-state fidelity, QTE floor-domain path observation, and FATE `Aware_power` to four archived seismic records. The direct-channel Kobe and Morgan Hill records reproduce strong one-step QSM alignment. All four structure-coupled cases indicate the `1F-2F` interface while preserving distinct event histories, and the El Centro cases show how signal provenance and coordinate semantics affect $a\cdot v$ coherence.
+## Currently supported by this executable release
 
-The release establishes a reproducible experimental bridge from **QSM Power-state evolution**, through **QTE topology-path manifestation**, to **FATE Power awareness**. Across the building life cycle, the same chain can begin with design-stage exploration of input Power and geometric topology, develop into an as-built field-driven Hamiltonian using verified material data, and enter operation as a sensing-corrected feedback and active-control system.
+- A clean QSM zero-diagonal input-driven baseline for four records.
+- Repeatable QSM→QTE absolute-envelope organization under the Laplacian topology.
+- Strong sensor-aware one-step FATE alignment in two direct-channel records.
+- Explicit visibility of mixed coordinate and derived-velocity limitations in the El Centro records.
+- Floor-domain path-weight, edge-current, target-hit, work-compatible, and response histories.
+- A recurring sensor-aware `1F–2F` path indication with case-specific temporal evolution.
+- Reproducible code, fixed settings, source provenance, logs, summaries, figures, and file manifests.
+
+## Not yet established
+
+- Absolute watts or joules without physical floor mass and calibrated channel quantities.
+- Member-level damage localization or independently verified weak-plane identification.
+- A complete as-built `V_bg` field-driven Hamiltonian.
+- Long-horizon autonomous prediction without measurement update.
+- Automated `Alert_control` criteria.
+- Closed-loop intervention and `Alive_evolve` verification.
+- Universal structural validity beyond the current experimental records.
 
 ---
 
-# 18. Rights and attribution
+# 10. Version history and citation
 
-Copyright © 2026 A&J Management Consulting Limited Company. All rights reserved.
+V12.2 replaces the five-probe public presentation with the intended sequential method chain and retains all independent physical observation outputs. See [`CHANGELOG.md`](CHANGELOG.md).
 
-This repository is published for scientific inspection, citation, and reproducibility evaluation. The original NEES experimental data remain with the dataset provider and are subject to the original source terms.
+Please cite the original dataset, the theoretical works, and this software release. Machine-readable citation metadata is provided in [`CITATION.cff`](CITATION.cff).
 
-**Theory developer and corresponding author:** Dr. Han-Jung (Alaric) Kuo  
-**Organization:** A&J Management Consulting Limited Company  
-**Location:** Taiwan
+Theoretical references:
 
+- Kuo, H.-J. *Quantum Structural Mechanics: From Stiffness Assets to Value Flow*. DOI: [10.13140/RG.2.2.27121.13928](https://doi.org/10.13140/RG.2.2.27121.13928)
+- Kuo, H.-J. *Quantum Topology Express Method*. DOI: [10.13140/RG.2.2.22329.12645](https://doi.org/10.13140/RG.2.2.22329.12645)
+- Kuo, H.-J. *Fractal Alive Topology Evolution*. DOI: [10.13140/RG.2.2.27969.72806](https://doi.org/10.13140/RG.2.2.27969.72806)
+
+File integrity hashes are listed in [`SHA256SUMS.txt`](SHA256SUMS.txt).

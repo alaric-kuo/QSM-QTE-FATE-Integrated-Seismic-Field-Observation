@@ -1,0 +1,7 @@
+QSM-QTE-FATE Integrated Seismic Field Observation — V12.2
+Case: Morgan Hill 1.00 — passive-off
+Source: morgan_1_p_off_avg_converted.csv
+
+QSM: mean signed corr=0.049390; mean abs-envelope corr=0.603873; final path dominance=0.000000; edge-current ratio=0.992048; mean manifested-work ratio=0.672842
+QTE: mean signed corr=0.046345; mean abs-envelope corr=0.699008; final path dominance=-0.003633; edge-current ratio=0.957689; mean manifested-work ratio=0.490023
+FATE: mean signed corr=0.752677; mean abs-envelope corr=0.951639; final path dominance=0.079086; edge-current ratio=1.368445; mean manifested-work ratio=0.552421

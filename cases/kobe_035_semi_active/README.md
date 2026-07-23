@@ -1,715 +1,368 @@
-# Kobe 0.35 Semi-Active  
-## Integrated QSM–QTE–FATE Observation Record — Formal Release V11
+# Kobe 0.35 — semi-active
+## QSM–QTE–FATE Three-Stage Observation Record — Formal Release V12.2
 
-> **Repository position**  
-> Recommended repository name:  
-> `QSM-QTE-FATE-Integrated-Seismic-Field-Observation`
->
-> Recommended location of this document:  
+> **Recommended location**  
 > `cases/kobe_035_semi_active/README.md`
+>
+> This README is the narrative interpretation layer for the V12.2 outputs in this folder. The CSV, JSON, log, and figure files remain the canonical machine-readable evidence.
 
 ---
 
-## 1. Why this case matters
+## 1. Role of this case
 
-This Kobe 0.35 semi-active case provides an initial integrated computational record in which **Quantum Structural Mechanics (QSM)**, **Quantum Topology Express (QTE)**, and the first operational layer of **Fractal Alive Topology Evolution (FATE)** are connected in one continuous observation chain.
+This case is retained as a **primary direct-channel case and the strongest final sensor-aware floor-path concentration in the release**.
 
-The significance of this result does not come from claiming that all three theories are now completely validated. The significance is that they are no longer isolated conceptual layers:
+Its current evidence role is: **primary evidence for the complete V12.2 QSM → QTE → FATE observation chain using direct analytical displacement, velocity, and acceleration channels**.
+
+The V12.2 method is presented as one sequential chain:
 
 ```text
-measured structural state
-→ QSM power-state evolution
-→ QTE topology-path manifestation
-→ FATE Aware_power observation
+QSM — zero-diagonal input-driven Power-state evolution
+  ↓
+QTE — Laplacian spatial topology-path evolution
+  ↓
+FATE — sensor-aware evolution at the Aware_power layer
 ```
 
-For the first time, the same experimental record is used to observe how a seismic input enters a structure, how the internal power-state field evolves, how a dominant topology path becomes manifested, and how that path differs from the final displacement response.
+QSM, QTE, and FATE are successive observation layers. The stage-wise correlations are therefore not a leaderboard between three competing models. Each later stage receives a richer structural description.
 
-This document records the present integrated result and its current evidential limits.
+![QSM → QTE → FATE stage-wise three-floor summary](06_qsm_qte_fate_stage_bar.png)
 
 ---
 
-## 2. Scientific status of this validation
+## 2. What V12.2 changes from V11
 
-This case provides three different levels of preliminary computational evidence.
+V12.2 removes the former five-probe presentation and retains only the intended methodological sequence:
 
-### 2.1 QSM: examined at the one-step field-evolution level
+| Stage | Operator and state update | Current role |
+|---|---|---|
+| QSM | `H = -W`; zero diagonal; fixed relational channels; boundary input | Evolves the input-driven Power state |
+| QTE | `H = L(W)`; dynamic path; boundary input | Adds spatial topology and path evolution |
+| FATE | QTE evolution + floor-state assimilation + response feedback | Forms `Aware_power` from continuously updated sensor content |
 
-QSM is tested by using measurements available through time step `k` to evolve a structure-coupled power-state field to `k+1|k`, and then comparing the evolved `a*v` state with the measured `a*v` at `k+1`.
+The restored figures `10`–`18` are independent physical observation dimensions—edge current, path history, target hit, work proxies, structural work-loop proxy, and response manifestation. They are not additional methods or sensitivity groups.
 
-The process is:
-
-```text
-measurements through k
-→ construct the current field
-→ evolve the field to k+1|k
-→ read the evolved a*v state
-→ compare with measured a*v at k+1
-→ assimilate the new measurement
-→ continue to the next step
-```
-
-This is an **evolutionary-field check**, not a long-horizon forecast and not a control-style prediction task.
-
-### 2.2 QTE: examined at the floor-domain topology level
-
-QTE is examined only at a partial floor-domain resolution in this case.
-
-The available experiment provides a three-floor measurement structure, but it does not provide a complete BIM/IFC or as-built structural graph containing every beam, column, joint, stiffness, mass, damper connection, and boundary condition required for a full component-level topology field.
-
-The topology used here is therefore a **floor-domain topology mapped from the experiment and its measurement channels**:
-
-```text
-1F node ↔ 2F node ↔ 3F node
-```
-
-with two observable inter-floor paths:
-
-```text
-1F–2F
-2F–3F
-```
-
-There is no direct `1F–3F` edge in this floor-level model.
-
-Accordingly, the present result provides initial evidence of **floor-scale topology-path manifestation**, but it does not yet establish component-scale weak-plane localization or a complete BIM-enabled structural topology field.
-
-### 2.3 FATE: the Aware_power layer is represented
-
-This case reaches the first layer of FATE:
-
-```text
-Aware_power
-```
-
-The system observes:
-
-- the incoming seismic state;
-- the structure-coupled power-state field;
-- the manifested inter-floor topology path;
-- the work-compatible manifestation by floor;
-- the downstream displacement response.
-
-It does not yet complete:
-
-```text
-Alert_control
-→ identify and issue a topology-changing control action
-
-Alive_evolve
-→ rewrite the field/operator and verify a safer evolved state
-```
-
-The present contribution is that the QSM–QTE–FATE chain is represented in one continuous computational workflow.
+> **Current QTE boundary**  
+> This NEES execution uses the Laplacian topology term `H = L(W)`. It does not claim that a hard as-built structural-parameter field diagonal—mass, stiffness, damping, member capacity, joints, and device states—has already been inserted.
 
 ---
 
-## 3. Experimental source
+## 3. Experimental source and execution record
 
 | Item | Value |
 |---|---|
 | Project | NEES-2011-1076 |
 | Project title | RTHS and Shake Table Comparison for Smart Structural Systems |
-| Earthquake record | Kobe |
+| Earthquake input | Kobe |
 | Input scale | 0.35 |
-| Control condition | Semi-active |
+| Control state | semi-active |
+| Acquisition context | averaged converted record |
 | Source file | `kobe_035_semi_active_avg_converted.csv` |
-| Acquisition context | Averaged converted record |
 | Source rows detected | 81,431 |
 | Rows loaded after stride | 16,287 |
 | Read stride | 5 |
-| Selected response columns | 10 |
-| Figure event window | 7.597–31.026 s |
+| Columns loaded | 10 |
+| Event window used in waveform figures | 7.597168–31.025879 s |
+| Full processed history | 0.000000–79.521484 s, 3,000 exported rows |
 | Dataset DOI | 10.7277/TPS7-V877 |
 
-The event window was selected from cumulative acceleration-state activity. The full evolution history remains available in `04_qsm_qte_fate_core_history.csv`.
-
----
-
-
-## 4. V11 execution record
-
-The formal V11 four-case release was executed on a workstation with 24 logical processors, using two CSV preparation workers and eight parallel probe workers.
+### Execution timing
 
 | Execution item | Recorded time |
-|---|---:|
-| Phase 1 — data reading and case-field preparation | 3.2 s |
-| Phase 2 — 20 parallel QSM–QTE–FATE field probes | 19.9 s |
-| Phase 3 — case and cross-case release generation | 13.6 s |
-| V11 internal wall-clock time | 36.8 s |
-| End-to-end PowerShell time | 39.17 s |
+|---|---|
+| Data preparation | 0.226 s |
+| QSM worker | 0.486 s |
+| QTE worker | 0.723 s |
+| FATE worker | 0.852 s |
+| Artifact generation | 4.233 s |
+| Parallel method workers configured | 8 |
 
-For the Kobe case, the five probe-worker elapsed times recorded during the formal run were:
-
-| Kobe probe | Worker elapsed time |
-|---|---:|
-| Laplacian floor-state field probe | 2.7 s |
-| Zero-diagonal floor-state field probe | 2.6 s |
-| Boundary-input-only diagnostic reference | 2.2 s |
-| Fixed-path reference | 1.8 s |
-| Floor-state dynamic path without response feedback | 2.7 s |
-
-Because these probes ran concurrently, their sum is a computational-load indicator and is not the wall-clock time of the Kobe case.
-
-The machine-readable release timing is retained in:
-
-```text
-../../release_logs/00_RELEASE_RUN_LOG.txt
-19_release_run_log.txt
-20_release_file_manifest.json
-```
+Worker elapsed times are computational records. Because the method workers may execute concurrently, their sum is not the case wall-clock time.
 
 ---
 
-## 5. Signal provenance
-
-
-This case is suitable for the primary power-state comparison because displacement, velocity, and acceleration are all taken from direct analytical channels for every floor.
+## 4. Signal provenance and evidential strength
 
 | Floor | Displacement `u` | Velocity `v` | Acceleration `a` |
 |---|---|---|---|
-| 1F | `First Floor Displacement - Analytical` | `First Floor Velocity Sensor - Analytical` | `First Floor Acceleration - Analytical` |
-| 2F | `Second Floor Displacement - Analytical` | `Second Floor Velocity Sensor - Analytical` | `Second Floor Acceleration - Analytical` |
-| 3F | `Third Floor Displacement - Analytical` | `Third Floor Velocity Sensor - Analytical` | `Third Floor Acceleration - Analytical` |
+| 1F | `direct:First Floor Displacement - Analytical` | `direct:First Floor Velocity Sensor - Analytical` | `direct:First Floor Acceleration - Analytical` |
+| 2F | `direct:Second Floor Displacement - Analytical` | `direct:Second Floor Velocity Sensor - Analytical` | `direct:Second Floor Acceleration - Analytical` |
+| 3F | `direct:Third Floor Displacement - Analytical` | `direct:Third Floor Velocity Sensor - Analytical` | `direct:Third Floor Acceleration - Analytical` |
 
-This matters because the work-compatible power-state proxy
-
-
-
-$$
-p_i(t)=a_i(t)v_i(t)
-$$
-
-
-
-is phase-sensitive. Direct and synchronized `a` and `v` channels provide a more coherent basis than mixing direct acceleration with velocity reconstructed from a different displacement coordinate system.
-
-The present study treats `a*v` as a **work-compatible power-state proxy**. Because floor mass is not explicitly inserted here, it should not be interpreted as absolute physical power in watts.
-
----
-
-## 6. Floor-domain topology used in this case
-
-The first integrated model contains three floor nodes and two inter-floor paths:
+All three floors use direct analytical displacement, velocity, and acceleration channels. This gives a synchronized basis for the phase-sensitive quantity:
 
 ```text
-[1F] —— w12 —— [2F] —— w23 —— [3F]
+p_i(t) = a_i(t) · v_i(t)
 ```
 
-The path weights begin from an unbiased state:
-
-
-
-$$
-w_{12}=1,\qquad w_{23}=1
-$$
-
-
-
-and are normalized so that:
-
-
-
-$$
-w_{12}+w_{23}=2
-$$
-
-
-
-The path-dominance index is:
-
-
-
-$$
-D=\frac{w_{12}-w_{23}}{w_{12}+w_{23}}
-$$
-
-
-
-Its interpretation is:
-
-- `D > 0`: the `1F–2F` path is more manifested;
-- `D < 0`: the `2F–3F` path is more manifested;
-- `D ≈ 0`: no stable path dominance is established.
-
-This floor graph is an experimental observation scaffold. A later BIM-enabled QTE implementation must replace or expand it with a detailed structural graph.
+Because floor mass is not supplied in the NEES record, `a·v` is reported as a mass-normalized work-compatible Power-state quantity, not as absolute power in watts.
 
 ---
 
-## 7. Five field probes and their roles
+## 5. Canonical three-stage result summary
 
-The five probes are not five physical paths. They are five computational observation settings applied to the same two-path floor topology.
+| Stage | Mean signed corr | Mean abs-envelope corr | Residual RMSE | Final `D` | Mean `D` | `J12/J23` | Mean manifested ratio | Max-response floor |
+|---|---|---|---|---|---|---|---|---|
+| QSM | 0.065 | 0.582 | 0.071163 | 0.000 | 0.000 | 0.998 | 0.677 | 3F |
+| QTE | -0.016 | 0.677 | 0.072748 | -0.007 | -0.017 | 0.958 | 0.549 | 3F |
+| FATE | 0.656 | 0.918 | 0.064996 | 0.543 | 0.368 | 4.392 | 0.611 | 3F |
 
-| Probe | Operator / condition | Purpose |
-|---|---|---|
-| Laplacian floor-state field probe | Laplacian, floor-state assimilation, dynamic path, response feedback | Main integrated QSM–QTE observation |
-| Zero-diagonal floor-state field probe | Strict zero-diagonal operator, floor-state assimilation | Tests whether the path also appears in the pure relational-transmission view inherited from early QSM |
-| Boundary-input-only diagnostic reference | Laplacian, boundary source only | Tests how much can be observed from incoming-wave information without internal floor-state assimilation |
-| Floor-state dynamic path without response feedback | Laplacian, floor-state assimilation, no response feedback | Tests whether the path is being created mainly by the downstream response-feedback term |
-| Fixed-path reference | Laplacian, fixed `w12=w23=1` | Separates QSM field alignment from QTE path adaptation |
+Definitions:
 
-No case-specific parameter search or target-driven optimization was performed for Kobe. The probes change the **observation structure**, not the parameters in order to force a preferred result.
+- **Signed correlation** retains Power direction and phase tendency.
+- **Absolute-envelope correlation** compares the strength envelope of `|a·v|`.
+- **Path dominance** is `D = (w12 - w23) / (w12 + w23)`; positive values indicate greater manifestation on `1F–2F`.
+- **Edge-current ratio** is the RMS ratio `J12/J23`; values above `1` indicate greater current concentration on `1F–2F`.
+- **Manifested-work ratio** is a case-internal normalized proxy. It is not an absolute cross-case physical energy percentage.
+
+### Stage transition
+
+- QSM → QTE changes mean absolute-envelope alignment from **0.582** to **0.677** (`Δ = +0.095`).
+- QTE → FATE changes mean absolute-envelope alignment from **0.677** to **0.918** (`Δ = +0.242`).
+- Signed alignment progresses **0.065 → -0.016 → 0.656**.
+
+The transition must be read with the signal provenance above. FATE introduces measured floor states; improvement in the direct-channel cases and degradation at the heterogeneous El Centro upper floors describe different data conditions rather than one universal expected direction.
 
 ---
 
-## 8. QSM–QTE–FATE floor-domain probe comparison
+## 6. Floor-by-floor comparison in one fixed format
 
-The three dynamic probes that assimilate floor states produce the same higher-weight final path indication:
+| Stage | Floor | Signed corr | Abs-envelope corr | Residual RMSE | RMS amplitude ratio | Peak offset (s) | Manifested ratio | Response envelope |
+|---|---|---|---|---|---|---|---|---|
+| QSM | 1F | 0.151 | 0.561 | 0.028035 | 0.343 | -1.387 | 0.270 | 3.649907 |
+| QSM | 2F | -0.153 | 0.612 | 0.074537 | 0.115 | 1.421 | 0.952 | 3.802144 |
+| QSM | 3F | 0.196 | 0.573 | 0.110916 | 0.160 | -0.083008 | 0.808 | 4.173876 |
+| QTE | 1F | 0.087 | 0.757 | 0.029341 | 0.422 | 1.592 | 0.195 | 3.649907 |
+| QTE | 2F | 0.012 | 0.725 | 0.073517 | 0.159 | 0.532227 | 0.500 | 3.802144 |
+| QTE | 3F | -0.147 | 0.548 | 0.115384 | 0.101 | -0.083008 | 0.952 | 4.173876 |
+| FATE | 1F | 0.567 | 0.851 | 0.060318 | 2.612 | 0.175781 | 0.208 | 3.649907 |
+| FATE | 2F | 0.709 | 0.949 | 0.052671 | 0.871 | -0.073242 | 0.672 | 3.802144 |
+| FATE | 3F | 0.693 | 0.955 | 0.082000 | 0.606 | 0.004883 | 0.952 | 4.173876 |
+
+The RMS amplitude ratio is recomputed from `03_qsm_qte_fate_full_history.csv` over the declared event window using `RMS(evolved a·v) / RMS(measured a·v)`. It complements correlation: two signals may have similar shape while retaining different amplitudes.
+
+Residual RMSE carries the numerical scale of each source record. It is useful within a case and floor; it should not be compared across source datasets without normalization.
+
+---
+
+## 7. QSM — zero-diagonal input-driven Power-state evolution
+
+QSM uses:
 
 ```text
-1F–2F lower interface
+H_QSM = -W
 ```
 
-| Probe | Final `w12` | Final `w23` | Final dominance `D` | Edge-current ratio `1F–2F / 2F–3F` |
-|---|---:|---:|---:|---:|
-| Laplacian floor-state | 1.543 | 0.457 | 0.543 | 4.392 |
-| Zero-diagonal floor-state | 1.514 | 0.486 | 0.514 | 4.907 |
-| Dynamic path without response feedback | 1.543 | 0.457 | 0.543 | 4.392 |
-| Boundary-input-only reference | 0.993 | 1.007 | -0.007 | 0.958 |
-| Fixed-path reference | 1.000 | 1.000 | 0.000 | 1.440 |
+The diagonal is cleared. The fixed relational channels transmit the boundary input, and the current V12.2 QSM stage does not assimilate the three measured floor states.
 
-The principal Laplacian result reaches:
+For this case, QSM gives mean signed/absolute-envelope alignment of **0.065/0.582**. Its fixed path remains `w12 = w23 = 1`, so `D = 0`; the edge-current ratio is **0.998**, close to an equal-current state.
 
+QSM therefore provides the baseline answer to:
 
+> How much of the next-step Power-state history can be evolved from the incoming excitation through the zero-diagonal relational operator before spatial path adaptation and sensor-aware correction are added?
 
-$$
-D=0.543
-$$
+![QSM three-floor evolved and measured Power-state histories](07_qsm_three_floor_waveforms.png)
 
+---
 
+## 8. QTE — Laplacian spatial topology-path evolution
 
-with an edge-current concentration ratio of:
-
-
-
-$$
-J_{12}/J_{23}=4.392
-$$
-
-
-
-The mean edge-current ratio across the three supporting floor-state dynamic probes is `4.564`.
-
-The boundary-input-only reference ends at `D = -0.007`. Although the automatically generated release table labels any negative value as the upper interface, the magnitude here is only `0.007`. It is therefore interpreted in this article as:
+QTE uses the present topology Hamiltonian:
 
 ```text
-no stable path dominance
+H_QTE = L(W)
 ```
 
-rather than as meaningful evidence for a `2F–3F` path.
+The Laplacian restores the topology diagonal and allows the path weights to evolve. This stage still uses the boundary input without continuous floor-state assimilation.
 
-![Observed final path indicators across field probes](07_energy_path_manifestation_consensus.png)
+For this case, QTE mean signed/absolute-envelope alignment is **-0.016/0.677**. The final path dominance is **-0.007**, the full-history mean is **-0.017**, and the edge-current ratio is **0.958**.
+
+The full QTE history ranges from `D = -0.116` at `5.513 s` to `D = 0.082` at `0.742 s`. The final state remains near equal, showing that the boundary-driven Laplacian topology alone does not establish the sensor-aware internal path seen in FATE.
+
+![QTE three-floor Power-state histories](08_qte_three_floor_waveforms.png)
+
+![QTE Laplacian path-weight evolution](11_qte_path_weight_evolution.png)
+
+Current interpretation:
+
+- QTE improves or reorganizes the input-driven envelope without yet receiving the complete as-built parameter field.
+- Near-equal final weights are a result, not a failed plot. They mark the limit of a topology-only, boundary-driven execution.
+- The later FATE path should not be retroactively attributed to QTE alone.
 
 ---
 
-## 9. QTE floor-domain path-weight evolution
+## 9. FATE — sensor-aware evolution at `Aware_power`
 
-The floor-state-assimilated evolution begins from equal path weights. The two paths then separate progressively.
-
-The principal Laplacian probe ends at:
+FATE retains the Laplacian path evolution and adds continuous floor-state assimilation plus response feedback:
 
 ```text
-w12 = 1.543
-w23 = 0.457
+sensor state at t
+→ update Ψ(t)
+→ evolve the topology path
+→ observe target hit, edge current, work proxy, and response
+→ assimilate the next measured state
 ```
 
-The `1F–2F` path becomes increasingly manifested, while the `2F–3F` path loses relative weight. The path indication is obtained from the evolving field history rather than assigned as an initial label.
+FATE produces mean signed/absolute-envelope alignment of **0.656/0.918**. Its final path state is `w12 = 1.543`, `w23 = 0.457`, with `D = 0.543` and edge-current ratio **4.392**.
 
-![Floor-state-assimilated path-weight evolution](08_floor_assimilated_path_evolution.png)
+FATE produces substantial three-floor one-step alignment, especially in absolute envelope. The common-scale waveforms also show that alignment and amplitude agreement are different questions: 1F is over-amplified, 2F is close in RMS scale, and 3F is under-amplified.
 
-The boundary-input-only evolution behaves differently. Its two path weights oscillate around equality and decay toward an almost balanced state. This means that the incoming seismic wave can excite the topology, but the incoming-wave record alone does not contain enough information to establish the internal structure-coupled path.
+QTE alone remains near equal, while FATE progressively separates the two inter-floor paths and finishes with a strong 1F–2F indication. The path does not appear as a static label; it accumulates, partially relaxes, and strengthens again across the full record.
 
-![Boundary-input-only path-weight evolution](09_boundary_input_only_path_evolution.png)
+### Full-history FATE path audit
 
-The direct comparison of path dominance makes this distinction visible: the floor-state field develops a sustained positive dominance, while the boundary-only reference continues to fluctuate around zero.
+| Audit quantity | Value |
+|---|---|
+| Final `D` | 0.543 |
+| Mean `D` | 0.368 |
+| Maximum `D` | 0.619 at 70.132 s |
+| Minimum `D` | 0.000 at 0.000 s |
+| Fraction of history with `D > 0` | 100.0% |
+| Fraction of history with `D > 0.1` | 97.4% |
+| Fraction of history with `D > 0.2` | 70.3% |
 
-![Observed path-dominance histories by observation mode](15_boundary_vs_assimilated_path_dominance.png)
+![FATE three-floor sensor-aware Power-state histories](09_fate_three_floor_waveforms.png)
 
-### Interpretation
+![FATE sensor-aware path-weight evolution](12_fate_sensor_aware_path_evolution.png)
 
-This comparison indicates:
+![QTE and FATE edge-current histories](13_qte_fate_edge_current_evolution.png)
 
-```text
-incoming seismic input
-≠
-the field formed after the wave couples with the structure
-```
+![QTE and FATE path-dominance histories](14_qte_fate_path_dominance_evolution.png)
 
-The boundary signal initiates the event. The floor-state observations reveal the field that has actually formed inside the structure.
+![FATE target-hit and state-awareness history](15_fate_target_hit_state_awareness.png)
 
----
-
-## 10. Edge-current distribution as a second field indicator
-
-Path weight is one observation of QTE manifestation. QSM edge current provides a second, field-based observation.
-
-| Probe | RMS edge current `1F–2F` | RMS edge current `2F–3F` | Ratio |
-|---|---:|---:|---:|
-| Laplacian floor-state | 0.530 | 0.121 | 4.392 |
-| Zero-diagonal floor-state | 0.541 | 0.110 | 4.907 |
-| Boundary-input-only | 0.471 | 0.491 | 0.958 |
-| Dynamic path without feedback | 0.530 | 0.121 | 4.392 |
-| Fixed-path reference | 0.324 | 0.225 | 1.440 |
-
-The main Laplacian field contains approximately `4.392` times as much RMS edge current on `1F–2F` as on `2F–3F`. The zero-diagonal probe gives an even stronger ratio of `4.907`.
-
-The two operators produce similar final path indications together with a comparable concentration pattern in the relational field flow.
-
-![QSM edge-current concentration ratio across field probes](10_edge_current_concentration.png)
+The implemented FATE scope is `Aware_power`. `Alert_control` and `Alive_evolve` remain subsequent stages; no closed-loop structural control result is claimed here.
 
 ---
 
-## 11. QSM one-step power-state evolution
+## 10. Edge current, work manifestation, and downstream response
 
-The principal QSM check compares the one-step evolved `a*v` field at `k+1|k` with the measured `a*v` at `k+1`.
+### 10.1 Edge-current concentration across the three stages
 
-### 11.1 Floor-level results
+| Stage | RMS `J12` | RMS `J23` | `J12/J23` |
+|---|---|---|---|
+| QSM | 0.559 | 0.560 | 0.998 |
+| QTE | 0.471 | 0.491 | 0.958 |
+| FATE | 0.530 | 0.121 | 4.392 |
 
-| Floor | Signed correlation | Absolute-envelope correlation | Residual RMSE | Peak-time offset | Max downstream response envelope |
-|---|---:|---:|---:|---:|---:|
-| 1F | 0.567 | 0.851 | 0.060 | 0.176 s | 3.650 |
-| 2F | 0.709 | 0.949 | 0.053 | -0.073 s | 3.802 |
-| 3F | 0.693 | 0.955 | 0.082 | 0.005 s | 4.174 |
+![QSM → QTE → FATE edge-current concentration ratio](10_qsm_qte_fate_edge_current_ratio.png)
 
-The mean signed correlation across the three floors is:
+### 10.2 FATE work-compatible manifestation by floor
 
+| Floor | Hit-work capacity | Displacement-side work | Manifested ratio | Unmanifested margin | Measured abs work | Max response | Peak time (s) |
+|---|---|---|---|---|---|---|---|
+| 1F | 2.032803 | 0.422656 | 0.208 | 0.792 | 0.422656 | 3.649907 | 10.932617 |
+| 2F | 1.829316 | 1.229572 | 0.672 | 0.328 | 1.229572 | 3.802144 | 10.776367 |
+| 3F | 1.962548 | 1.869094 | 0.952 | 0.048 | 1.869094 | 4.173876 | 10.781250 |
 
+![FATE work-compatible proxy ratios by floor](16_fate_work_proxy_ratios_by_floor.png)
 
-$$
-r_{signed}=0.656
-$$
+![Measured response manifestation by floor](18_response_manifestation_by_floor.png)
 
-
-
-The mean absolute-envelope correlation is:
-
-
-
-$$
-r_{|a v|}=0.918
-$$
-
-
-
-These values do not mean that the blue and orange traces are identical at every oscillation. They mean that the one-step evolved field retains substantial agreement with the measured sign, phase tendency, event envelope, and decay structure.
-
-![1F one-step evolved-field comparison](11_1f_evolved_av_next_vs_measured_av.png)
-
-At 1F, the absolute-envelope correlation is `0.851` and the signed correlation is `0.567`. The first floor is closest to the incoming excitation and contains the strongest direct boundary influence.
-
-![2F one-step evolved-field comparison](12_2f_evolved_av_next_vs_measured_av.png)
-
-At 2F, the absolute-envelope correlation rises to `0.949` and the signed correlation to `0.709`.
-
-![3F one-step evolved-field comparison](13_3f_evolved_av_next_vs_measured_av.png)
-
-At 3F, the absolute-envelope correlation reaches `0.955` with a signed correlation of `0.693`. The peak-time offset is only `0.004883` s, equal to approximately one retained sample step in this processed record.
+These work-compatible ratios are normalized within the case. They describe how the current observation chain partitions manifested and unmanifested proxy capacity; they are not physical energy percentages that can be compared directly across earthquakes.
 
 ---
 
-## 12. Boundary input versus structure-coupled floor-state field
+## 11. Traditional structural entrance: acceleration–displacement work-loop proxy
 
-| Floor | Boundary signed corr | Boundary abs corr | Floor-state signed corr | Floor-state abs corr |
-|---|---:|---:|---:|---:|
-| 1F | 0.087 | 0.757 | 0.567 | 0.851 |
-| 2F | 0.012 | 0.725 | 0.709 | 0.949 |
-| 3F | -0.147 | 0.548 | 0.693 | 0.955 |
+The acceleration–displacement plot forms a coherent descending family across all three floors. It gives the clearest bridge in this release from the Power-state formulation back to a traditional restoring-response view.
 
-The boundary-input-only mean absolute-envelope alignment is `0.677`. The floor-state-assimilated value is `0.918`.
+The event-window acceleration–displacement correlations recomputed from the full-history CSV are:
 
-The difference grows with height. The boundary record still contains useful information near the first floor, but it progressively loses the ability to represent the internal upper-floor state. Floor-state assimilation restores the structure-coupled field.
+| Floor | Corr(`u`,`a`) over figure event window |
+|---|---|
+| 1F | -0.867 |
+| 2F | -0.976 |
+| 3F | -0.979 |
 
-![Observed a*v alignment by observation mode](14_boundary_vs_assimilated_av_alignment.png)
+A negative correlation is consistent with a broad restoring orientation. It does not turn the normalized proxy plot into a directly calibrated force–displacement hysteresis loop; floor mass, restoring force calibration, and coordinate consistency remain outside the current record.
 
-This comparison is consistent with the QSM distinction between:
-
-```text
-the wave that enters the boundary
-and
-the field that exists after wave–structure coupling
-```
+![Traditional acceleration/force–displacement work-loop proxy](17_force_displacement_work_loop_proxy.png)
 
 ---
 
-## 13. Why the fixed-path result matters
+## 12. What this case currently supports
 
-The fixed-path reference keeps:
+- QSM provides a clean zero-diagonal input-driven baseline.
+- QTE adds spatial topology organization but remains near equal without the as-built field diagonal or sensor-state assimilation.
+- FATE reproduces strong three-floor one-step Power-state alignment with direct `u`, `v`, and `a` channels.
+- Sensor-aware path and edge-current histories identify a case-specific 1F–2F concentration history.
+- The traditional acceleration–displacement entrance is coherent enough to connect the Power-state observation back to a familiar structural restoring tendency.
 
+## 13. What this case does not establish
 
-
-$$
-w_{12}=w_{23}=1
-$$
-
-
-
-throughout the entire record. Its mean absolute-envelope correlation is `0.918435`, almost identical to the dynamic Laplacian result of `0.918428`.
-
-This comparison helps separate the evidential roles:
-
-- the one-step `a*v` alignment primarily supports **QSM field evolution**;
-- the evolving path weights and edge-current concentration support **QTE path manifestation**.
-
-The correlation should therefore not be used as if it proves both layers by itself.
+- It does not establish long-horizon free prediction; the comparison is one-step and measurement-updated.
+- It does not locate a member-level failure plane; the topology contains only three floor nodes and two inter-floor paths.
+- It does not insert a complete as-built mass–stiffness–damping–capacity field into the QTE diagonal.
+- It does not prove that path dominance equals physical damage.
+- It does not implement `Alert_control` or `Alive_evolve`.
+- It does not convert the work-compatible proxies into absolute joules or watts.
 
 ---
 
-## 14. What the no-feedback probe reveals
+## 14. Figure and evidence guide
 
-The floor-state dynamic probe without response feedback produces:
-
-```text
-final dominance = 0.542553
-mean abs a*v alignment = 0.918428
-```
-
-These are almost identical to the main Laplacian result.
-
-Within the present implementation, the `1F–2F` indication changes very little when the downstream response-feedback term is removed. In the present version, path manifestation is driven mainly by the structure-coupled field, edge current, power-state gradient, and assimilation residual.
-
-It also means that the current experiment has activated FATE's observation layer, but has not yet demonstrated a strong response-feedback-driven topology rewrite.
-
----
-
-## 15. Work-compatible manifestation by floor
-
-The main Laplacian probe gives the following case-internal work-compatible distribution.
-
-| Floor | Hit-work capacity | Displacement-side work | Manifested ratio | Unmanifested margin |
-|---|---:|---:|---:|---:|
-| 1F | 2.033 | 0.423 | 0.208 | 0.792 |
-| 2F | 1.829 | 1.230 | 0.672 | 0.328 |
-| 3F | 1.963 | 1.869 | 0.952 | 0.048 |
-
-The mean manifested work ratio is `0.611`, while the mean unmanifested margin is `0.389`.
-
-These ratios are normalized within the case by a work-capacity scale of `1.654`. They should be read as **case-internal work-compatible manifestation proxies**, not as absolute percentages of physical energy dissipated by the real structure.
-
-![Work-compatible proxy ratios by floor](16_work_capacity_summary_by_floor.png)
-
-The case-level pattern is:
-
-```text
-1F: large unmanifested margin
-2F: intermediate manifestation
-3F: most of the calibrated work capacity appears in downstream displacement-side work
-```
-
-This does not mean that the main path is located at 3F. It means that the field can pass through a lower interface and become more fully manifested as an upper-floor response.
+| File | Primary question |
+|---|---|
+| `06_qsm_qte_fate_stage_bar.png` | Three-stage, three-floor signed and absolute-envelope alignment |
+| `07_qsm_three_floor_waveforms.png` | QSM zero-diagonal input-driven histories |
+| `08_qte_three_floor_waveforms.png` | QTE Laplacian topology histories |
+| `09_fate_three_floor_waveforms.png` | FATE sensor-aware histories |
+| `10_qsm_qte_fate_edge_current_ratio.png` | Edge-current concentration through QSM → QTE → FATE |
+| `11_qte_path_weight_evolution.png` | QTE path-weight history |
+| `12_fate_sensor_aware_path_evolution.png` | FATE sensor-aware path history |
+| `13_qte_fate_edge_current_evolution.png` | QTE and FATE edge-current time histories |
+| `14_qte_fate_path_dominance_evolution.png` | QTE and FATE dominance histories |
+| `15_fate_target_hit_state_awareness.png` | Target hit, measured `|a·v|`, fidelity, and residual |
+| `16_fate_work_proxy_ratios_by_floor.png` | Manifested and unmanifested work-compatible ratios |
+| `17_force_displacement_work_loop_proxy.png` | Traditional acceleration/force–displacement entrance |
+| `18_response_manifestation_by_floor.png` | Measured downstream response by floor |
 
 ---
 
-## 16. Force–displacement work-loop proxy
-
-The acceleration–displacement loops provide a familiar structural-dynamics bridge to the work interpretation:
-
-
-
-$$
-\int a\,du
-$$
-
-
-
-The plotted loops are normalized proxies. They contain the combined effect of multi-frequency excitation, phase difference, floor coupling, and the semi-active experimental condition. They are not direct damper hysteresis loops and should not be interpreted as absolute dissipated energy.
-
-![Normalized acceleration–displacement work-loop proxy](17_force_displacement_work_loop_proxy.png)
-
-The loop area is consistent with work-like exchange in the measured states, while the QSM evolution reorganizes that exchange as a field rather than treating each floor trace as an isolated signal.
-
----
-
-## 17. Energy path and displacement response are different observations
-
-The largest downstream displacement response occurs at 3F.
-
-| Floor | Maximum downstream displacement-response envelope |
-|---|---:|
-| 1F | 3.650 |
-| 2F | 3.802 |
-| 3F | 4.174 |
-
-![Observed downstream displacement-response envelope by floor](18_response_manifestation_by_floor.png)
-
-The combined observation is:
-
-```text
-dominant energy path:
-1F–2F lower interface
-
-largest downstream displacement response:
-3F
-```
-
-This is a central observation of the case.
-
-The location through which the power-state field becomes concentrated is not necessarily the same location at which the largest final displacement appears. QTE observes the path layer; displacement remains downstream response evidence.
-
----
-
-## 18. What this case currently indicates
-
-### 18.1 QSM observations
-
-This case provides preliminary support for the following QSM observations:
-
-1. Direct floor-level `u`, `v`, and `a` channels can be represented as a coupled empirical field.
-2. The work-compatible state `a*v` can be evolved one step from the current field.
-3. The evolved field retains substantial signed and envelope agreement with the next measured state.
-4. Floor-state assimilation represents the upper-floor structural state better than boundary-input information alone.
-5. Similar alignment under fixed and dynamic paths shows that QSM field evolution can be evaluated separately from QTE path adaptation.
-6. The zero-diagonal relational operator remains meaningful as a QSM observation of pure inter-node transmission.
-
-### 18.2 Floor-domain QTE observations
-
-At the current floor-domain resolution, this case provides preliminary support for the following QTE observations:
-
-1. A topology path can be manifested dynamically rather than assigned in advance.
-2. Three floor-state dynamic probes independently support the `1F–2F` path.
-3. Path dominance and edge-current concentration provide mutually supporting evidence.
-4. Boundary input alone does not create a stable internal path.
-5. Zero-diagonal and Laplacian observations converge on the same lower-interface manifestation.
-6. Path manifestation and maximum displacement response occupy different observational layers.
-
-The QTE result remains partial because:
-
-- the topology is floor-level rather than member-level;
-- the structural graph is mapped from experiment and measurement organization;
-- no complete BIM/IFC/as-built topology was available;
-- member stiffness, mass distribution, joint behavior, dampers, and boundaries were not encoded as a full physical graph;
-- the manifested `1F–2F` path has not yet been matched to an independently documented component-level weak plane or damage location.
-
-### 18.3 FATE Aware_power scope
-
-This case represents:
-
-```text
-Aware_power
-```
-
-because it connects:
-
-```text
-input
-→ observed field
-→ one-step evolution
-→ topology-path manifestation
-→ work manifestation
-→ downstream response
-```
-
-It does not yet implement or examine:
-
-```text
-Alert_control
-Alive_evolve
-```
-
-No control command is generated from the manifested path, and no revised operator `H'` is applied to demonstrate a safer evolved state.
-
----
-
-## 19. What this case does not claim
-
-This first integrated result does not claim that:
-
-- QSM replaces conventional structural dynamics;
-- the normalized `a*v` proxy is absolute power;
-- the work ratio is an absolute physical energy percentage;
-- `1F–2F` is already proven to be the actual damaged or weakest component region;
-- the method has been validated for all structures or earthquakes;
-- the semi-active controller has been evaluated or optimized by FATE;
-- the full FATE survival loop has been completed;
-- a detailed BIM-enabled topology field has already been constructed.
-
-A bounded interpretation of the present result is:
-
-> In a public three-floor experimental record with direct displacement, velocity, and acceleration channels, a single integrated QSM–QTE workflow evolved the floor-level power-state field, distinguished boundary input from the structure-coupled state, and manifested a stable `1F–2F` floor-topology path. The same computation activates the `Aware_power` layer of FATE, while detailed component-level QTE and closed-loop FATE remain future work.
-
----
-
-## 20. Reproducibility files in this folder
-
-The Kobe folder should contain the following 20 generated files together with this `README.md`.
+## 15. Reproducibility files
 
 | File | Role |
 |---|---|
-| `01_qsm_qte_fate_mode_comparison.csv` | Five-probe case-level comparison |
-| `02_qsm_qte_fate_manifestation_summary.csv` | Condensed path-manifestation summary |
-| `03_qsm_qte_fate_floor_target_summary.csv` | Floor-level correlation, work, and response evidence |
-| `04_qsm_qte_fate_core_history.csv` | Full time-history evidence used to generate the figures |
-| `05_CASE_REPORT.md` | Automatically generated concise case report |
-| `06_release_report.txt` | Plain-text release summary |
-| `07_energy_path_manifestation_consensus.png` | Probe consensus |
-| `08_floor_assimilated_path_evolution.png` | Dynamic floor-state path evolution |
-| `09_boundary_input_only_path_evolution.png` | Boundary-only path reference |
-| `10_edge_current_concentration.png` | Edge-current concentration |
-| `11_1f_evolved_av_next_vs_measured_av.png` | 1F one-step QSM check |
-| `12_2f_evolved_av_next_vs_measured_av.png` | 2F one-step QSM check |
-| `13_3f_evolved_av_next_vs_measured_av.png` | 3F one-step QSM check |
-| `14_boundary_vs_assimilated_av_alignment.png` | Boundary versus structure-coupled alignment |
-| `15_boundary_vs_assimilated_path_dominance.png` | Boundary versus structure-coupled path dominance |
-| `16_work_capacity_summary_by_floor.png` | Work-compatible manifestation |
-| `17_force_displacement_work_loop_proxy.png` | Work-loop proxy |
-| `18_response_manifestation_by_floor.png` | Downstream displacement response |
-| `19_release_run_log.txt` | Run metadata and release log |
-| `20_release_file_manifest.json` | Machine-readable provenance and file manifest |
+| `01_qsm_qte_fate_method_summary.csv` | Canonical method-level values in QSM → QTE → FATE order |
+| `02_qsm_qte_fate_floor_summary.csv` | Canonical method × floor comparison |
+| `03_qsm_qte_fate_full_history.csv` | 149-column complete time-history evidence |
+| `04_CASE_REPORT.md` | Machine-generated compact case report |
+| `05_release_report.txt` | Plain-text summary |
+| `19_release_run_log.txt` | Execution and timing record |
+| `20_release_file_manifest.json` | Source metadata, provenance, method definitions, and file inventory |
 
-The root repository should additionally preserve:
-
-- the V11 analysis script;
-- the environment requirements;
-- the dataset DOI and source instructions;
-- the fixed numerical settings;
-- the commands required to reproduce all case outputs.
+The canonical numerical claims in this README are traceable to the two summary CSVs, the full-history CSV, and the release manifest.
 
 ---
 
-## 21. Repository location
+## 16. Lifecycle interpretation
 
-This case is part of the formal repository structure:
+The present NEES execution is an operational retrospective observation using archived sensing data. The intended lifecycle sequence is:
 
 ```text
-cases/
-└── kobe_035_semi_active/
-    ├── README.md
-    └── 20 formal V11 artifacts
+Design
+  BIM/IFC topology → zero-diagonal relational channels and topology alternatives
+
+Construction / as-built
+  verified mass, stiffness, damping, joints, devices, and boundaries
+  → field-driven Hamiltonian
+
+Operation
+  Digital Twin sensing
+  → FATE Aware_power
+  → future Alert_control
+  → future Alive_evolve
 ```
 
-Related material:
-
-- [Repository overview](../../README.md)
-- [Four-case scientific synthesis](../../cross_case/README.md)
-- [Data-source instructions](../../data/README.md)
-- [Formal release log](../../release_logs/00_RELEASE_RUN_LOG.txt)
+V12.2 validates the executable observation chain only at the level represented by the available NEES floor-domain data.
 
 ---
 
-## 22. Data citation
+## 17. Data citation
 
-Zhang, J., Wu, B., and Dyke, S.  
-*RTHS and Shake Table Comparison for Smart Structural Systems (NEES-2011-1076)* [Data set].  
-NEES / DesignSafe Data Depot.  
-DOI: `10.7277/TPS7-V877`
+Zhang, J., Wu, B., & Dyke, S. *RTHS and Shake Table Comparison for Smart Structural Systems (NEES-2011-1076)* [Data set]. DOI: `10.7277/TPS7-V877`.
 
----
+## 18. Release statement
 
-## 23. Initial integrated record of the method
-
-This Kobe case is not a final proof of QSM, QTE, or FATE.
-
-It is an initial shared computational trace obtained from a public experimental record.
-
-QSM provides the evolving power-state field. QTE reads a topology path from that field. FATE receives, for the first time, a continuously updated `Aware_power` state that can later become the basis of control and survival-oriented re-evolution.
-
-The detailed structural topology is still incomplete. The control loop is still open. The method has not yet reached the end of its validation path.
-
-Within the stated floor-domain and Aware_power scope, the integrated chain is represented as:
-
-```text
-QSM
-→ QTE
-→ FATE
-```
-
-and it has left a reproducible computational record in public experimental data.
+Kobe 0.35 — semi-active is retained as part of the four-case V12.2 evidence matrix. Its strongest contribution is not a single score; it is the way the same QSM → QTE → FATE chain reveals the relation among input-driven state evolution, spatial path formation, sensor-aware manifestation, work-compatible proxies, and measured structural response.

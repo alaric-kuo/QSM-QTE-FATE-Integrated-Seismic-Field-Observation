@@ -1,16 +1,27 @@
-# Experimental source data
+# Experimental source data (not redistributed)
+Data Source/
 data/raw/
 data/converted/
 *_converted.csv
 
-# Runtime caches
-_v11_cache/
-__pycache__/
-*.pyc
+# Generated local runs
+outputs_qsm_qte_fate_nees_2011_1076_v12_2/
+outputs_qsm_qte_fate_v12_2_smoke_test/
+_v12_cache/
 
-# Local Python environments
+# Python runtime
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local environments and editors
 .venv/
 env/
+.vscode/
+.idea/
 
-# Temporary archives
+# Temporary and platform files
 *.zip
+~$*
+.DS_Store
+Thumbs.db

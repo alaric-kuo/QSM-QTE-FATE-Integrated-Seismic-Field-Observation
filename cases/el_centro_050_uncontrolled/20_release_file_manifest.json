@@ -1,5 +1,5 @@
 {
-  "release": "QSM-QTE-FATE Integrated Seismic Field Observation — NEES-2011-1076 V11",
+  "release": "QSM-QTE-FATE Integrated Seismic Field Observation — V12.2",
   "case": {
     "case_id": "el_centro_050_uncontrolled",
     "display_name": "El Centro 0.50 — uncontrolled",
@@ -17,7 +17,13 @@
     "project_title": "RTHS and Shake Table Comparison for Smart Structural Systems",
     "doi": "10.7277/TPS7-V877",
     "nsf_award": "CMMI-1011534 (NEESR)",
-    "method_chain": "QSM power-state evolution -> QTE floor-domain path indication -> FATE Aware_power observation"
+    "release": "V12.2",
+    "method_chain": "QSM -> QTE -> FATE",
+    "method_scope": {
+      "QSM": "zero-diagonal input-driven power-state evolution",
+      "QTE": "Laplacian spatial topology-path evolution; current NEES execution has no hard structural-parameter field diagonal",
+      "FATE": "sensor-aware evolution at the Aware_power layer"
+    }
   },
   "source_read_metadata": {
     "source_file": "elcentro_0p50_07312012_unc_donghua_converted.csv",
@@ -63,60 +69,63 @@
     "end": 165.78560000000002,
     "selection": "automatic cumulative acceleration-state activity window"
   },
-  "method_scope": {
-    "QSM": "one-step structure-coupled power-state evolution",
-    "QTE": "floor-domain topology-path indication at the available experimental resolution",
-    "FATE": "Aware_power observation layer only"
-  },
-  "performance_engine": {
-    "parallel_probe_workers": 8,
-    "csv_reader": "C engine + chunked vector stride + selected columns",
-    "feature_reuse": "computed once per case, memory-mapped across probes",
-    "time_complexity": "O(n) running work maximum",
-    "blas_threads_per_worker": 1
-  },
-  "execution_timing": {
-    "data_preparation_seconds": 2.566588800007594,
-    "probe_elapsed_seconds": {
-      "laplacian_dynamic_feedback": 17.350267000001622,
-      "zero_diagonal_dynamic_feedback": 17.662051199993584,
-      "boundary_input_only_evolution": 12.309274500003085,
-      "dynamic_path_no_response_feedback": 17.442872200001148,
-      "fixed_path_reference": 11.944702299995697
-    },
-    "probe_elapsed_sum_seconds": 76.70916719999514,
-    "probe_elapsed_max_seconds": 17.662051199993584,
-    "case_finalization_seconds": 3.7853946999966865,
-    "accounted_case_task_seconds": 83.06115069999942,
-    "timing_interpretation": "Probe elapsed values are worker-process times. Because probes run in parallel, their sum is a compute-load indicator rather than case wall-clock time."
-  },
-  "two_observation_modes": [
-    "boundary-input-only diagnostic reference",
-    "floor-state-assimilated structure-coupled field evolution"
+  "method_order": [
+    "qsm",
+    "qte",
+    "fate"
   ],
-  "one_step_evolved_field_check": "evolved a*v at k+1|k is compared with measured a*v at k+1",
-  "method_chain_order": "QSM power-state evolution -> QTE floor-domain path indication -> FATE Aware_power observation",
-  "displacement_role": "downstream response evidence",
+  "method_definitions": [
+    {
+      "method_key": "qsm",
+      "method_name": "QSM",
+      "operator": "zero_diagonal",
+      "operator_name": "Zero-diagonal Hamiltonian H=-W",
+      "dynamic_path_enabled": false,
+      "response_feedback_enabled": false,
+      "input_mode": "boundary_input_only"
+    },
+    {
+      "method_key": "qte",
+      "method_name": "QTE",
+      "operator": "laplacian",
+      "operator_name": "Laplacian topology Hamiltonian H=L(W)",
+      "dynamic_path_enabled": true,
+      "response_feedback_enabled": false,
+      "input_mode": "boundary_input_only"
+    },
+    {
+      "method_key": "fate",
+      "method_name": "FATE",
+      "operator": "laplacian",
+      "operator_name": "Sensor-aware Laplacian evolution (Aware_power)",
+      "dynamic_path_enabled": true,
+      "response_feedback_enabled": true,
+      "input_mode": "floor_state_assimilated"
+    }
+  ],
+  "output_policy": "three sequential methods plus complete independent physical observation outputs",
   "output_files": [
-    "01_qsm_qte_fate_mode_comparison.csv",
-    "02_qsm_qte_fate_manifestation_summary.csv",
-    "03_qsm_qte_fate_floor_target_summary.csv",
-    "04_qsm_qte_fate_core_history.csv",
-    "05_CASE_REPORT.md",
-    "06_release_report.txt",
-    "07_energy_path_manifestation_consensus.png",
-    "08_floor_assimilated_path_evolution.png",
-    "09_boundary_input_only_path_evolution.png",
-    "10_edge_current_concentration.png",
-    "11_1f_evolved_av_next_vs_measured_av.png",
-    "12_2f_evolved_av_next_vs_measured_av.png",
-    "13_3f_evolved_av_next_vs_measured_av.png",
-    "14_boundary_vs_assimilated_av_alignment.png",
-    "15_boundary_vs_assimilated_path_dominance.png",
-    "16_work_capacity_summary_by_floor.png",
+    "README.md",
+    "01_qsm_qte_fate_method_summary.csv",
+    "02_qsm_qte_fate_floor_summary.csv",
+    "03_qsm_qte_fate_full_history.csv",
+    "04_CASE_REPORT.md",
+    "05_release_report.txt",
+    "06_qsm_qte_fate_stage_bar.png",
+    "07_qsm_three_floor_waveforms.png",
+    "08_qte_three_floor_waveforms.png",
+    "09_fate_three_floor_waveforms.png",
+    "10_qsm_qte_fate_edge_current_ratio.png",
+    "11_qte_path_weight_evolution.png",
+    "12_fate_sensor_aware_path_evolution.png",
+    "13_qte_fate_edge_current_evolution.png",
+    "14_qte_fate_path_dominance_evolution.png",
+    "15_fate_target_hit_state_awareness.png",
+    "16_fate_work_proxy_ratios_by_floor.png",
     "17_force_displacement_work_loop_proxy.png",
     "18_response_manifestation_by_floor.png",
     "19_release_run_log.txt",
     "20_release_file_manifest.json"
-  ]
+  ],
+  "documentation_revision": "V12.2 README narrative update"
 }
