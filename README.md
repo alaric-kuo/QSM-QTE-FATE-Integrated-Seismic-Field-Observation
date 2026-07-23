@@ -106,9 +106,16 @@ The current observation space contains three floor nodes and two inter-floor pat
 
 The weighted adjacency matrix is:
 
-$$
-W= \begin{bmatrix} 0 & w_{12} & 0 \\ w_{12} & 0 & w_{23} \\ 0 & w_{23} & 0 \end{bmatrix}
-$$
+```math
+W =
+\begin{bmatrix}
+0 & w_{12} & 0 \\
+w_{12} & 0 & w_{23} \\
+0 & w_{23} & 0
+\end{bmatrix}
+```
+
+This is a symmetric 3 × 3 weighted adjacency matrix.
 
 The path weights satisfy:
 
@@ -330,8 +337,8 @@ The correspondence is:
 |---|---|
 | Theoretical Hamiltonian channel law | $\hat{H}$ |
 | QSM Hamiltonian Power operator | $\hat{H}_{p}=-i(\hat{H}/\hbar)$ |
-| Code-level effective relational matrix | `H = -W` |
-| Code-level one-step propagator | `U = exp(-iHΔt)` |
+| Code-level effective relational matrix | $H=-W$ |
+| Code-level one-step propagator | $U(\Delta t)=e^{-iH\Delta t}$ |
 
 V12.2 deliberately keeps QSM free of continuous floor-state assimilation and adaptive path rewriting. It answers a bounded question:
 
