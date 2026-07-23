@@ -107,12 +107,7 @@ The current observation space contains three floor nodes and two inter-floor pat
 The weighted adjacency matrix is:
 
 $$
-W=
-\begin{bmatrix}
-0 & w_{12} & 0 \\
-w_{12} & 0 & w_{23} \\
-0 & w_{23} & 0
-\end{bmatrix}
+W= \begin{bmatrix} 0 & w_{12} & 0 \\ w_{12} & 0 & w_{23} \\ 0 & w_{23} & 0 \end{bmatrix}
 $$
 
 The path weights satisfy:
@@ -133,10 +128,7 @@ This is the observational resolution supported by the archived floor records. Me
 The intended complete QTE field-driven Hamiltonian is:
 
 $$
-H_{\mathrm{field}}=
-\kappa L_{\mathrm{geo}}(W)
-+
-\alpha_v\,\mathrm{diag}\!\left(V_{\mathrm{bg}}\right)
+H_{\mathrm{field}}= \kappa L_{\mathrm{geo}}(W) + \alpha_v\,\mathrm{diag}\!\left(V_{\mathrm{bg}}\right)
 $$
 
 V12.2 executes the first term at floor-domain resolution. The background field $V_{\mathrm{bg}}$ has not yet been constructed from physical mass, stiffness, damping, material capacity, joints, devices, damage state, and verified boundaries.
@@ -148,9 +140,7 @@ V12.2 executes the first term at floor-domain resolution. The background field $
 The theoretical lineage begins with the RPG mass generation–dissolution equation:
 
 $$
-\frac{1}{m}\frac{dm}{dt}
-=
-\frac{a\cdot v}{c^2}
+\frac{1}{m}\frac{dm}{dt} = \frac{a\cdot v}{c^2}
 $$
 
 The local unit-Power expression is:
@@ -168,11 +158,7 @@ $$
 The NEES records do not provide the physical floor masses required to convert every floor channel into absolute watts. V12.2 therefore uses $a\cdot v$ directly as a mass-normalized Power-state quantity and retains its work-compatible relation:
 
 $$
-\frac{dW}{m}
-\approx
- a\cdot du
-=
- a\cdot v\,dt
+\frac{dW}{m} \approx a\cdot du = a\cdot v\,dt
 $$
 
 The code preserves the signed $a\cdot v$ history, its absolute envelope, signed and absolute cumulative work-compatible quantities, and the phase-sensitive comparison between evolved and measured states.
@@ -188,13 +174,7 @@ $$
 Multiplying by velocity gives:
 
 $$
-m\ddot{x}\dot{x}
-+
-c\dot{x}^{2}
-+
-kx\dot{x}
-=
-f(t)\dot{x}
+m\ddot{x}\dot{x} + c\dot{x}^{2} + kx\dot{x} = f(t)\dot{x}
 $$
 
 This is the instantaneous balance among kinetic change, damping dissipation, elastic storage, and external input Power. Every case retains `17_force_displacement_work_loop_proxy.png` as the conventional structural-mechanics entrance into the wider Power-state interpretation.
@@ -229,33 +209,25 @@ A channel coefficient $\gamma_{ij}$ represents the ability of Power to pass betw
 QSM begins from the Hamiltonian evolution equation:
 
 $$
-i\hbar\frac{d}{dt}\lvert\Psi(t)\rangle
-=
-\hat{H}\lvert\Psi(t)\rangle
+i\hbar\frac{d}{dt}\lvert\Psi(t)\rangle = \hat{H}\lvert\Psi(t)\rangle
 $$
 
 QSM defines the Hamiltonian Power operator:
 
 $$
-\hat{H}_{p}
-=
--i\left(\frac{\hat{H}}{\hbar}\right)
+\hat{H}_{p} = -i\left(\frac{\hat{H}}{\hbar}\right)
 $$
 
 The structural Power state therefore satisfies:
 
 $$
-\frac{d}{dt}\lvert\Psi(t)\rangle
-=
-\hat{H}_{p}\lvert\Psi(t)\rangle
+\frac{d}{dt}\lvert\Psi(t)\rangle = \hat{H}_{p}\lvert\Psi(t)\rangle
 $$
 
 Its formal evolution is:
 
 $$
-\lvert\Psi(t)\rangle
-=
-e^{\hat{H}_{p}t}\lvert\Psi(0)\rangle
+\lvert\Psi(t)\rangle = e^{\hat{H}_{p}t}\lvert\Psi(0)\rangle
 $$
 
 The objects remain distinct:
@@ -272,17 +244,13 @@ The objects remain distinct:
 The QSM Power manifestation equation is:
 
 $$
-P(t)
-=
-(a\cdot v)\,\hat{H}_{p}\lvert\Psi(t)\rangle
+P(t) = (a\cdot v)\,\hat{H}_{p}\lvert\Psi(t)\rangle
 $$
 
 For a spatial state:
 
 $$
-P(x,t)
-=
-(a\cdot v)\,\hat{H}_{p}\lvert\Psi(x,t)\rangle
+P(x,t) = (a\cdot v)\,\hat{H}_{p}\lvert\Psi(x,t)\rangle
 $$
 
 The three factors have different roles:
@@ -296,9 +264,7 @@ The three factors have different roles:
 For experimental application:
 
 $$
-P(t)
-\sim
-P_{\mathrm{input}}(t)\,\hat{H}_{p}\lvert\Psi(t)\rangle
+P(t) \sim P_{\mathrm{input}}(t)\,\hat{H}_{p}\lvert\Psi(t)\rangle
 $$
 
 The measured $a(t)\cdot v(t)$ record provides the direct first-order basis for $P_{\mathrm{input}}(t)$ in this release.
@@ -308,39 +274,25 @@ The measured $a(t)\cdot v(t)$ record provides the direct first-order basis for $
 QSM observes where the evolving state hits through fidelity:
 
 $$
-\mathrm{Fid}(t)
-=
-\left\lvert
-\langle\Psi_{\mathrm{target}}\vert\Psi(t)\rangle
-\right\rvert^2
+\mathrm{Fid}(t) = \left\lvert \langle\Psi_{\mathrm{target}}\vert\Psi(t)\rangle \right\rvert^2
 $$
 
 For a target reduced to node $n$:
 
 $$
-\mathrm{Fid}^{(n)}(t)
-=
-\lvert\Psi_n(t)\rvert^2
+\mathrm{Fid}^{(n)}(t) = \lvert\Psi_n(t)\rvert^2
 $$
 
 The target-hit Power is represented as:
 
 $$
-P_{\mathrm{real}}^{\mathrm{target}}(t)
-\sim
-P_{\mathrm{input}}(t)\,
-\mathrm{Fid}^{\mathrm{target}}(t)
+P_{\mathrm{real}}^{\mathrm{target}}(t) \sim P_{\mathrm{input}}(t)\, \mathrm{Fid}^{\mathrm{target}}(t)
 $$
 
 The accumulated effective target-hit work is:
 
 $$
-W_{\mathrm{hit}}^{\mathrm{target}}(T)
-=
-\int_0^T
-P_{\mathrm{input}}(t)\,
-\mathrm{Fid}^{\mathrm{target}}(t)
-\,dt
+W_{\mathrm{hit}}^{\mathrm{target}}(T) = \int_0^T P_{\mathrm{input}}(t)\, \mathrm{Fid}^{\mathrm{target}}(t) \,dt
 $$
 
 These equations separate input scale, state evolution, and target hit.
@@ -369,9 +321,7 @@ $$
 Under normalized units $\hbar=1$:
 
 $$
-e^{\hat{H}_{p}\Delta t}
-=
-e^{-iH\Delta t}
+e^{\hat{H}_{p}\Delta t} = e^{-iH\Delta t}
 $$
 
 The correspondence is:
@@ -459,33 +409,7 @@ Viewpoint → Topology → Channel → Evolution → Manifestation → Action
 The intended computational dataflow is:
 
 $$
-R
-\rightarrow
-A
-\rightarrow
-W
-\rightarrow
-L_{\mathrm{geo}}
-\rightarrow
-V_{\mathrm{bg}}
-\rightarrow
-H
-\rightarrow
-\psi(0)
-\rightarrow
-\psi(t)
-\rightarrow
-\rho(t)
-\rightarrow
-\Delta V_{\mathrm{resp}}(t)
-\rightarrow
-J(t)
-\rightarrow
-\Gamma(t)
-\rightarrow
-m(t)
-\rightarrow
-M(t)
+R \rightarrow A \rightarrow W \rightarrow L_{\mathrm{geo}} \rightarrow V_{\mathrm{bg}} \rightarrow H \rightarrow \psi(0) \rightarrow \psi(t) \rightarrow \rho(t) \rightarrow \Delta V_{\mathrm{resp}}(t) \rightarrow J(t) \rightarrow \Gamma(t) \rightarrow m(t) \rightarrow M(t)
 $$
 
 | Symbol | QTE meaning |
@@ -525,11 +449,7 @@ $$
 The intended complete field-driven Hamiltonian is:
 
 $$
-H
-=
-\kappa L_{\mathrm{geo}}
-+
-\alpha_v\,\mathrm{diag}\!\left(V_{\mathrm{bg}}\right)
+H = \kappa L_{\mathrm{geo}} + \alpha_v\,\mathrm{diag}\!\left(V_{\mathrm{bg}}\right)
 $$
 
 The distinction is critical:
@@ -551,71 +471,43 @@ $$
 The canonical dynamic Power difference is:
 
 $$
-\Delta V_{\mathrm{resp}}(t)
-=
--L_{\mathrm{geo}}\rho(t)
+\Delta V_{\mathrm{resp}}(t) = -L_{\mathrm{geo}}\rho(t)
 $$
 
 Edge current is:
 
 $$
-J_{ij}(t)
-=
-2\,\mathrm{Im}\!\left(
-\psi_i^*(t)H_{ij}\psi_j(t)
-\right)
+J_{ij}(t) = 2\,\mathrm{Im}\!\left( \psi_i^*(t)H_{ij}\psi_j(t) \right)
 $$
 
 The local velocity field can be written as:
 
 $$
-v_i(t)
-=
-\frac{\sum_j J_{ij}(t)u_{ij}}
-{\rho_i(t)+\epsilon}
+v_i(t) = \frac{\sum_j J_{ij}(t)u_{ij}} {\rho_i(t)+\epsilon}
 $$
 
 The local acceleration is:
 
 $$
-a_i(t)
-\approx
-\frac{v_i(t+\Delta t)-v_i(t)}{\Delta t}
+a_i(t) \approx \frac{v_i(t+\Delta t)-v_i(t)}{\Delta t}
 $$
 
 The local manifestation rate is:
 
 $$
-\Gamma_i(t)
-=
-\frac{a_i(t)\cdot v_i(t)}{c^2}
-=
-\frac{1}{m_i}\frac{dm_i}{dt}
+\Gamma_i(t) = \frac{a_i(t)\cdot v_i(t)}{c^2} = \frac{1}{m_i}\frac{dm_i}{dt}
 $$
 
 The cumulative manifestation quantity is:
 
 $$
-m_i(t)
-=
-m_i(0)
-\exp\!\left(
-\int_0^t \Gamma_i(\tau)\,d\tau
-\right)
+m_i(t) = m_i(0) \exp\!\left( \int_0^t \Gamma_i(\tau)\,d\tau \right)
 $$
 
 A complete manifestation score may be written as:
 
 $$
-M_i(t)
-=
-\lambda_1\left\lvert\Delta V_{\mathrm{resp},i}(t)\right\rvert
-+
-\lambda_2\max\!\left(\Gamma_i(t),0\right)
-+
-\lambda_3\max\!\left(\Delta V_{\mathrm{bg},i},0\right)
-+
-\lambda_4\log m_i(t)
+M_i(t) = \lambda_1\left\lvert\Delta V_{\mathrm{resp},i}(t)\right\rvert + \lambda_2\max\!\left(\Gamma_i(t),0\right) + \lambda_3\max\!\left(\Delta V_{\mathrm{bg},i},0\right) + \lambda_4\log m_i(t)
 $$
 
 V12.2 does not claim that the full $\Gamma$–$m$–$M$ governance chain is complete. It preserves the executable observables that are currently grounded in the three-floor records.
@@ -644,28 +536,17 @@ The QTE stage is boundary-input driven. It activates dynamic path updating but d
 V12.2 computes:
 
 $$
-J_{12}(t)
-=
-2\,\mathrm{Im}\!\left(
-\psi_1^*(t)H_{12}\psi_2(t)
-\right)
+J_{12}(t) = 2\,\mathrm{Im}\!\left( \psi_1^*(t)H_{12}\psi_2(t) \right)
 $$
 
 $$
-J_{23}(t)
-=
-2\,\mathrm{Im}\!\left(
-\psi_2^*(t)H_{23}\psi_3(t)
-\right)
+J_{23}(t) = 2\,\mathrm{Im}\!\left( \psi_2^*(t)H_{23}\psi_3(t) \right)
 $$
 
 The path-dominance indicator is:
 
 $$
-D_p(t)
-=
-\frac{w_{12}(t)-w_{23}(t)}
-{w_{12}(t)+w_{23}(t)}
+D_p(t) = \frac{w_{12}(t)-w_{23}(t)} {w_{12}(t)+w_{23}(t)}
 $$
 
 | Indicator | Floor-domain reading |
@@ -712,13 +593,7 @@ V12.2 retains both histories and their final and RMS summaries.
 FATE is:
 
 $$
-\mathrm{F.A.T.E.}
-=
-\mathrm{Aware}_{\mathrm{power}}
-\cdot
-\mathrm{Alert}_{\mathrm{control}}
-\cdot
-\mathrm{Alive}_{\mathrm{evolve}}
+\mathrm{F.A.T.E.} = \mathrm{Aware}_{\mathrm{power}} \cdot \mathrm{Alert}_{\mathrm{control}} \cdot \mathrm{Alive}_{\mathrm{evolve}}
 $$
 
 The engineering sequence is:
@@ -823,11 +698,7 @@ QSM exposes relational transmission. QTE manifests how topology changes possible
 After construction, verified physical information can form the background field:
 
 $$
-H
-=
-\kappa L_{\mathrm{geo}}
-+
-\alpha_v\,\mathrm{diag}\!\left(V_{\mathrm{bg}}\right)
+H = \kappa L_{\mathrm{geo}} + \alpha_v\,\mathrm{diag}\!\left(V_{\mathrm{bg}}\right)
 $$
 
 The as-built stage joins actual topology with actual material and device condition. It establishes the reference field against which later sensing and degradation can be interpreted.
